@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: Mina_Nightreign
+      POSTGRES_PASSWORD: ProjectNightreign2025!
+      POSTGRES_DB: nightreignStats
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql
+      - ./data:/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    volumes:
+      - ./data:/data
+    depends_on:
+      - postgres
+
+volumes:
+  pgdata:

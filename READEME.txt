@@ -1,0 +1,18 @@
+Project Details:
+    Builders app for the game "Elden Ring: Nightreign"
+    Will allow users to make chalice builds with relics of their own creation.
+    May be one they have in game or a new one they hope to find.
+    When builds are made they will reflect the total percentage on a list.
+    The builds will also reflect on a living character sheet for their stats and attributes.
+
+Main Language:
+    Python
+
+Library/Framework:
+    React
+
+Modules:
+
+Features:
+
+Definitions:
