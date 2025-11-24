@@ -10,6 +10,29 @@
         
     </head>
     <body>
+        <!--Nav Bar for all pages-->
+        <nav class="navbar navbar-expand navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">NightreignBuilder</a>
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/builder">Builder</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                </ul>
+                
+                {% if session["name"] == "Guest" %}
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+                    </ul>
+                {% else %}
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+                    </ul>
+                {% endif %}
+            </div>
+        </nav>
         {% block content %}{% endblock %}
     </body>
 </html>
