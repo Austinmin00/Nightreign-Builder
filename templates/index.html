@@ -4,4 +4,15 @@
 
 {% block content %}
     <p class="mt-4 text-center">Welcome to NightreignBuilder, {{ session["name"] }}!</p>
+
+    <table class="mx-auto mt-4">       
+        <tr>
+            <td>
+                <button type="button" class="btn btn-secondary mx-2" onclick="location.href='/workshop'">Workshop/character</button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-secondary mx-2" onclick="location.href='/workshop'">Workshop/character 2</button>
+            </td>
+        </tr>
+    </table>
 {% endblock %}

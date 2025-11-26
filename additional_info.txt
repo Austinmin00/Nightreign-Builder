@@ -1,0 +1,83 @@
+Chalice:
+    Legends; r = red, g = green, b = blue, w = white
+    name:sequence:deep of night sequence
+
+All Nightfarer Chalices
+    | Giants Cradle : b,b,b : b,b,b |
+    | Sacred Erdtree : y,y,y : y,y,y |
+    | Spirit Shelter : g,g,g : g,g,g |
+
+Characters:
+    name : passive : skill : ultimate : main-weapon : base-vigor : base-fp : base-endurance : stat-scales
+
+    |Wylder : Sixth Sense : Claw Shot : Onslaught Stake : Greatword & Small Shield : vigor = 240 : fp = 65 : endurance = 54 : str = A, dex = B, int = C, fai = C, arc = C|
+
+        Wylder Chalices
+        | main : r,y,w : r,g,b |
+        | goblet : y,g,g : y,g,g |
+        | urn : r,r,b : r,r,b |
+        | soot-covered urn : b,b,y : b,b,y |
+        | sealed : b,r,r : g,y,y |
+
+    |Guardian : Steel Guard : Whirlwind : Wings of Salvation :  Halberd & Greatshield : vigor = 280 : fp = 55 : endurance = 60 : str = B, dex = C, int = D, fai = C, arc = C|
+
+        Guardian Chalices
+        | main : b,y,w : y,y,g |
+        | goblet : b,b,g : b,b,g |
+        | urn : r,y,y : r,y,y |
+        | soot-covered urn : r,g,g : r,g,g |
+        | sealed : y,y,r : g,g,b |
+
+    | Ironeye : Eagle Eye : Marking : Single Shot : Bow : vigor = 200 : fp = 55 : endurance = 56 : str = C, dex = A, int = D, fai = D, arc = B|
+
+        Ironeye Chalices
+        | main : r,g,w : r,r,g |
+        | goblet : r,b,y : r,b,y |
+        | urn : y,g,g : y,g,g |
+        | soot-covered urn : b,y,y : b,y,y |
+        | sealed : g,g,y : b,b,r |
+
+    | Duchess : Magnificent Poise : Restage : Finale : Dagger : vigor = 220 : fp = 75 : endurance = 54 : str = D, dex = B, int = A, fai = B, arc = C|
+
+        Duchess Chalices
+        | main : b,y,w : r,b,y |
+        | goblet : y,y,g : y,y,g |
+        | urn : r,b,b : r,b,b |
+        | soot-covered urn : r,r,g : r,r,g |
+        | sealed : b,b,r : g,g,y |
+
+    | Raider : Fighter's Resolve : Retaliate : Totem Stela : Greataxe : vigor = 260 : fp = 55 : endurance = 60 : str = S, dex = C, int = d, fai = D, arc = C|
+
+        Raider Chalices
+        | main : r,r,w : r,y,y |
+        | goblet : r,b,y : r,b,y |
+        | urn : r,g,g : r,g,g |
+        | soot-covered urn : b,b,g : b,b,g |
+        | sealed : g,g,r : y,b,b |
+
+    | Revenant : Necromancy : Summon Spirit : Immortal March : Claw & Finger Seal : vigor = 200 : fp = 80 : endurance = 54 : str = C, dex = C, int = B, fai = S, arc = B|
+
+        Revenant Chalices
+        | main : b,g,w : b,y,g |
+        | goblet : r,r,g : r,r,g |
+        | urn : b,b,y : b,b,y |
+        | soot-covered urn : r,y,y : r,y,y |
+        | sealed : y,b,b : g,g,r |
+
+    | Recluse : Elemental Defense : Magic Cocktail : Soulblood Song : Staff : vigor = 200 : fp = 80 : endurance = 54 : str = D, dex = C, int = S, fai = S, arc = C|
+
+        Recluse Chalices
+        | main : y,g,w : b,g,g |
+        | goblet : r,b,y : r,b,y |
+        | urn : b,b,g : b,b,g |
+        | soot-covered urn : r,r,y : r,r,y |
+        | sealed : g,b,b : y,y,r |
+
+    | Executor : Tenacity : Suncatcher : Aspect of the Crucible: Beast : Katana : vigor = 220 : fp = 55 : endurance = 54 : str = C, dex = S, int = D, fai = D, arc = S|
+
+        Executor Chalices
+        | main : b,y,w : y,y,g |
+        | goblet : r,b,g : r,b,g |
+        | urn : r,y,y : r,y,y |
+        | soot-covered urn : r,r,b : r,r,b |
+        | sealed : y,y,r : g,g,b |

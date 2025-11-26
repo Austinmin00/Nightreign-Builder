@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}Workshop - NightreignBuilder{% endblock %}
+
+{% block content %}
+    <h1 class="text-center mt-4">Workshop</h1>
+    <p class="text-center">This is the workshop page.</p>
+    <div class="text-center">
+        <p>Where the character info is displayed</p>
+    </div>
+    <div class="text-center mt-4">
+        <button type="button" class="dropdown-toggle btn btn-primary" data-bs-toggle="dropdown" aria-expanded="false">
+            Select Chalice
+        </button>
+        <ul class="dropdown-menu"> 
+            <li><a class="dropdown-item" href="#">Chalice 1</a></li>
+            <li><a class="dropdown-item" href="#">Chalice 2</a></li>
+            <li><a class="dropdown-item" href="#">Chalice 3</a></li>
+        </ul>
+    </div>
+{% endblock %}
