@@ -7,6 +7,12 @@ All Nightfarer Chalices
     | Sacred Erdtree : y,y,y : y,y,y |
     | Spirit Shelter : g,g,g : g,g,g |
 
+a = red
+s = yellow
+d = green
+f = blue
+g = white
+
 Characters:
     name : passive : skill : ultimate : main-weapon : base-vigor : base-fp : base-endurance : stat-scales
 
@@ -81,3 +87,203 @@ Characters:
         | urn : r,y,y : r,y,y |
         | soot-covered urn : r,r,b : r,r,b |
         | sealed : y,y,r : g,g,b |
+
+
+Relic Flow Chart:
+                               ┌───────────────────────────┐
+                           │       Relic Pool          │
+                           │   (All relics in game)   │
+                           └───────────┬──────────────┘
+                                       │
+                     ┌─────────────────┴─────────────────┐
+                     │                                   │
+          ┌──────────▼───────────┐             ┌─────────▼─────────┐
+          │ Guaranteed Relics    │             │ Random Relics     │
+          │ (Special Name/Fixed) │             │ (Standard Name)   │
+          └──────────┬───────────┘             └─────────┬─────────┘
+                     │                                     │
+        ┌────────────▼─────────────┐             ┌─────────▼─────────┐
+        │ Color Assignment         │             │ Color Assignment  │
+        │ (Red/Blue/Green/Yellow)  │             │ (Red/Blue/Green/Yellow)
+        │ Determines relic slot    │             │ Determines slot   │
+        └────────────┬─────────────┘             └─────────┬─────────┘
+                     │                                     │
+       ┌─────────────▼─────────────┐             ┌─────────▼─────────┐
+       │ Tier Assignment Irrelevant│             │ Tier Assignment   │
+       │ Fixed number of effects   │             │ Delicate → 1      │
+       │ 1–3 effects, pre-assigned │             │ Polished → 2      │
+       │ Deep variant may exist    │             │ Grand → 3         │
+       └─────────────┬─────────────┘             └─────────┬─────────┘
+                     │                                     │
+       ┌─────────────▼─────────────┐             ┌─────────▼─────────┐
+       │ Fixed Effects             │             │ Random Effects    │
+       │ 1–3 effects assigned      │             │ From effect pool  │
+       │ Deep version may vary     │             │ Limited by tier   │
+       └─────────────┬─────────────┘             └─────────┬─────────┘
+                     │                                     │
+       ┌─────────────▼─────────────┐             ┌─────────▼─────────┐
+       │ Image Assignment          │             │ Image Assignment  │
+       │ Fixed image for color     │             │ Based on color    │
+       │ Deep variant has unique img│             │ and relic class   │
+       └─────────────┬─────────────┘             └─────────┬─────────┘
+                     │                                     │
+                     └─────────────┬───────────────────────┘
+                                   │
+                        ┌──────────▼───────────┐
+                        │  Relic Slot/Seeding  │
+                        │  Database Import     │
+                        └──────────────────────┘
+
+Modular Relic Workflow:
+1. Chalice Setup
+
+    User selects a chalice.
+
+    Each chalice has six relic slots.
+
+    Each slot has a color assignment:
+
+    Red → Burning Scene
+
+    Blue → Drizzly Scene
+
+    Green → Tranquil Scene
+
+    Yellow → Luminous Scene
+
+    Color assignment is fixed per slot and determines:
+
+    Allowed relic images
+
+    Names
+
+2. Relic Workshop Access
+
+    User clicks a relic slot in the chalice.
+
+    Workshop opens:
+
+    Recognizes slot color
+
+    Provides options:
+
+    Create custom relic
+
+    Choose guaranteed relic
+
+3. Tier Selection (for Custom Relics)
+
+    User selects relic tier:
+
+    Delicate → 1 effect slot
+
+    Polished → 2 effect slots
+
+    Grand → 3 effect slots
+
+    Only the appropriate effect slots are interactive, others are grayed out.
+
+    3a. Deep Relic Choice
+
+        User chooses whether the relic is a Deep Relic:
+
+        Yes → Access deep relic effects (and dormant powers if applicable)
+
+        No → Access standard relic effects
+
+4. Effect Assignment
+
+    User assigns effects to available slots.
+
+    Constraints:
+
+    Slot count depends on tier.
+
+    Effects come from standard or deep relic effects CSVs depending on step 3a.
+
+    Once complete, the relic information is finalized:
+
+    Name (from color + optional custom name)
+
+    Image (from color + tier + deep)
+
+    Tier
+
+    Effects (1-3 depending on tier)
+
+5. Return to Chalice
+
+    Workshop returns completed relic to the chalice slot.
+
+    Chalice reflects:
+
+    New relic info (name, tier, effects)
+
+    Aggregate stats:
+
+    If multiple relics are added, total effects and bonuses are combined/aggregated.
+
+6. Guaranteed Relics
+
+    Already have:
+
+        Fixed name
+
+        Fixed number of effects
+
+        Deep variants if applicable
+
+Constraints:
+
+    Slot color determines which chalice slots they can occupy
+
+    Tier selection not required
+
+    Effects are pre-assigned, user cannot change
+
+[User selects Chalice]
+          │
+          ▼
+[Chalice Slots with Color Assignments]
+   ┌───────────────┐
+   │ Slot 1 (Red)  │
+   │ Slot 2 (Blue) │
+   │ ...           │
+   └───────┬───────┘
+           │
+           ▼
+  [Relic Workshop Opens]
+           │
+   ┌───────┴─────────┐
+   │ Choose Relic Type│
+   │ - Guaranteed     │
+   │ - Custom         │
+   └───────┬─────────┘
+           │
+           ▼
+   [Tier Selection (if Custom)]
+   - Delicate → 1 slot
+   - Polished → 2 slots
+   - Grand → 3 slots
+           │
+           ▼
+   [Deep Relic Choice]
+   - Yes → Deep relic effect pool
+   - No → Standard relic effect pool
+           │
+           ▼
+  [Effect Assignment]
+   - Slots active based on tier
+   - Effects from chosen pool
+           │
+           ▼
+  [Confirm Relic]
+   - Name assigned based on color + tier + deep
+   - Image assigned based on color + tier + deep
+   - Effects locked in
+           │
+           ▼
+[Return Relic to Chalice Slot]
+           │
+           ▼
+[Aggregate Stats / Display Info]

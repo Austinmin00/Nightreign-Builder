@@ -1,13 +1,13 @@
 import os # For accessing environment variables used with database and secret key
-
+from db import db # Database instance from db.py
 from dotenv import load_dotenv # Load environment variables from .env file
-
 from flask import Flask, flash, redirect, render_template, request, session # Flask web framework and session management
 from flask_limiter import Limiter # Rate limiting extension for Flask and routes that handle user login and registration
 from flask_limiter.util import get_remote_address # Rate limiting to protect login and registration routes
 from flask_session import Session # Server-side session management
 from flask_sqlalchemy import SQLAlchemy # Database integration
 from flask_wtf.csrf import CSRFProtect # CSRF protection for forms in login and registration routes
+from models import Chalice, User, Character # User model for database interactions
 from pydantic import BaseModel, ValidationError, field_validator # for data validation and settings management
 from werkzeug.security import generate_password_hash, check_password_hash # for routes that handle user login and registration
 load_dotenv() # Load environment variables from .env file
@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL') # Database connection string from environment variable
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # Disable modification tracking for performance
-db = SQLAlchemy(app) # Initialize the database extension
+db.init_app(app) # Initialize the database extension
 
 class UserModel(BaseModel): # Pydantic model for user data validation, must be before User class
     username: str
@@ -37,15 +37,7 @@ class UserModel(BaseModel): # Pydantic model for user data validation, must be b
         if errors:
             raise ValueError("Password must contain: " + ", ".join(errors))
         
-        return value
-    
-class User(db.Model): # Created User model for database
-    __tablename__ = 'users'
-    
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    password = db.Column(db.String(200), nullable=False)  
-
+        return value 
 
 with app.app_context():
     db.create_all()  # Create database tables
@@ -62,6 +54,15 @@ limiter = Limiter(
     app=app,
     default_limits=["200 per day", "50 per hour"]
 ) # Initialize rate limiting and must be after app initialization
+
+@app.template_filter('format_name')
+def format_name(name):
+    """Format chalice names by replacing underscores with spaces, capitalizing words, and adding apostrophes"""
+    name = name.replace('_', ' ').title()
+    # Add apostrophes for possessives
+    name = name.replace('Giants ', "Giant's ")
+    name = name.replace('Erdtree', "Erdtree's")  # if needed
+    return name
 
 @app.route('/')
 def index():
@@ -129,7 +130,56 @@ def register():
 
 @app.route('/workshop')
 def workshop():
-    return render_template('workshop.html')
+    selected_character = request.args.get('character')
+
+    if not selected_character:
+        return redirect('/')
+
+    character_data = {
+        "wylder": Character.query.filter_by(key="wylder").first(),
+        "guardian": Character.query.filter_by(key="guardian").first(),
+        "ironeye": Character.query.filter_by(key="ironeye").first(),
+        "raider": Character.query.filter_by(key="raider").first(),
+        "revenant": Character.query.filter_by(key="revenant").first(),
+        "recluse": Character.query.filter_by(key="recluse").first(),
+        "duchess": Character.query.filter_by(key="duchess").first(),
+        "executor": Character.query.filter_by(key="executor").first(),
+    }
+
+    character = character_data.get(selected_character.lower())
+
+    if not character:
+        return redirect('/')
+
+    # Get global chalices (character_id is NULL)
+    global_chalices = Chalice.query.filter_by(character_id=None).all()
+    
+    # Get character-specific chalices
+    character_chalices = Chalice.query.filter_by(character_id=character.id).all()
+
+    return render_template('workshop.html', character=character, global_chalices=global_chalices, character_chalices=character_chalices)
+@property
+def tier(self):
+    count = 0
+    if self.effect1:
+        count += 1
+    if self.effect2:
+        count += 1
+    if self.effect3:
+        count += 1
+    return count
+
+@property
+def curren_image(self):
+    if self.tier == 0:
+        return self.img_base
+    elif self.tier == 1:
+        return self.img_effect1 or self.img_base
+    elif self.tier == 2:
+        return self.img_effect2 or self.img_effect1 or self.img_base
+    elif self.tier == 3:
+        return self.img_effect3 or self.img_effect2 or self.img_effect1 or self.img_base
+    
 
 @app.route('/relics')
 def relics():

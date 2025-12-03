@@ -1,10 +1,13 @@
 # db.py
+from flask_sqlalchemy import SQLAlchemy
 import os
 import psycopg2
 from psycopg2.extras import RealDictCursor
 from dotenv import load_dotenv
 
 load_dotenv()
+
+db = SQLAlchemy()
 
 def get_connection():
     return psycopg2.connect(

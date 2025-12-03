@@ -3,19 +3,60 @@
 {% block title %}Workshop - NightreignBuilder{% endblock %}
 
 {% block content %}
-    <h1 class="text-center mt-4">Workshop</h1>
-    <p class="text-center">This is the workshop page.</p>
-    <div class="text-center">
-        <p>Where the character info is displayed</p>
+    <div style="display: flex; gap: 30px; margin-top: 40px">
+        <div id="Character_main">
+            <img src="/static/images/character_models/{{ character.image }}" alt="{{ character.name }} Model" style="width: 200px; height: auto; border: 2px solid #000; border-radius: 10px;">
+            <h2 class="below_character" id="head">{{ character.name }}</h2>
+            <h4 class="below_character">Role: {{ character.role }}</h4>
+            <h4 class="below_character">Description: {{ character.description }}</h4>
+        </div>
+        <div>
+            <p>Main Weapon: {{ character.main_weapon }}</p>
+            <p>Secondary Weapon: {{ character.secondary_weapon }}</p>
+            <p>Passive: {{ character.passive }}</p>
+            <p>Skill: {{ character.skill }}</p>
+            <p>Ultimate: {{ character.ultimate }}</p>
+            <p>Vigor: {{ character.vigor }}</p>
+            <p>FP: {{ character.fp }}</p>
+            <p>Endurance: {{ character.endurance }}</p>
+        </div>
+        <div>
+            <p>STR: {{ character.STR }}</p>
+            <p>DEX: {{ character.DEX }}</p>
+            <p>INT: {{ character.INT }}</p>
+            <p>FAI: {{ character.FAI }}</p>
+            <p>ARC: {{ character.ARC }}</p>
+        </div>
     </div>
-    <div class="text-center mt-4">
-        <button type="button" class="dropdown-toggle btn btn-primary" data-bs-toggle="dropdown" aria-expanded="false">
-            Select Chalice
+    <div class="divider"></div>
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="workshopDropdown" data-bs-toggle="dropdown" data-bs-auto-close="inside" aria-expanded="false">
+            Chalices
         </button>
-        <ul class="dropdown-menu"> 
-            <li><a class="dropdown-item" href="#">Chalice 1</a></li>
-            <li><a class="dropdown-item" href="#">Chalice 2</a></li>
-            <li><a class="dropdown-item" href="#">Chalice 3</a></li>
+        <ul class="dropdown-menu" aria-labelledby="workshopDropdown">
+            <!-- Global Chalices -->
+            {% for chalice in global_chalices %}
+            <li>
+                <a class="dropdown-item" href="#">
+                    <img src="{{ url_for('static', filename=chalice.img_base.replace('static/', '')) }}"
+                        alt="{{ chalice.name }}"
+                        style="width: 50px; height: auto;">
+                    {{ chalice.name | format_name }}
+                </a>
+            </li>
+            {% endfor %}
+            <!-- Character-Specific Chalices -->
+            {% for chalice in character_chalices %}
+            <li>
+                <a class="dropdown-item" href="#">
+                    <img src="{{ url_for('static', filename=chalice.img_base.replace('static/', '')) }}"
+                        alt="{{ chalice.name }}"
+                        style="width: 50px; height: auto;">
+                    {{ chalice.name | format_name }}
+                </a>
+            </li>
+            {% endfor %}
         </ul>
     </div>
+            
 {% endblock %}

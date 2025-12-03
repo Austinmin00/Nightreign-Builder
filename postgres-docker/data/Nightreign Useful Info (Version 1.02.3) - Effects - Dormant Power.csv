@@ -1,55 +1,54 @@
-Category,Dormant Power,Effect Description In-Game,Effect,Stackable with self?,Notes
-Stat,Increased Maximum HP,Maximum HP raised,Increases maximum HP by 1.1x / 1.15x,Yes,
-Stat,Increased Maximum FP,Maximum FP raised,Increases maximum FP by 1.1x / 1.15x,Yes,
-Stat,Reduced FP Consumption,Lowers FP consumption,"Lowers FP cost of skills, spells, and consumables by 0.9x / 0.85x",Yes,
-Stat,Increased Maximum Stamina,Maximum stamina raised,Increases maximum stamina by 1.1x / 1.15x,Yes,
-Exploration,More Runes From Defeated Enemies,Increases runes obtained from defeated enemies,Increases rune gain by 1.1x,Yes,
-Exploration,Integration of Intelligence,Attacks obtain a great amount of runes from enemies on rare occasions,"Has a chance to gain 10,000 runes from killing enemies",No,
-Offensive,Improved Physical Attack Power,Raises physical attack,Increases physical damage by 1.06x / 1.09x,Yes,
-Offensive,Improved Affinity Attack Power,"Raises attacks of magic, fire, lightning, holy affinities","Increases magic, fire, lightning, and holy damage by 1.05x / 1.08x",Yes,
-Offensive,Improved Perfuming Arts,Raises potency of items employing perfume,Increases the damage of perfume items by 1.2x,Yes,
-Offensive,Improved Throwing Pots,Raises potency of throwing pots,Increases the damage of pot items by 1.2x,Yes,
-Offensive,Improved Roar & Breath Attacks,Enhances roars and breath attacks,Increases the damage of roar and breath attacks by 1.2x,Yes,
-Offensive,Improved Sorceries & Incantations,Raises potency of sorceries and incantations,Increases the damage of sorceries and incantations by 1.07x,Yes,
-Offensive,Sudden Enemy Death upon Attacks that Land,Attacked enemies die regardless of remaining HP on rare occasions,Has a chance to instantly kill enemies with each hit,No,"Each enemy has an HP threshold, refer to this sheet for more information"
-Offensive,Periodical Giant Glintblades,Creates a glintblade which automatically attack nearby foes at regular intervals,Creates 3 giant glintblades every 18s. 100 magic attack and 10.175 poise damage per blade,No,Not affected by Glintblade sorcery buffs
-Offensive,Attack Boost [Dragons],Enhances attacks against dragons,Increases damage towards Draconic enemies by 1.1x and Ancient Draconic enemies by 1.05x,Yes,
-Offensive,Attack Boost [Lifeforms Born of Falling Stars],Enhances attacks against blockers lifeforms born of falling stars,Increases damage towards Lifeforms Born of Falling Stars by 1.2x,Yes,
-Offensive,Attack Boost [Those Who Live in Death],Enhances attacks against Those Who Live in Death,Increases damage towards Those Who Live in Death by 1.2x,Yes,
-Offensive,Communion Grants Anti-Dragon Effect,Dragon Communion incantations add anti-dragon effect to right hand armament,Increases damage towards Ancient Draconic enemies by 1.2x and Draconic enemies by 1.3x for 45 seconds,No,
-Offensive,Blood Loss in Vicinity Increases Attack Power,Nearby blood loss increases attack power,Increases damage by 1.2x for 20 seconds when bleed is activated,Yes,
-Offensive,Damage Boosted after Critical Hit,Critical hits increase damage inflicted upon enemies,Decreases enemy damage negation by 15% for 30 seconds,No,
-Offensive,Critical Hits Inflict Blood Loss,Armament inflicts blood loss when performing critical hits,Adds 50 blood loss buildup to the weapon after critical hits,No,
-Offensive,Improved Thrusting Counterattack,Enhances counterattacks unique to thrusting weapons,Increases counterhit damage by 1.2x,Yes,
-Offensive,Improved Stance-Breaking,Attacks more likely to break stance of enemies,Increases poise damage by 1.1x / 1.15x,Yes,
-Offensive,Increased Sorcery & Incantation Duration,Extends spell effect duration,Increases the duration of buff spells by 2x,Yes,
-Offensive,Traces of a Grace-Given Lord,Newly found Sites of Grace raise attack power,Increases attack power by 1.02x for each grace discovered. Stacks up to 10 times (1.2189x total),-,
-Offensive,Demon's Plating,Enhances attack power depending on runes in possession,"Increases damage by 1.2x at 50k runes, 1.3x at 100k, 1.9x at 900k, and 3x at 2mil",-,
-Offensive,"Favor of Noklateo, the Shrouded City","Rise from near-death, unaided, a single time and become more powerful for a short time","After being revived:
+Category,Dormant Power,Effect,Stackable with self?,Notes
+Stat,Increased Maximum HP,Yes,Increases maximum HP by 1.1x / 1.15x,Maximum HP raised
+Stat,Increased Maximum FP,Yes,Increases maximum FP by 1.1x / 1.15x,Maximum FP raised
+Stat,Reduced FP Consumption,Yes,"Lowers FP cost of skills, spells, and consumables by 0.9x / 0.85x",Lowers FP consumption
+Stat,Increased Maximum Stamina,Yes,Increases maximum stamina by 1.1x / 1.15x,Maximum stamina raised
+Exploration,More Runes From Defeated Enemies,Yes,Increases rune gain by 1.1x,Increases runes obtained from defeated enemies
+Exploration,Integration of Intelligence,No,"Has a chance to gain 10,000 runes from killing enemies",Attacks obtain a great amount of runes from enemies on rare occasions
+Offensive,Improved Physical Attack Power,Yes,Increases physical damage by 1.06x / 1.09x,Raises physical attack
+Offensive,Improved Affinity Attack Power,Yes,"Increases magic, fire, lightning, and holy damage by 1.05x / 1.08x","Raises attacks of magic, fire, lightning, holy affinities"
+Offensive,Improved Perfuming Arts,Yes,Increases the damage of perfume items by 1.2x,Raises potency of items employing perfume
+Offensive,Improved Throwing Pots,Yes,Increases the damage of pot items by 1.2x,Raises potency of throwing pots
+Offensive,Improved Roar & Breath Attacks,Yes,Increases the damage of roar and breath attacks by 1.2x,Enhances roars and breath attacks
+Offensive,Improved Sorceries & Incantations,Yes,Increases the damage of sorceries and incantations by 1.07x,Raises potency of sorceries and incantations
+Offensive,Sudden Enemy Death upon Attacks that Land,No,Has a chance to instantly kill enemies with each hit,Attacked enemies die regardless of remaining HP on rare occasions. Each enemy has an HP threshold, refer to this sheet for more information
+Offensive,Periodical Giant Glintblades,No,Creates 3 giant glintblades every 18s. 100 magic attack and 10.175 poise damage per blade,Creates a glintblade which automatically attack nearby foes at regular intervals. Not affected by Glintblade sorcery buffs
+Offensive,Attack Boost [Dragons],Yes,Increases damage towards Draconic enemies by 1.1x and Ancient Draconic enemies by 1.05x,Enhances attacks against dragons
+Offensive,Attack Boost [Lifeforms Born of Falling Stars],Yes,Increases damage towards Lifeforms Born of Falling Stars by 1.2x,Enhances attacks against blockers lifeforms born of falling stars
+Offensive,Attack Boost [Those Who Live in Death],Yes,Increases damage towards Those Who Live in Death by 1.2x,Enhances attacks against Those Who Live in Death
+Offensive,Communion Grants Anti-Dragon Effect,No,Increases damage towards Ancient Draconic enemies by 1.2x and Draconic enemies by 1.3x for 45 seconds,Dragon Communion incantations add anti-dragon effect to right hand armament
+Offensive,Blood Loss in Vicinity Increases Attack Power,Yes,Increases damage by 1.2x for 20 seconds when bleed is activated,Nearby blood loss increases attack power
+Offensive,Damage Boosted after Critical Hit,No,Decreases enemy damage negation by 15% for 30 seconds,Critical hits increase damage inflicted upon enemies
+Offensive,Critical Hits Inflict Blood Loss,No,Adds 50 blood loss buildup to the weapon after critical hits,Armament inflicts blood loss when performing critical hits
+Offensive,Improved Thrusting Counterattack,Yes,Increases counterhit damage by 1.2x,Enhances counterattacks unique to thrusting weapons
+Offensive,Improved Stance-Breaking,Yes,Increases poise damage by 1.1x / 1.15x,Attacks more likely to break stance of enemies
+Offensive,Increased Sorcery & Incantation Duration,Yes,Increases the duration of buff spells by 2x,Extends spell effect duration
+Offensive,Traces of a Grace-Given Lord,-,Increases attack power by 1.02x for each grace discovered. Stacks up to 10 times (1.2189x total),Newly found Sites of Grace raise attack power
+Offensive,Demon's Plating,-,"Increases damage by 1.2x at 50k runes, 1.3x at 100k, 1.9x at 900k, and 3x at 2mil",Enhances attack power depending on runes in possession
+Offensive,Favor of Noklateo, the Shrouded City,-,"After being revived:
 Increases HP, FP, and stamina by 1.3x for 40 seconds
 Regen 5% of your max HP per second for 10 seconds
-~3x faster ultimate art charge for 10 seconds",-,
-"Offensive
-Defensive",Favor of the Mountaintop,Halves frostbite damage and frost buildup. Nearby frostbite boosts attack.,"Reduces frostbite damage and incoming frostbite buildup by 0.5x
-Increases damage by 1.15x when frostbite procs for 20 seconds",-,
-Defensive,Improved Physical Damage Negation,Boosts physical damage negation,Increases physical damage negation by 12% / 18%,Yes,
-Defensive,Improved Non-Physical Damage Negation,"Boosts magic, fire, lightning, and holy damage negation","Increases magic, fire, lightning, and holy damage negation by 12% / 18%",Yes,
-Defensive,Creates Holy Ground at Low HP,"At low HP, create holy ground, slowly restore HP, and improve damage negation",Creates a holy ground when HP is below 20%. Heals for 10hp/s and increases all damage negation by 20%. Lasts for 35 seconds.,No,
-Defensive,Improved Poise,Raises poise,Reduces incoming poise damage by 0.75x / 0.62x,Yes,
-Defensive,All Resistances Up,Raises resistance to all ailments,Increases status resistance by 57 / 75,Yes,
-Defensive,Improved Dodging,Longer invincibility windows during evasive maneuvers," +3 Iframes on dodge, Duchess Backstep is +1",Yes?,
-Defensive/Regen,Favor of the Rotten Woods,Nullifies scarlet rot and increases max HP. Attacks after receiving damage partially recover HP.,Increases maximum HP by 1.25x and attacks heal the user after taking damage for a short period of time,-,
-Regen,HP Restoration upon Successive Attacks,Successive attacks restore HP,Restores 3 HP on continuous attacks,Yes,
-Regen,FP Restoration upon Successive Attacks,Successive attacks restore FP,Restores 10 FP on continuous attacks,Yes,
-Regen,HP Recovery From Successful Guarding,Successful guards restore HP,Restores 2 HP after guarding an attack,Yes,
-Regen,FP Recovery From Successful Guarding,Successful guards restore FP,Restores 2 FP after guarding an attack,Yes,
-Regen,Critical Hit HP Restoration,Critical hits restore HP,Restores [MaxHP * 0.18] HP on critical hits,Yes,
-Regen,Critical Hit FP Restoration,Critical hits restore FP,Restores [MaxFP * 0.1] FP on critical hits,Yes,
-Regen,Improved Flask HP Restoration,Boosts HP restoration from flasks,Increases HP gained from flasks by 1.2x / 1.3x,Yes,
-Regen,Gradual Restoration by Flask,Flask slowly restores HP and provides increased HP restoration,Restores a small portion of HP + [MaxHP * 0.01] every 0.1s for 8 seconds (80% total),No,"When wearing ""Flask Also Heals Allies,"" allies restore [MaxHP * 0.01] every 0.1s for 4 seconds (40% total)"
-Regen,Poison & Rot Trigger Continuous HP Recovery,Poisoning or Scarlet Rot in vicinity continuously restores HP,Restores 7 HP/s for 20 seconds after poison or rot is activated,,
-Regen,Improved Stamina Recovery,Raises stamina recovery speed,Increases stamina recovery by 4/s / 6/s,Yes,
-Regen,Ultimate Art Guage Charge Speed Up,Improves the charging speed of Ultimate Art gauge,Increases passive Ultimate Art gauge charge by 1.06x,Yes,
-Regen,Character Skill Cooldown Reduction,Shortens Character Skill cooldown time,Lowers character skill cooldown by 0.9x,Yes,
-Regen,Favor of the Night,Improves the charging speed of Ultimate Art gauge,Permamently increases passive ult gauge regeneration by 1,-,
-Regen,Unifying Fate,Using flask also restores FP,,No,Amount of FP recovered is unknown
+~3x faster ultimate art charge for 10 seconds",Rise from near-death, unaided, a single time and become more powerful for a short time
+Offensive/Defensive,Favor of the Mountaintop,-,"Reduces frostbite damage and incoming frostbite buildup by 0.5x
+Increases damage by 1.15x when frostbite procs for 20 seconds",Halves frostbite damage and frost buildup. Nearby frostbite boosts attack.
+Defensive,Improved Physical Damage Negation,Yes,Increases physical damage negation by 12% / 18%,Boosts physical damage negation
+Defensive,Improved Non-Physical Damage Negation,Yes,"Increases magic, fire, lightning, and holy damage negation by 12% / 18%","Boosts magic, fire, lightning, and holy damage negation"
+Defensive,Creates Holy Ground at Low HP,No,Creates a holy ground when HP is below 20%. Heals for 10hp/s and increases all damage negation by 20%. Lasts for 35 seconds.,"At low HP, create holy ground, slowly restore HP, and improve damage negation"
+Defensive,Improved Poise,Yes,Reduces incoming poise damage by 0.75x / 0.62x,Raises poise
+Defensive,All Resistances Up,Yes,Increases status resistance by 57 / 75,Raises resistance to all ailments
+Defensive,Improved Dodging,Yes?," +3 Iframes on dodge, Duchess Backstep is +1",Longer invincibility windows during evasive maneuvers
+Defensive/Regen,Favor of the Rotten Woods,-,Increases maximum HP by 1.25x and attacks heal the user after taking damage for a short period of time,Nullifies scarlet rot and increases max HP. Attacks after receiving damage partially recover HP.
+Regen,HP Restoration upon Successive Attacks,Yes,Restores 3 HP on continuous attacks,Successive attacks restore HP
+Regen,FP Restoration upon Successive Attacks,Yes,Restores 10 FP on continuous attacks,Successive attacks restore FP
+Regen,HP Recovery From Successful Guarding,Yes,Restores 2 HP after guarding an attack,Successful guards restore HP
+Regen,FP Recovery From Successful Guarding,Yes,Restores 2 FP after guarding an attack,Successful guards restore FP
+Regen,Critical Hit HP Restoration,Yes,Restores [MaxHP * 0.18] HP on critical hits,Critical hits restore HP
+Regen,Critical Hit FP Restoration,Yes,Restores [MaxFP * 0.1] FP on critical hits,Critical hits restore FP
+Regen,Improved Flask HP Restoration,Yes,Increases HP gained from flasks by 1.2x / 1.3x,Boosts HP restoration from flasks
+Regen,Gradual Restoration by Flask,No,Restores a small portion of HP + [MaxHP * 0.01] every 0.1s for 8 seconds (80% total),"Flask slowly restores HP and provides increased HP restoration. When wearing ""Flask Also Heals Allies,"" allies restore [MaxHP * 0.01] every 0.1s for 4 seconds (40% total)"
+Regen,Poison & Rot Trigger Continuous HP Recovery,,-,Restores 7 HP/s for 20 seconds after poison or rot is activated,Poisoning or Scarlet Rot in vicinity continuously restores HP
+Regen,Improved Stamina Recovery,Yes,Increases stamina recovery by 4/s / 6/s,Raises stamina recovery speed
+Regen,Ultimate Art Guage Charge Speed Up,Yes,Increases passive Ultimate Art gauge charge by 1.06x,Improves the charging speed of Ultimate Art gauge
+Regen,Character Skill Cooldown Reduction,Yes,Lowers character skill cooldown by 0.9x,Shortens Character Skill cooldown time
+Regen,Favor of the Night,-,Permamently increases passive ult gauge regeneration by 1,Improves the charging speed of Ultimate Art gauge
+Regen,Unifying Fate,No,,-,Using flask also restores FP. Amount of FP recovered is unknown
