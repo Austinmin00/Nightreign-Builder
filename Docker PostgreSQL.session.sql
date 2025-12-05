@@ -1,3 +1,4 @@
-SELECT * FROM chalice_files;
 
-SELECT * FROM characters;
+SELECT * FROM chalices;
+
+SELECT * FROM chalice_slots;

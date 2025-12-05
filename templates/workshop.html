@@ -29,8 +29,8 @@
         </div>
     </div>
     <div class="divider"></div>
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="workshopDropdown" data-bs-toggle="dropdown" data-bs-auto-close="inside" aria-expanded="false">
+    <div class="dropdown" id="chaliceDropdown">
+        <button class="btn btn-dark dropdown-toggle" type="button" id="workshopDropdown" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
             Chalices
         </button>
         <ul class="dropdown-menu" aria-labelledby="workshopDropdown">
@@ -58,5 +58,73 @@
             {% endfor %}
         </ul>
     </div>
-            
+    
+    <div>
+        <table id="chalice_box">
+            <tr>
+                <td class="relic_slot">
+                    <img class="relic_slot_color" id="0" src="" alt="">
+                </td>
+                <td class="relic_slot">
+                    <img class="relic_slot_color" id="1" src="" alt="">
+                </td>
+                <td class="relic_slot">
+                    <img class="relic_slot_color" id="2" src="" alt="">
+                </td>
+                <td class="relic_slot">
+                    <img class="relic_slot_color" id="3" src="" alt="">
+                </td>
+                <td class="relic_slot">
+                    <img class="relic_slot_color" id="4" src="" alt="">
+                </td>
+                <td class="relic_slot">
+                    <img class="relic_slot_color" id="5" src="" alt="">
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        // Update chalice dropdown button text and load slots on selection
+        document.querySelectorAll('#chaliceDropdown .dropdown-item').forEach(item => {
+            item.addEventListener('click', function(event) {
+                event.preventDefault();
+                const selectedChalice = this.textContent.trim();
+                document.getElementById('workshopDropdown').textContent = selectedChalice;
+                
+                // Call API to get slot colors for this chalice
+                fetch(`/api/chalice-slots/${encodeURIComponent(selectedChalice)}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Chalice not found');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Update each slot image with the correct color
+                        data.colors.forEach((color, index) => {
+                            const slotImg = document.getElementById(index.toString());
+                            slotImg.src = `/static/images/relic_colors/${color}.png`;
+                            slotImg.alt = `${color} Slot`;
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error loading chalice slots:', error);
+                        // Default to white slots on error
+                        for (let i = 0; i < 6; i++) {
+                            const slotImg = document.getElementById(i.toString());
+                            slotImg.src = "/static/images/relic_colors/white.png";
+                            slotImg.alt = "Empty Slot";
+                        }
+                    });
+            });
+        });
+        
+        // Initialize slots to white on page load
+        for (let i = 0; i < 6; i++) {
+            document.getElementById(i.toString()).src = "/static/images/relic_colors/white.png";
+            document.getElementById(i.toString()).alt = "Empty Slot";
+        }
+    </script>
+    </script>
 {% endblock %}

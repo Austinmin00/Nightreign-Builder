@@ -1,13 +1,13 @@
 import os # For accessing environment variables used with database and secret key
 from db import db # Database instance from db.py
 from dotenv import load_dotenv # Load environment variables from .env file
-from flask import Flask, flash, redirect, render_template, request, session # Flask web framework and session management
+from flask import Flask, flash, jsonify, redirect, render_template, request, session # Flask web framework and session management
 from flask_limiter import Limiter # Rate limiting extension for Flask and routes that handle user login and registration
 from flask_limiter.util import get_remote_address # Rate limiting to protect login and registration routes
 from flask_session import Session # Server-side session management
 from flask_sqlalchemy import SQLAlchemy # Database integration
 from flask_wtf.csrf import CSRFProtect # CSRF protection for forms in login and registration routes
-from models import Chalice, User, Character # User model for database interactions
+from models import Chalice, ChaliceSlot, User, Character # User model for database interactions
 from pydantic import BaseModel, ValidationError, field_validator # for data validation and settings management
 from werkzeug.security import generate_password_hash, check_password_hash # for routes that handle user login and registration
 load_dotenv() # Load environment variables from .env file
@@ -61,7 +61,6 @@ def format_name(name):
     name = name.replace('_', ' ').title()
     # Add apostrophes for possessives
     name = name.replace('Giants ', "Giant's ")
-    name = name.replace('Erdtree', "Erdtree's")  # if needed
     return name
 
 @app.route('/')
@@ -135,18 +134,7 @@ def workshop():
     if not selected_character:
         return redirect('/')
 
-    character_data = {
-        "wylder": Character.query.filter_by(key="wylder").first(),
-        "guardian": Character.query.filter_by(key="guardian").first(),
-        "ironeye": Character.query.filter_by(key="ironeye").first(),
-        "raider": Character.query.filter_by(key="raider").first(),
-        "revenant": Character.query.filter_by(key="revenant").first(),
-        "recluse": Character.query.filter_by(key="recluse").first(),
-        "duchess": Character.query.filter_by(key="duchess").first(),
-        "executor": Character.query.filter_by(key="executor").first(),
-    }
-
-    character = character_data.get(selected_character.lower())
+    character = Character.query.filter_by(key=selected_character.lower()).first()
 
     if not character:
         return redirect('/')
@@ -156,8 +144,29 @@ def workshop():
     
     # Get character-specific chalices
     character_chalices = Chalice.query.filter_by(character_id=character.id).all()
-
+           
     return render_template('workshop.html', character=character, global_chalices=global_chalices, character_chalices=character_chalices)
+
+@app.route('/api/chalice-slots/<chalice_name>')
+def get_chalice_slots(chalice_name):
+    """API endpoint to get slot colors for a specific chalice"""
+    # Convert the formatted name back to database format (e.g., "Giant's Cradle" -> "giants_cradle")
+    db_name = chalice_name.lower().replace(' ', '_').replace("'", '')
+    
+    # Find the chalice by name
+    chalice = Chalice.query.filter_by(name=db_name).first()
+    
+    if not chalice:
+        return jsonify({'error': 'Chalice not found'}), 404
+    
+    # Get the slots for this chalice, ordered by slot_index
+    slots = ChaliceSlot.query.filter_by(chalice_id=chalice.id).order_by(ChaliceSlot.slot_index).all()
+    
+    # Return the colors as a list
+    slot_colors = [slot.color for slot in slots]
+    
+    return jsonify({'colors': slot_colors})
+
 @property
 def tier(self):
     count = 0

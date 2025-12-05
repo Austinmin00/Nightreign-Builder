@@ -164,6 +164,44 @@ def seed():
             INT="D",
             FAI="D",
             ARC="S"),
+            Character(
+            key="scholar",
+            name="Scholar", 
+            role="Tactician",
+            description="An academic who walks the Lands Between. Boasting impressive arcane levels, he gains incredible advantages through battlefield observation.",
+            image="scholar_model.png",
+            main_weapon="Thrusting Sword",
+            secondary_weapon="None",
+            passive="Bagcraft",
+            skill="Analyze",
+            ultimate="Communion",
+            vigor="220",
+            fp="65",
+            endurance="54",
+            STR="D",
+            DEX="C",
+            INT="C",
+            FAI="C",
+            ARC="S"),
+        Character(
+            key="undertaker",
+            name="Undertaker", 
+            role="Berserker",
+            description="An abbess who was mandated to slay the Nightlord. Boasting impressive strength and faith, she sends enemies to the afterlife with ruthless efficiency.",
+            image="undertaker_model.png",
+            main_weapon="Hammer",
+            secondary_weapon="None",
+            passive="Confluence",
+            skill="Trance",
+            ultimate="Loathsome Hex",
+            vigor="?",
+            fp="?",
+            endurance="?",
+            STR="A",
+            DEX="D",
+            INT="D",
+            FAI="A",
+            ARC="C"),
     ]
     
     db.session.add_all(characters)
@@ -238,7 +276,8 @@ def seed():
     global_chalices = [
         Chalice(name="giants_cradle", img_base="static/images/chalices/all_nightfarers/giants_cradle.png", character_id=None),
         Chalice(name="sacred_erdtree", img_base="static/images/chalices/all_nightfarers/sacred_erdtree.png", character_id=None),
-        Chalice(name="spirit_shelter", img_base="static/images/chalices/all_nightfarers/spirit_shelter.png", character_id=None)
+        Chalice(name="spirit_shelter", img_base="static/images/chalices/all_nightfarers/spirit_shelter.png", character_id=None),
+        Chalice(name="scadutree_grail", img_base="static/images/chalices/all_nightfarers/scadutree_grail.png", character_id=None)
     ]
 
     db.session.add_all(wylder_chalice + guardian_chalice + ironeye_chalice +
@@ -631,6 +670,7 @@ def seed():
     giants_cradle = make_global_chalice_slots(global_chalices[0], "blue")
     sacred_erdtree = make_global_chalice_slots(global_chalices[1], "yellow")
     spirit_shelter = make_global_chalice_slots(global_chalices[2], "green")
+    scadutree_grail = make_global_chalice_slots(global_chalices[3], "red")
 
 
     db.session.add_all(wylder_main + wylder_goblet + wylder_urn + soot_covered_wylder_urn + sealed_wylder_urn +                       guardian_main + guardian_goblet + guardian_urn + soot_covered_guardian_urn + sealed_guardian_urn + ironeye_main + ironeye_goblet + ironeye_urn + soot_covered_ironeye_urn + sealed_ironeye_urn + raider_main + raider_goblet + raider_urn + soot_covered_raider_urn + sealed_raider_urn + revenant_main + revenant_goblet + revenant_urn + soot_covered_revenant_urn + sealed_revenant_urn + recluse_main + recluse_goblet + recluse_urn + soot_covered_recluse_urn + sealed_recluse_urn + duchess_main + duchess_goblet + duchess_urn + soot_covered_duchess_urn + sealed_duchess_urn + executor_main + executor_goblet + executor_urn + soot_covered_executor_urn + sealed_executor_urn + giants_cradle + sacred_erdtree + spirit_shelter)

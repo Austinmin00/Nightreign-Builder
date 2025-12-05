@@ -1,3 +1,20 @@
+#chalice_box {
+    display: flex;
+    width: 600px;
+    height: auto;
+    margin-left: 20px;
+    margin-top: 2px;
+    margin-bottom: 10px;
+    border: 2px solid #161313;
+    padding: 2px;
+}
+
+#chaliceDropdown {
+    margin-left: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 #Character_main{
     display: flex;
     flex-basis: 25px;
@@ -26,10 +43,6 @@
     overflow-wrap: break-word;
 }
 
-.divider {
-    border-bottom: 2px solid #00000051;
-}
-
 .characters {
     display:flex;
     justify-content:center;
@@ -56,4 +69,19 @@
     padding: 5px;
     background-color: #e0e0e0;
     text-align: center;
+}
+
+.divider {
+    border-bottom: 2px solid #00000051;
+}
+
+.relic_slot {
+    border: 1px solid #000;
+    border-spacing: 20px;
+    background-color: #373737;
+}
+
+.relic_slot_color {
+    width: 100%;
+    height: auto;
 }
