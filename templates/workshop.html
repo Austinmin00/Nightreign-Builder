@@ -84,7 +84,54 @@
         </table>
     </div>
 
+    <!--Modal for Relic Builder-->
+    <div class="modal fade" id="relicBuilder" tabindex="-1" aria-labelledby="relicBuilderLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="relicBuilderLabel">Relic Builder</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                
+                <!-- Modal Body Slot Image -->
+                <div class="modal-body">
+                    <img id="relicImageModal" src="" alt="Relic Image" style="width: 150px; height: auto; border: 2px solid #000;">
+                </div>
+                <div class="dropdown" id="modalDropdownRelicType">
+                    <a class="btn btn-dark dropdown-toggle" href="#" role="button" id="relicDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="width: 150px; margin-left: 15px; margin-bottom: 10px;">
+                        Select Relic Type
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="relicDropdown">
+                        <li>
+                            <a class="dropdown-item" href="#" id="1">Delicate</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#" id="2">Polished</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#" id="3">Grand</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <table id="effects_aggregate">
+            <!-- Headers for Effects Table -->
+        </table>
+    </div>
+
     <script>
+        // Global variables
+        const fileImg = '/static/images/relic_colors/COLOR.png';
+        const whiteFileImg = '/static/images/relic_colors/white.png';
+
         // Update chalice dropdown button text and load slots on selection
         document.querySelectorAll('#chaliceDropdown .dropdown-item').forEach(item => {
             item.addEventListener('click', function(event) {
@@ -104,7 +151,7 @@
                         // Update each slot image with the correct color
                         data.colors.forEach((color, index) => {
                             const slotImg = document.getElementById(index.toString());
-                            slotImg.src = `/static/images/relic_colors/${color}.png`;
+                            slotImg.src = fileImg.replace('COLOR', color);
                             slotImg.alt = `${color} Slot`;
                         });
                     })
@@ -113,18 +160,49 @@
                         // Default to white slots on error
                         for (let i = 0; i < 6; i++) {
                             const slotImg = document.getElementById(i.toString());
-                            slotImg.src = "/static/images/relic_colors/white.png";
+                            slotImg.src = whiteFileImg;
                             slotImg.alt = "Empty Slot";
                         }
                     });
             });
         });
         
+        
+        // Event listeners for each slot image to handle relic selection
+        document.querySelectorAll('.relic_slot_color').forEach(slotImg => {
+            slotImg.addEventListener('click', function() {
+                if (this.alt === "Empty Slot") {
+                    return; // Do nothing if slot is empty
+                }
+                else {
+                    // Obtain relic slot color index and slot color
+                    const relicImageModal = document.getElementById('relicImageModal');
+                    const slotIndex = this.id;
+                    const slotColor = this.alt.split(' ')[0].toLowerCase();
+                    relicImageModal.src = fileImg.replace('COLOR', slotColor);
+                    relicImageModal.alt = `${slotColor} Relic`;
+
+                    // Show the modal
+                    bootstrap.Modal.getOrCreateInstance(document.getElementById('relicBuilder')).show();
+
+                    // Update relic type dropdown in modal
+                    document.querySelectorAll('#modalDropdownRelicType .dropdown-item').forEach(item => {
+                        item.addEventListener('click', function(event) {
+                            event.preventDefault();
+                            const selectedRelicType = this.textContent.trim();
+                            const relicDropdownChange = document.getElementById('modalDropdownRelicType').querySelector('.btn');
+                            relicDropdownChange.textContent = selectedRelicType;
+                        });
+                    });
+                }
+            });
+        });
+        
         // Initialize slots to white on page load
         for (let i = 0; i < 6; i++) {
-            document.getElementById(i.toString()).src = "/static/images/relic_colors/white.png";
+            document.getElementById(i.toString()).src = whiteFileImg;
             document.getElementById(i.toString()).alt = "Empty Slot";
         }
-    </script>
+        
     </script>
 {% endblock %}
