@@ -10,22 +10,24 @@
             <h4 class="below_character">Role: {{ character.role }}</h4>
             <h4 class="below_character">Description: {{ character.description }}</h4>
         </div>
-        <div>
-            <p>Main Weapon: {{ character.main_weapon }}</p>
-            <p>Secondary Weapon: {{ character.secondary_weapon }}</p>
-            <p>Passive: {{ character.passive }}</p>
-            <p>Skill: {{ character.skill }}</p>
-            <p>Ultimate: {{ character.ultimate }}</p>
-            <p>Vigor: {{ character.vigor }}</p>
-            <p>FP: {{ character.fp }}</p>
-            <p>Endurance: {{ character.endurance }}</p>
-        </div>
-        <div>
-            <p>STR: {{ character.STR }}</p>
-            <p>DEX: {{ character.DEX }}</p>
-            <p>INT: {{ character.INT }}</p>
-            <p>FAI: {{ character.FAI }}</p>
-            <p>ARC: {{ character.ARC }}</p>
+        <div class="character_stats">
+            <div>
+                <p>Main Weapon: {{ character.main_weapon }}</p>
+                <p>Secondary Weapon: {{ character.secondary_weapon }}</p>
+                <p>Passive: {{ character.passive }}</p>
+                <p>Skill: {{ character.skill }}</p>
+                <p>Ultimate: {{ character.ultimate }}</p>
+                <p>Vigor: {{ character.vigor }}</p>
+                <p>FP: {{ character.fp }}</p>
+                <p>Endurance: {{ character.endurance }}</p>
+            </div>
+            <div>
+                <p>STR: {{ character.STR }}</p>
+                <p>DEX: {{ character.DEX }}</p>
+                <p>INT: {{ character.INT }}</p>
+                <p>FAI: {{ character.FAI }}</p>
+                <p>ARC: {{ character.ARC }}</p>
+            </div>
         </div>
     </div>
     <div class="divider"></div>
@@ -100,8 +102,28 @@
                         <img id="relicTypeModal" src="" alt="Relic Type Image" style="width: 125px; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: none;">
                     </div>
                 </div>
+                <!-- Modal Dropdowns for Relic Version -->
+                <div>
+                    <a class="btn btn-dark dropdown-toggle" href="#" role="button" id="relicVersion" data-bs-toggle="dropdown" aria-expanded="false" style="width: 150px; margin-left: 15px; margin-bottom: 10px;">
+                        Select Version
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="relicVersion">
+                        <li>
+                            <a class="dropdown-item" href="#" id="standard">Standard</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#" id="deep">Deep</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#" id="sovereign">Sovereign</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#" id="remembrance">Remembrance</a>
+                        </li>
+                    </ul>    
+                </div>
                 <div class="dropdown" id="modalDropdownRelicType">
-                    <a class="btn btn-dark dropdown-toggle" href="#" role="button" id="relicDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="width: 150px; margin-left: 15px; margin-bottom: 10px;">
+                    <a class="btn btn-dark dropdown-toggle disabled" href="#" role="button" id="relicDropdown" aria-expanded="false" style="width: 150px; margin-left: 15px; margin-bottom: 10px; pointer-events: none; opacity: 0.65;">
                         Select Relic Type
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="relicDropdown">
@@ -116,6 +138,27 @@
                         </li>
                     </ul>
                 </div>
+                <div class="dropdown" id="sovereign_menu">
+                    <a class="btn btn-dark dropdown-toggle disabled" href="#" role="button" id="sovereignDropdown" aria-expanded="false" style="width: 150px; margin-left: 15px; margin-bottom: 10px; pointer-events: none; opacity: 0.65;">
+                        Sovereign Options
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="sovereignDropdown">
+                        <li>
+                            <a class="dropdown-item" href="#" id="sovereign_filler">Sovereign Relics Here</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="dropdown" id="remembrance_menu">
+                    <a class="btn btn-dark dropdown-toggle disabled" href="#" role="button" id="remembranceDropdown" aria-expanded="false" style="width: 150px; margin-left: 15px; margin-bottom: 10px; pointer-events: none; opacity: 0.65;">
+                        Remembrance Options
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="remembranceDropdown">
+                        <li>
+                            <a class="dropdown-item" href="#" id="remembrance_filler">Remembrance Relics Here</a>
+                        </li>
+                    </ul>
+                </div>
+                
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary">Save changes</button>
@@ -135,6 +178,7 @@
         const fileImg = '/static/images/relic_colors/COLOR.png';
         const whiteFileImg = '/static/images/relic_colors/white.png';
         const stdRelicImg = '/static/images/relic_images/standard_relic_images/COLOR_TYPE.png';
+        const deepRelicImg = '/static/images/relic_images/deep_relic_images/deep_COLOR_TYPE.png';
 
         // Update chalice dropdown button text and load slots on selection
         document.querySelectorAll('#chaliceDropdown .dropdown-item').forEach(item => {
@@ -192,6 +236,65 @@
             });
         });
 
+        // Update relic version dropdown in modal
+        document.querySelectorAll('.dropdown-menu[aria-labelledby="relicVersion"] .dropdown-item').forEach(item => {
+            item.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                const selectedVersion = this.textContent.trim();
+                const versionDropdownChange = document.getElementById('relicVersion');
+                const relicTypeButton = document.getElementById('relicDropdown');
+                const sovereignMenubutton = document.getElementById('sovereignDropdown');
+                const remembranceMenuButton = document.getElementById('remembranceDropdown');
+                const relicTypeModal = document.getElementById('relicTypeModal');
+                
+                versionDropdownChange.textContent = selectedVersion;
+
+                // Reset relic type button and hide overlay image whenever version changes
+                relicTypeButton.textContent = 'Select Relic Type';
+                relicTypeModal.style.display = 'none';
+                relicTypeModal.src = '';
+
+                // Enable relic type dropdown only if Standard or Deep is selected
+                if (selectedVersion === 'Standard' || selectedVersion === 'Deep') {
+                    relicTypeButton.classList.remove('disabled');
+                    relicTypeButton.style.pointerEvents = 'auto';
+                    relicTypeButton.style.opacity = '1';
+                    relicTypeButton.setAttribute('data-bs-toggle', 'dropdown');
+                } else {
+                    relicTypeButton.classList.add('disabled');
+                    relicTypeButton.style.pointerEvents = 'none';
+                    relicTypeButton.style.opacity = '0.65';
+                    relicTypeButton.removeAttribute('data-bs-toggle');
+                }
+
+                // Enable sovereign/remembrance menus based on version
+                if (selectedVersion === 'Sovereign') {
+                    sovereignMenubutton.classList.remove('disabled');
+                    sovereignMenubutton.style.pointerEvents = 'auto';
+                    sovereignMenubutton.style.opacity = '1';
+                    sovereignMenubutton.setAttribute('data-bs-toggle', 'dropdown');
+                } else {
+                    sovereignMenubutton.classList.add('disabled');
+                    sovereignMenubutton.style.pointerEvents = 'none';
+                    sovereignMenubutton.style.opacity = '0.65';
+                    sovereignMenubutton.removeAttribute('data-bs-toggle');
+                }
+
+                if (selectedVersion === 'Remembrance') {
+                    remembranceMenuButton.classList.remove('disabled');
+                    remembranceMenuButton.style.pointerEvents = 'auto';
+                    remembranceMenuButton.style.opacity = '1';
+                    remembranceMenuButton.setAttribute('data-bs-toggle', 'dropdown');
+                } else {
+                    remembranceMenuButton.classList.add('disabled');
+                    remembranceMenuButton.style.pointerEvents = 'none';
+                    remembranceMenuButton.style.opacity = '0.65';
+                    remembranceMenuButton.removeAttribute('data-bs-toggle');
+                }
+            });
+        });
+
          // Update relic type dropdown in modal
         document.querySelectorAll('#modalDropdownRelicType .dropdown-item').forEach(item => {
             item.addEventListener('click', function(event) {
@@ -208,8 +311,21 @@
                     return; // Do nothing if no type selected
                 }
                 else {
+                    // Determine which relic image depending on version selected
+                    const selectedVersion = document.getElementById('relicVersion').textContent.trim();
                     const relicTypeModal = document.getElementById('relicTypeModal');
-                    relicTypeModal.src = stdRelicImg.replace('COLOR', slotColor).replace('TYPE', this.id.toLowerCase());
+                    if (selectedVersion === 'Standard') {
+                        relicTypeModal.src = stdRelicImg.replace('COLOR', slotColor).replace('TYPE', this.id.toLowerCase());
+                    } else if (selectedVersion === 'Deep') {
+                        relicTypeModal.src = deepRelicImg.replace('COLOR', slotColor).replace('TYPE', this.id.toLowerCase());
+                    }
+                    else if (selectedVersion === 'Sovereign') {
+                        // Sovereign logic can be added here if needed
+                    }
+                    else if (selectedVersion === 'Remembrance') {
+                        // Remembrance logic can be added here if needed
+                    }
+
                     relicTypeModal.style.display = "block";
                     relicTypeModal.alt = `${selectedRelicType} Type`;
                 }
@@ -219,8 +335,32 @@
         // Reset modal state when closed
         const relicBuilderModal = document.getElementById('relicBuilder');
         relicBuilderModal.addEventListener('hidden.bs.modal', function() {
-            // Reset dropdown text
+            // Reset all dropdown texts
+            document.getElementById('relicVersion').textContent = 'Select Version';
             document.getElementById('relicDropdown').textContent = 'Select Relic Type';
+            document.getElementById('sovereignDropdown').textContent = 'Sovereign Options';
+            document.getElementById('remembranceDropdown').textContent = 'Remembrance Options';
+            
+            // Re-disable the relic type dropdown
+            const relicTypeButton = document.getElementById('relicDropdown');
+            relicTypeButton.classList.add('disabled');
+            relicTypeButton.style.pointerEvents = 'none';
+            relicTypeButton.style.opacity = '0.65';
+            relicTypeButton.removeAttribute('data-bs-toggle');
+            
+            // Re-disable sovereign dropdown
+            const sovereignButton = document.getElementById('sovereignDropdown');
+            sovereignButton.classList.add('disabled');
+            sovereignButton.style.pointerEvents = 'none';
+            sovereignButton.style.opacity = '0.65';
+            sovereignButton.removeAttribute('data-bs-toggle');
+            
+            // Re-disable remembrance dropdown
+            const remembranceButton = document.getElementById('remembranceDropdown');
+            remembranceButton.classList.add('disabled');
+            remembranceButton.style.pointerEvents = 'none';
+            remembranceButton.style.opacity = '0.65';
+            remembranceButton.removeAttribute('data-bs-toggle');
             
             // Hide and clear the relic type overlay image
             const relicTypeModal = document.getElementById('relicTypeModal');

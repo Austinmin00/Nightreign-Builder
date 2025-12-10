@@ -22,9 +22,9 @@
     align-items: flex-start;
     margin: 5px;
     padding: 2px;
-    border: 2px solid #ccc;
+    border: 2px solid #3a3664;
     border-radius: 10px;
-    background-color: #fafafa;
+    background-color: #4c4264ff;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
     text-align: justify;
 }
@@ -32,14 +32,14 @@
 #head {
     font-size: 18px;
     font-weight: bold;
-    color: #333;
+    color: #e2dddd;
     margin-bottom: 5px;
     text-decoration: underline;
 }
 
 .below_character {
     font-size: 14px;
-    color: #555;
+    color: #fdf8f8;
     overflow-wrap: break-word;
 }
 
@@ -52,7 +52,7 @@
     margin: 10px;
     border: 2px solid #000;
     border-radius: 10px;
-    background-color: #f0f0f0;
+    background-color: #4c4264ff;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
     font-size: 14px;
@@ -69,6 +69,23 @@
     padding: 5px;
     background-color: #e0e0e0;
     text-align: center;
+}
+
+.character_stats {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+    border: 2px solid #3a3664;
+    border-radius: 10px;
+    background-color: #4c4264ff;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    color: #e2dddd;
+    width: 85%;
+    margin-right: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .divider {
