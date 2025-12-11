@@ -1,6 +1,6 @@
 from app import app
 from db import db
-from models import Character, Chalice, ChaliceSlot, Relic, RelicEffect
+from models import Character, Chalice, ChaliceSlot, Relic, RelicEffect, GuaranteedRelic
 import csv
 import os
 
@@ -1027,7 +1027,27 @@ def seed():
         db.session.add_all(deep_effects)
     
     print(f"Loaded {len(deep_effects)} deep relic effects")
-    
+
+    # ------------------------------
+    # 5. GUARANTEED RELICS (from CSV)
+    # ------------------------------
+
+    guaranteed_csv_path = os.path.join("postgres-docker", "data", "Guaranteed Relics.csv")
+    with open(guaranteed_csv_path, 'r', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        guaranteed_relics = []
+        for row in reader:
+            guaranteed = GuaranteedRelic(
+                name=row['name'],
+                color=row['color'],
+                effect_1=row['effect 1'] if row['effect 1'] else None,
+                effect_2=row['effect 2'] if row['effect 2'] else None,
+                effect_3=row['effect 3'] if row['effect 3'] else None,
+                amount_of_effects=int(row['amount of effects']) if row['amount of effects'] else None
+            )
+            guaranteed_relics.append(guaranteed)
+        db.session.add_all(guaranteed_relics)
+
     db.session.commit()
     print("Seed completed successfully!")
 

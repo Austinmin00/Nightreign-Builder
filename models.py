@@ -88,6 +88,18 @@ class RelicEffect(db.Model):
     is_deep = db.Column(db.Boolean, default=False, nullable=False)  # True for deep relics, False for regular
 
 
+class GuaranteedRelic(db.Model):
+    __tablename__ = "guaranteed_relics"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(150), nullable=False)
+    color = db.Column(db.String(20), nullable=False)
+    effect_1 = db.Column(db.String(200), nullable=True)
+    effect_2 = db.Column(db.String(200), nullable=True)
+    effect_3 = db.Column(db.String(200), nullable=True)
+    amount_of_effects = db.Column(db.Integer, nullable=False)
+
+
 class WorkshopSession(db.Model):
     __tablename__ = "workshop_sessions"
 
