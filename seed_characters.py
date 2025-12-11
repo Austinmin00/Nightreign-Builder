@@ -164,7 +164,7 @@ def seed():
             INT="D",
             FAI="D",
             ARC="S"),
-            Character(
+        Character(
             key="scholar",
             name="Scholar", 
             role="Tactician",
@@ -194,9 +194,9 @@ def seed():
             passive="Confluence",
             skill="Trance",
             ultimate="Loathsome Hex",
-            vigor="?",
-            fp="?",
-            endurance="?",
+            vigor="220",
+            fp="65",
+            endurance="54",
             STR="A",
             DEX="D",
             INT="D",
@@ -214,6 +214,8 @@ def seed():
         Chalice(name="wylder_urn", img_base="static/images/chalices/wylder_chalices/wylder_urn.png", character_id=characters[0].id),
         Chalice(name="soot_covered_wylder_urn", img_base="static/images/chalices/wylder_chalices/soot_covered_wylder_urn.png", character_id=characters[0].id),
         Chalice(name="sealed_wylder_urn", img_base="static/images/chalices/wylder_chalices/sealed_wylder_urn.png", character_id=characters[0].id),
+        Chalice(name="decrepit_wylder_goblet", img_base="static/images/chalices/wylder_chalices/decrepit_wylder_goblet.png", character_id=characters[0].id),
+        Chalice(name="forgotten_ wylder_goblet", img_base="static/images/chalices/wylder_chalices/forgotten_wylder_goblet.png", character_id=characters[0].id)
     ]
 
     guardian_chalice = [
@@ -222,6 +224,8 @@ def seed():
         Chalice(name="guardian_urn", img_base="static/images/chalices/guardian_chalices/guardian_urn.png", character_id=characters[1].id),
         Chalice(name="soot_covered_guardian_urn", img_base="static/images/chalices/guardian_chalices/soot_covered_guardian_urn.png", character_id=characters[1].id),
         Chalice(name="sealed_guardian_urn", img_base="static/images/chalices/guardian_chalices/sealed_guardian_urn.png", character_id=characters[1].id),
+        Chalice(name="decrepit_guardian_goblet", img_base="static/images/chalices/guardian_chalices/decrepit_guardian_goblet.png", character_id=characters[1].id),
+        Chalice(name="forgotten_guardian_goblet", img_base="static/images/chalices/guardian_chalices/forgotten_guardian_goblet.png", character_id=characters[1].id)
     ]
 
     ironeye_chalice = [
@@ -230,6 +234,8 @@ def seed():
         Chalice(name="ironeye_urn", img_base="static/images/chalices/ironeye_chalices/ironeye_urn.png", character_id=characters[2].id),
         Chalice(name="soot_covered_ironeye_urn", img_base="static/images/chalices/ironeye_chalices/soot_covered_ironeye_urn.png", character_id=characters[2].id),
         Chalice(name="sealed_ironeye_urn", img_base="static/images/chalices/ironeye_chalices/sealed_ironeye_urn.png", character_id=characters[2].id),
+        Chalice(name="decrepit_ironeye_goblet", img_base="static/images/chalices/ironeye_chalices/decrepit_ironeye_goblet.png", character_id=characters[2].id),
+        Chalice(name="forgotten_ironeye_goblet", img_base="static/images/chalices/ironeye_chalices/forgotten_ironeye_goblet.png", character_id=characters[2].id)
     ]
 
     raider_chalice = [
@@ -238,6 +244,8 @@ def seed():
         Chalice(name="raider_urn", img_base="static/images/chalices/raider_chalices/raider_urn.png", character_id=characters[3].id),
         Chalice(name="soot_covered_raider_urn", img_base="static/images/chalices/raider_chalices/soot_covered_raider_urn.png", character_id=characters[3].id),
         Chalice(name="sealed_raider_urn", img_base="static/images/chalices/raider_chalices/sealed_raider_urn.png", character_id=characters[3].id),
+        Chalice(name="decrepit_raider_goblet", img_base="static/images/chalices/raider_chalices/decrepit_raider_goblet.png", character_id=characters[3].id),
+        Chalice(name="forgotten_raider_goblet", img_base="static/images/chalices/raider_chalices/forgotten_raider_goblet.png", character_id=characters[3].id)
     ]
 
     revenant_chalice = [
@@ -246,6 +254,8 @@ def seed():
         Chalice(name="revenant_urn", img_base="static/images/chalices/revenant_chalices/revenant_urn.png", character_id=characters[4].id),
         Chalice(name="soot_covered_revenant_urn", img_base="static/images/chalices/revenant_chalices/soot_covered_revenant_urn.png", character_id=characters[4].id),
         Chalice(name="sealed_revenant_urn", img_base="static/images/chalices/revenant_chalices/sealed_revenant_urn.png", character_id=characters[4].id),
+        Chalice(name="decrepit_revenant_goblet", img_base="static/images/chalices/revenant_chalices/decrepit_revenant_goblet.png", character_id=characters[4].id),
+        Chalice(name="forgotten_revenant_goblet", img_base="static/images/chalices/revenant_chalices/forgotten_revenant_goblet.png", character_id=characters[4].id)
     ]
 
     recluse_chalice = [
@@ -254,6 +264,8 @@ def seed():
         Chalice(name="recluse_urn", img_base="static/images/chalices/recluse_chalices/recluse_urn.png", character_id=characters[5].id),
         Chalice(name="soot_covered_recluse_urn", img_base="static/images/chalices/recluse_chalices/soot_covered_recluse_urn.png", character_id=characters[5].id),
         Chalice(name="sealed_recluse_urn", img_base="static/images/chalices/recluse_chalices/sealed_recluse_urn.png", character_id=characters[5].id),
+        Chalice(name="decrepit_recluse_goblet", img_base="static/images/chalices/recluse_chalices/decrepit_recluse_goblet.png", character_id=characters[5].id),
+        Chalice(name="forgotten_recluse_goblet", img_base="static/images/chalices/recluse_chalices/forgotten_recluse_goblet.png", character_id=characters[5].id)
     ]
 
     duchess_chalice = [
@@ -262,6 +274,8 @@ def seed():
         Chalice(name="duchess_urn", img_base="static/images/chalices/duchess_chalices/duchess_urn.png", character_id=characters[6].id),
         Chalice(name="soot_covered_duchess_urn", img_base="static/images/chalices/duchess_chalices/soot_covered_duchess_urn.png", character_id=characters[6].id),
         Chalice(name="sealed_duchess_urn", img_base="static/images/chalices/duchess_chalices/sealed_duchess_urn.png", character_id=characters[6].id),
+        Chalice(name="decrepit_duchess_goblet", img_base="static/images/chalices/duchess_chalices/decrepit_duchess_goblet.png", character_id=characters[6].id),
+        Chalice(name="forgotten_duchess_goblet", img_base="static/images/chalices/duchess_chalices/forgotten_duchess_goblet.png", character_id=characters[6].id)
     ]
 
     executor_chalice = [
@@ -270,8 +284,29 @@ def seed():
         Chalice(name="executor_urn", img_base="static/images/chalices/executor_chalices/executor_urn.png", character_id=characters[7].id),
         Chalice(name="soot_covered_executor_urn", img_base="static/images/chalices/executor_chalices/soot_covered_executor_urn.png", character_id=characters[7].id),
         Chalice(name="sealed_executor_urn", img_base="static/images/chalices/executor_chalices/sealed_executor_urn.png", character_id=characters[7].id),
+        Chalice(name="decrepit_executor_goblet", img_base="static/images/chalices/executor_chalices/decrepit_executor_goblet.png", character_id=characters[7].id),
+        Chalice(name="forgotten_executor_goblet", img_base="static/images/chalices/executor_chalices/forgotten_executor_goblet.png", character_id=characters[7].id)
     ]
 
+    scholar_chalice = [
+        Chalice(name="scholar_main", img_base="static/images/chalices/scholar_chalices/scholar_main.png", character_id=characters[8].id),
+        Chalice(name="scholar_goblet", img_base="static/images/chalices/scholar_chalices/scholar_goblet.png", character_id=characters[8].id),
+        Chalice(name="scholar_urn", img_base="static/images/chalices/scholar_chalices/scholar_urn.png", character_id=characters[8].id),
+        Chalice(name="soot_covered_scholar_urn", img_base="static/images/chalices/scholar_chalices/soot_covered_scholar_urn.png", character_id=characters[8].id),
+        Chalice(name="sealed_scholar_urn", img_base="static/images/chalices/scholar_chalices/sealed_scholar_urn.png", character_id=characters[8].id),
+        Chalice(name="decrepit_scholar_goblet", img_base="static/images/chalices/scholar_chalices/decrepit_scholar_goblet.png", character_id=characters[8].id),
+        Chalice(name="forgotten_scholar_goblet", img_base="static/images/chalices/scholar_chalices/forgotten_scholar_goblet.png", character_id=characters[8].id)
+    ]
+
+    undertaker_chalice = [
+        Chalice(name="undertaker_main", img_base="static/images/chalices/undertaker_chalices/undertaker_main.png", character_id=characters[9].id),
+        Chalice(name="undertaker_goblet", img_base="static/images/chalices/undertaker_chalices/undertaker_goblet.png", character_id=characters[9].id),
+        Chalice(name="undertaker_urn", img_base="static/images/chalices/undertaker_chalices/undertaker_urn.png", character_id=characters[9].id),
+        Chalice(name="soot_covered_undertaker_urn", img_base="static/images/chalices/undertaker_chalices/soot_covered_undertaker_urn.png", character_id=characters[9].id),
+        Chalice(name="sealed_undertaker_urn", img_base="static/images/chalices/undertaker_chalices/sealed_undertaker_urn.png", character_id=characters[9].id),
+        Chalice(name="decrepit_undertaker_goblet", img_base="static/images/chalices/undertaker_chalices/decrepit_undertaker_goblet.png", character_id=characters[9].id),
+        Chalice(name="forgotten_undertaker_goblet", img_base="static/images/chalices/undertaker_chalices/forgotten_undertaker_goblet.png", character_id=characters[9].id)
+    ]
     # Global chalices (shared across all characters)
     global_chalices = [
         Chalice(name="giants_cradle", img_base="static/images/chalices/all_nightfarers/giants_cradle.png", character_id=None),
@@ -281,7 +316,8 @@ def seed():
     ]
 
     db.session.add_all(wylder_chalice + guardian_chalice + ironeye_chalice +
-                       raider_chalice + revenant_chalice + recluse_chalice + duchess_chalice+ executor_chalice + global_chalices)
+                       raider_chalice + revenant_chalice + recluse_chalice + duchess_chalice + 
+                       executor_chalice + scholar_chalice + undertaker_chalice + global_chalices)
     db.session.commit()  # IDs needed for slots
 
     # ------------------------------
@@ -335,6 +371,24 @@ def seed():
         ChaliceSlot(chalice_id=wylder_chalice[4].id, slot_index=5, color="yellow")
     ]
 
+    decrepit_wylder_goblet = [
+        ChaliceSlot(chalice_id=wylder_chalice[5].id, slot_index=0, color="blue"),
+        ChaliceSlot(chalice_id=wylder_chalice[5].id, slot_index=1, color="green"),
+        ChaliceSlot(chalice_id=wylder_chalice[5].id, slot_index=2, color="yellow"),
+        ChaliceSlot(chalice_id=wylder_chalice[5].id, slot_index=3, color="blue"),
+        ChaliceSlot(chalice_id=wylder_chalice[5].id, slot_index=4, color="green"),
+        ChaliceSlot(chalice_id=wylder_chalice[5].id, slot_index=5, color="yellow")
+    ]
+
+    forgotten_wylder_goblet = [
+        ChaliceSlot(chalice_id=wylder_chalice[6].id, slot_index=0, color="green"),
+        ChaliceSlot(chalice_id=wylder_chalice[6].id, slot_index=1, color="green"),
+        ChaliceSlot(chalice_id=wylder_chalice[6].id, slot_index=2, color="yellow"),
+        ChaliceSlot(chalice_id=wylder_chalice[6].id, slot_index=3, color="red"),
+        ChaliceSlot(chalice_id=wylder_chalice[6].id, slot_index=4, color="green"),
+        ChaliceSlot(chalice_id=wylder_chalice[6].id, slot_index=5, color="white")
+    ]
+
     # Guardian Chalice Slots
 
     guardian_main = [
@@ -380,6 +434,24 @@ def seed():
         ChaliceSlot(chalice_id=guardian_chalice[4].id, slot_index=3, color="green"),
         ChaliceSlot(chalice_id=guardian_chalice[4].id, slot_index=4, color="green"),
         ChaliceSlot(chalice_id=guardian_chalice[4].id, slot_index=5, color="blue")
+    ]
+
+    decrepit_guardian_goblet = [
+        ChaliceSlot(chalice_id=guardian_chalice[5].id, slot_index=0, color="yellow"),
+        ChaliceSlot(chalice_id=guardian_chalice[5].id, slot_index=1, color="green"),
+        ChaliceSlot(chalice_id=guardian_chalice[5].id, slot_index=2, color="green"),
+        ChaliceSlot(chalice_id=guardian_chalice[5].id, slot_index=3, color="yellow"),
+        ChaliceSlot(chalice_id=guardian_chalice[5].id, slot_index=4, color="green"),
+        ChaliceSlot(chalice_id=guardian_chalice[5].id, slot_index=5, color="green")
+    ]
+
+    forgotten_guardian_goblet = [
+        ChaliceSlot(chalice_id=guardian_chalice[6].id, slot_index=0, color="green"),
+        ChaliceSlot(chalice_id=guardian_chalice[6].id, slot_index=1, color="blue"),
+        ChaliceSlot(chalice_id=guardian_chalice[6].id, slot_index=2, color="blue"),
+        ChaliceSlot(chalice_id=guardian_chalice[6].id, slot_index=3, color="red"),
+        ChaliceSlot(chalice_id=guardian_chalice[6].id, slot_index=4, color="blue"),
+        ChaliceSlot(chalice_id=guardian_chalice[6].id, slot_index=5, color="white")
     ]
 
     # Ironeye Chalice Slots
@@ -429,6 +501,24 @@ def seed():
         ChaliceSlot(chalice_id=ironeye_chalice[4].id, slot_index=5, color="red")
     ]
 
+    decrepit_ironeye_goblet = [
+        ChaliceSlot(chalice_id=ironeye_chalice[5].id, slot_index=0, color="blue"),
+        ChaliceSlot(chalice_id=ironeye_chalice[5].id, slot_index=1, color="blue"),
+        ChaliceSlot(chalice_id=ironeye_chalice[5].id, slot_index=2, color="green"),
+        ChaliceSlot(chalice_id=ironeye_chalice[5].id, slot_index=3, color=" blue"),
+        ChaliceSlot(chalice_id=ironeye_chalice[5].id, slot_index=4, color="blue"),
+        ChaliceSlot(chalice_id=ironeye_chalice[5].id, slot_index=5, color="green")
+    ]
+
+    forgotten_ironeye_goblet = [
+        ChaliceSlot(chalice_id=ironeye_chalice[6].id, slot_index=0, color="yellow"),
+        ChaliceSlot(chalice_id=ironeye_chalice[6].id, slot_index=1, color="blue"),
+        ChaliceSlot(chalice_id=ironeye_chalice[6].id, slot_index=2, color="red"),
+        ChaliceSlot(chalice_id=ironeye_chalice[6].id, slot_index=3, color="yellow"),
+        ChaliceSlot(chalice_id=ironeye_chalice[6].id, slot_index=4, color="green"),
+        ChaliceSlot(chalice_id=ironeye_chalice[6].id, slot_index=5, color="white")
+    ]
+
     # Raider Chalice Slots
 
     raider_main = [
@@ -474,6 +564,24 @@ def seed():
         ChaliceSlot(chalice_id=raider_chalice[4].id, slot_index=3, color="yellow"),
         ChaliceSlot(chalice_id=raider_chalice[4].id, slot_index=4, color="blue"),
         ChaliceSlot(chalice_id=raider_chalice[4].id, slot_index=5, color="blue")
+    ]
+
+    decrepit_raider_goblet = [
+        ChaliceSlot(chalice_id=raider_chalice[5].id, slot_index=0, color="yellow"),
+        ChaliceSlot(chalice_id=raider_chalice[5].id, slot_index=1, color="yellow"),
+        ChaliceSlot(chalice_id=raider_chalice[5].id, slot_index=2, color="green"),
+        ChaliceSlot(chalice_id=raider_chalice[5].id, slot_index=3, color="yellow"),
+        ChaliceSlot(chalice_id=raider_chalice[5].id, slot_index=4, color="yellow"),
+        ChaliceSlot(chalice_id=raider_chalice[5].id, slot_index=5, color="green")
+    ]
+
+    forgotten_raider_goblet = [
+        ChaliceSlot(chalice_id=raider_chalice[6].id, slot_index=0, color="yellow"),
+        ChaliceSlot(chalice_id=raider_chalice[6].id, slot_index=1, color="blue"),
+        ChaliceSlot(chalice_id=raider_chalice[6].id, slot_index=2, color="red"),
+        ChaliceSlot(chalice_id=raider_chalice[6].id, slot_index=3, color="red"),
+        ChaliceSlot(chalice_id=raider_chalice[6].id, slot_index=4, color="green"),
+        ChaliceSlot(chalice_id=raider_chalice[6].id, slot_index=5, color="white")
     ]
 
     # Revenant Chalice Slots
@@ -523,6 +631,24 @@ def seed():
         ChaliceSlot(chalice_id=revenant_chalice[4].id, slot_index=5, color="red")
     ]
 
+    decrepit_revenant_goblet = [
+        ChaliceSlot(chalice_id=revenant_chalice[5].id, slot_index=0, color="red"),
+        ChaliceSlot(chalice_id=revenant_chalice[5].id, slot_index=1, color="red"),
+        ChaliceSlot(chalice_id=revenant_chalice[5].id, slot_index=2, color="yellow"),
+        ChaliceSlot(chalice_id=revenant_chalice[5].id, slot_index=3, color="red"),
+        ChaliceSlot(chalice_id=revenant_chalice[5].id, slot_index=4, color="red"),
+        ChaliceSlot(chalice_id=revenant_chalice[5].id, slot_index=5, color="yellow")
+    ]
+
+    forgotten_revenant_goblet = [
+        ChaliceSlot(chalice_id=revenant_chalice[6].id, slot_index=0, color="green"),
+        ChaliceSlot(chalice_id=revenant_chalice[6].id, slot_index=1, color="red"),
+        ChaliceSlot(chalice_id=revenant_chalice[6].id, slot_index=2, color="red"),
+        ChaliceSlot(chalice_id=revenant_chalice[6].id, slot_index=3, color="yellow"),
+        ChaliceSlot(chalice_id=revenant_chalice[6].id, slot_index=4, color="green"),
+        ChaliceSlot(chalice_id=revenant_chalice[6].id, slot_index=5, color="white")
+    ]
+
     # Recluse Chalice Slots
 
     recluse_main = [
@@ -568,6 +694,24 @@ def seed():
         ChaliceSlot(chalice_id=recluse_chalice[4].id, slot_index=3, color="yellow"),
         ChaliceSlot(chalice_id=recluse_chalice[4].id, slot_index=4, color="yellow"),
         ChaliceSlot(chalice_id=recluse_chalice[4].id, slot_index=5, color="red")
+    ]
+
+    decrepit_recluse_goblet = [
+        ChaliceSlot(chalice_id=recluse_chalice[5].id, slot_index=0, color="yellow"),
+        ChaliceSlot(chalice_id=recluse_chalice[5].id, slot_index=1, color="yellow"),
+        ChaliceSlot(chalice_id=recluse_chalice[5].id, slot_index=2, color="blue"),
+        ChaliceSlot(chalice_id=recluse_chalice[5].id, slot_index=3, color="yellow"),
+        ChaliceSlot(chalice_id=recluse_chalice[5].id, slot_index=4, color="yellow"),
+        ChaliceSlot(chalice_id=recluse_chalice[5].id, slot_index=5, color="blue")
+    ]
+
+    forgotten_recluse_goblet = [
+        ChaliceSlot(chalice_id=recluse_chalice[6].id, slot_index=0, color="yellow"),
+        ChaliceSlot(chalice_id=recluse_chalice[6].id, slot_index=1, color="blue"),
+        ChaliceSlot(chalice_id=recluse_chalice[6].id, slot_index=2, color="red"),
+        ChaliceSlot(chalice_id=recluse_chalice[6].id, slot_index=3, color="blue"),
+        ChaliceSlot(chalice_id=recluse_chalice[6].id, slot_index=4, color="green"),
+        ChaliceSlot(chalice_id=recluse_chalice[6].id, slot_index=5, color="white")
     ]
 
     # Duchess Chalice Slots
@@ -617,6 +761,24 @@ def seed():
         ChaliceSlot(chalice_id=duchess_chalice[4].id, slot_index=5, color="yellow")
     ]
 
+    decrepit_duchess_goblet = [
+        ChaliceSlot(chalice_id=duchess_chalice[5].id, slot_index=0, color="blue"),
+        ChaliceSlot(chalice_id=duchess_chalice[5].id, slot_index=1, color="green"),
+        ChaliceSlot(chalice_id=duchess_chalice[5].id, slot_index=2, color="green"),
+        ChaliceSlot(chalice_id=duchess_chalice[5].id, slot_index=3, color="blue"),
+        ChaliceSlot(chalice_id=duchess_chalice[5].id, slot_index=4, color="green"),
+        ChaliceSlot(chalice_id=duchess_chalice[5].id, slot_index=5, color="green")
+    ]
+
+    forgotten_duchess_goblet = [
+        ChaliceSlot(chalice_id=duchess_chalice[6].id, slot_index=0, color="green"),
+        ChaliceSlot(chalice_id=duchess_chalice[6].id, slot_index=1, color="yellow"),
+        ChaliceSlot(chalice_id=duchess_chalice[6].id, slot_index=2, color="yellow"),
+        ChaliceSlot(chalice_id=duchess_chalice[6].id, slot_index=3, color="red"),
+        ChaliceSlot(chalice_id=duchess_chalice[6].id, slot_index=4, color="green"),
+        ChaliceSlot(chalice_id=duchess_chalice[6].id, slot_index=5, color="white")
+    ]
+
     # Executor Chalice Slots
 
     executor_main = [
@@ -664,6 +826,154 @@ def seed():
         ChaliceSlot(chalice_id=executor_chalice[4].id, slot_index=5, color="blue")
     ]
 
+    decrepit_executor_goblet = [
+        ChaliceSlot(chalice_id=executor_chalice[5].id, slot_index=0, color="red"),
+        ChaliceSlot(chalice_id=executor_chalice[5].id, slot_index=1, color="red"),
+        ChaliceSlot(chalice_id=executor_chalice[5].id, slot_index=2, color="yellow"),
+        ChaliceSlot(chalice_id=executor_chalice[5].id, slot_index=3, color="red"),
+        ChaliceSlot(chalice_id=executor_chalice[5].id, slot_index=4, color="red"),
+        ChaliceSlot(chalice_id=executor_chalice[5].id, slot_index=5, color="yellow")
+    ]
+
+    forgotten_executor_goblet = [
+        ChaliceSlot(chalice_id=executor_chalice[6].id, slot_index=0, color="green"),
+        ChaliceSlot(chalice_id=executor_chalice[6].id, slot_index=1, color="blue"),
+        ChaliceSlot(chalice_id=executor_chalice[6].id, slot_index=2, color="red"),
+        ChaliceSlot(chalice_id=executor_chalice[6].id, slot_index=3, color="yellow"),
+        ChaliceSlot(chalice_id=executor_chalice[6].id, slot_index=4, color="green"),
+        ChaliceSlot(chalice_id=executor_chalice[6].id, slot_index=5, color="white")
+    ]
+
+    # Scholar Chalice Slots
+
+    scholar_main = [
+        ChaliceSlot(chalice_id=scholar_chalice[0].id, slot_index=0, color="red"),
+        ChaliceSlot(chalice_id=scholar_chalice[0].id, slot_index=1, color="blue"),
+        ChaliceSlot(chalice_id=scholar_chalice[0].id, slot_index=2, color="white"),
+        ChaliceSlot(chalice_id=scholar_chalice[0].id, slot_index=3, color="red"),
+        ChaliceSlot(chalice_id=scholar_chalice[0].id, slot_index=4, color="yellow"),
+        ChaliceSlot(chalice_id=scholar_chalice[0].id, slot_index=5, color="yellow")
+    ]
+
+    scholar_goblet = [
+        ChaliceSlot(chalice_id=scholar_chalice[1].id, slot_index=0, color="blue"),
+        ChaliceSlot(chalice_id=scholar_chalice[1].id, slot_index=1, color="green"),
+        ChaliceSlot(chalice_id=scholar_chalice[1].id, slot_index=2, color="yellow"),
+        ChaliceSlot(chalice_id=scholar_chalice[1].id, slot_index=3, color="blue"),
+        ChaliceSlot(chalice_id=scholar_chalice[1].id, slot_index=4, color="green"),
+        ChaliceSlot(chalice_id=scholar_chalice[1].id, slot_index=5, color="yellow")
+    ]
+
+    scholar_urn = [
+        ChaliceSlot(chalice_id=scholar_chalice[2].id, slot_index=0, color="red"),
+        ChaliceSlot(chalice_id=scholar_chalice[2].id, slot_index=1, color="red"),
+        ChaliceSlot(chalice_id=scholar_chalice[2].id, slot_index=2, color="yellow"),
+        ChaliceSlot(chalice_id=scholar_chalice[2].id, slot_index=3, color="red"),
+        ChaliceSlot(chalice_id=scholar_chalice[2].id, slot_index=4, color="red"),
+        ChaliceSlot(chalice_id=scholar_chalice[2].id, slot_index=5, color="yellow")
+    ]
+
+    soot_covered_scholar_urn = [
+        ChaliceSlot(chalice_id=scholar_chalice[3].id, slot_index=0, color="blue"),
+        ChaliceSlot(chalice_id=scholar_chalice[3].id, slot_index=1, color="green"),
+        ChaliceSlot(chalice_id=scholar_chalice[3].id, slot_index=2, color="green"),
+        ChaliceSlot(chalice_id=scholar_chalice[3].id, slot_index=3, color="blue"),
+        ChaliceSlot(chalice_id=scholar_chalice[3].id, slot_index=4, color="green"),
+        ChaliceSlot(chalice_id=scholar_chalice[3].id, slot_index=5, color="green")
+    ]
+
+    sealed_scholar_urn = [
+        ChaliceSlot(chalice_id=scholar_chalice[4].id, slot_index=0, color="yellow"),
+        ChaliceSlot(chalice_id=scholar_chalice[4].id, slot_index=1, color="red"),
+        ChaliceSlot(chalice_id=scholar_chalice[4].id, slot_index=2, color="red"),
+        ChaliceSlot(chalice_id=scholar_chalice[4].id, slot_index=3, color="green"),
+        ChaliceSlot(chalice_id=scholar_chalice[4].id, slot_index=4, color="blue"),
+        ChaliceSlot(chalice_id=scholar_chalice[4].id, slot_index=5, color="blue")
+    ]
+
+    decrepit_scholar_goblet = [
+        ChaliceSlot(chalice_id=scholar_chalice[5].id, slot_index=0, color="blue"),
+        ChaliceSlot(chalice_id=scholar_chalice[5].id, slot_index=1, color="blue"),
+        ChaliceSlot(chalice_id=scholar_chalice[5].id, slot_index=2, color="green"),
+        ChaliceSlot(chalice_id=scholar_chalice[5].id, slot_index=3, color="blue"),
+        ChaliceSlot(chalice_id=scholar_chalice[5].id, slot_index=4, color="blue"),
+        ChaliceSlot(chalice_id=scholar_chalice[5].id, slot_index=5, color="green")
+    ]
+
+    forgotten_scholar_goblet = [
+        ChaliceSlot(chalice_id=scholar_chalice[6].id, slot_index=0, color="yellow"),
+        ChaliceSlot(chalice_id=scholar_chalice[6].id, slot_index=1, color="green"),
+        ChaliceSlot(chalice_id=scholar_chalice[6].id, slot_index=2, color="blue"),
+        ChaliceSlot(chalice_id=scholar_chalice[6].id, slot_index=3, color="red"),
+        ChaliceSlot(chalice_id=scholar_chalice[6].id, slot_index=4, color="green"),
+        ChaliceSlot(chalice_id=scholar_chalice[6].id, slot_index=5, color="white")
+    ]
+
+    # Undertaker Chalice Slots
+
+    undertaker_main = [
+        ChaliceSlot(chalice_id=undertaker_chalice[0].id, slot_index=0, color="green"),
+        ChaliceSlot(chalice_id=undertaker_chalice[0].id, slot_index=1, color="yellow"),
+        ChaliceSlot(chalice_id=undertaker_chalice[0].id, slot_index=2, color="white"),
+        ChaliceSlot(chalice_id=undertaker_chalice[0].id, slot_index=3, color="blue"),
+        ChaliceSlot(chalice_id=undertaker_chalice[0].id, slot_index=4, color="green"),
+        ChaliceSlot(chalice_id=undertaker_chalice[0].id, slot_index=5, color="yellow")
+    ]
+
+    undertaker_goblet = [
+        ChaliceSlot(chalice_id=undertaker_chalice[1].id, slot_index=0, color="red"),
+        ChaliceSlot(chalice_id=undertaker_chalice[1].id, slot_index=1, color="yellow"),
+        ChaliceSlot(chalice_id=undertaker_chalice[1].id, slot_index=2, color="yellow"),
+        ChaliceSlot(chalice_id=undertaker_chalice[1].id, slot_index=3, color="red"),
+        ChaliceSlot(chalice_id=undertaker_chalice[1].id, slot_index=4, color="yellow"),
+        ChaliceSlot(chalice_id=undertaker_chalice[1].id, slot_index=5, color="yellow")
+    ]
+
+    undertaker_urn = [
+        ChaliceSlot(chalice_id=undertaker_chalice[2].id, slot_index=0, color="blue"),
+        ChaliceSlot(chalice_id=undertaker_chalice[2].id, slot_index=1, color="green"),
+        ChaliceSlot(chalice_id=undertaker_chalice[2].id, slot_index=2, color="green"),
+        ChaliceSlot(chalice_id=undertaker_chalice[2].id, slot_index=3, color="blue"),
+        ChaliceSlot(chalice_id=undertaker_chalice[2].id, slot_index=4, color="green"),
+        ChaliceSlot(chalice_id=undertaker_chalice[2].id, slot_index=5, color="green")
+    ]
+
+    soot_covered_undertaker_urn = [
+        ChaliceSlot(chalice_id=undertaker_chalice[3].id, slot_index=0, color="red"),
+        ChaliceSlot(chalice_id=undertaker_chalice[3].id, slot_index=1, color="red"),
+        ChaliceSlot(chalice_id=undertaker_chalice[3].id, slot_index=2, color="blue"),
+        ChaliceSlot(chalice_id=undertaker_chalice[3].id, slot_index=3, color="red"),
+        ChaliceSlot(chalice_id=undertaker_chalice[3].id, slot_index=4, color="red"),
+        ChaliceSlot(chalice_id=undertaker_chalice[3].id, slot_index=5, color="blue")
+    ]
+
+    sealed_undertaker_urn = [
+        ChaliceSlot(chalice_id=undertaker_chalice[4].id, slot_index=0, color="green"),
+        ChaliceSlot(chalice_id=undertaker_chalice[4].id, slot_index=1, color="green"),
+        ChaliceSlot(chalice_id=undertaker_chalice[4].id, slot_index=2, color="blue"),
+        ChaliceSlot(chalice_id=undertaker_chalice[4].id, slot_index=3, color="yellow"),
+        ChaliceSlot(chalice_id=undertaker_chalice[4].id, slot_index=4, color="red"),
+        ChaliceSlot(chalice_id=undertaker_chalice[4].id, slot_index=5, color="red")
+    ]
+
+    decrepit_undertaker_goblet = [
+        ChaliceSlot(chalice_id=undertaker_chalice[5].id, slot_index=0, color="red"),
+        ChaliceSlot(chalice_id=undertaker_chalice[5].id, slot_index=1, color="blue"),
+        ChaliceSlot(chalice_id=undertaker_chalice[5].id, slot_index=2, color="blue"),
+        ChaliceSlot(chalice_id=undertaker_chalice[5].id, slot_index=3, color="red"),
+        ChaliceSlot(chalice_id=undertaker_chalice[5].id, slot_index=4, color="blue"),
+        ChaliceSlot(chalice_id=undertaker_chalice[5].id, slot_index=5, color="blue")
+    ]
+
+    forgotten_undertaker_goblet = [
+        ChaliceSlot(chalice_id=undertaker_chalice[6].id, slot_index=0, color="yellow"),
+        ChaliceSlot(chalice_id=undertaker_chalice[6].id, slot_index=1, color="yellow"),
+        ChaliceSlot(chalice_id=undertaker_chalice[6].id, slot_index=2, color="red"),
+        ChaliceSlot(chalice_id=undertaker_chalice[6].id, slot_index=3, color="blue"),
+        ChaliceSlot(chalice_id=undertaker_chalice[6].id, slot_index=4, color="yellow"),
+        ChaliceSlot(chalice_id=undertaker_chalice[6].id, slot_index=5, color="green")
+    ]
+
     def make_global_chalice_slots(chalice, color):
             return [ChaliceSlot(chalice_id=chalice.id, slot_index=i, color=color) for i in range(6)]
 
@@ -673,7 +983,7 @@ def seed():
     scadutree_grail = make_global_chalice_slots(global_chalices[3], "red")
 
 
-    db.session.add_all(wylder_main + wylder_goblet + wylder_urn + soot_covered_wylder_urn + sealed_wylder_urn +                       guardian_main + guardian_goblet + guardian_urn + soot_covered_guardian_urn + sealed_guardian_urn + ironeye_main + ironeye_goblet + ironeye_urn + soot_covered_ironeye_urn + sealed_ironeye_urn + raider_main + raider_goblet + raider_urn + soot_covered_raider_urn + sealed_raider_urn + revenant_main + revenant_goblet + revenant_urn + soot_covered_revenant_urn + sealed_revenant_urn + recluse_main + recluse_goblet + recluse_urn + soot_covered_recluse_urn + sealed_recluse_urn + duchess_main + duchess_goblet + duchess_urn + soot_covered_duchess_urn + sealed_duchess_urn + executor_main + executor_goblet + executor_urn + soot_covered_executor_urn + sealed_executor_urn + giants_cradle + sacred_erdtree + spirit_shelter)
+    db.session.add_all(wylder_main + wylder_goblet + wylder_urn + soot_covered_wylder_urn + sealed_wylder_urn + decrepit_wylder_goblet + forgotten_wylder_goblet + guardian_main + guardian_goblet + guardian_urn + soot_covered_guardian_urn + sealed_guardian_urn + decrepit_guardian_goblet + forgotten_guardian_goblet + ironeye_main + ironeye_goblet + ironeye_urn + soot_covered_ironeye_urn + sealed_ironeye_urn + decrepit_ironeye_goblet + forgotten_ironeye_goblet + raider_main + raider_goblet + raider_urn + soot_covered_raider_urn + sealed_raider_urn + decrepit_raider_goblet + forgotten_raider_goblet + revenant_main + revenant_goblet + revenant_urn + soot_covered_revenant_urn + sealed_revenant_urn + decrepit_revenant_goblet + forgotten_revenant_goblet + recluse_main + recluse_goblet + recluse_urn + soot_covered_recluse_urn + sealed_recluse_urn + decrepit_recluse_goblet + forgotten_recluse_goblet + duchess_main + duchess_goblet + duchess_urn + soot_covered_duchess_urn + sealed_duchess_urn + decrepit_duchess_goblet + forgotten_duchess_goblet + executor_main + executor_goblet + executor_urn + soot_covered_executor_urn + sealed_executor_urn + decrepit_executor_goblet + forgotten_executor_goblet + scholar_main + scholar_goblet + scholar_urn + soot_covered_scholar_urn + sealed_scholar_urn + decrepit_scholar_goblet + forgotten_scholar_goblet + undertaker_main + undertaker_urn + undertaker_goblet + soot_covered_undertaker_urn + sealed_undertaker_urn + decrepit_undertaker_goblet + forgotten_undertaker_goblet + giants_cradle + sacred_erdtree + spirit_shelter + scadutree_grail)
     db.session.commit()
 
     # ------------------------------

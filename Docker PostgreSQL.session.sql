@@ -1,2 +1,4 @@
 
-SELECT * FROM relics;
+SELECT * FROM chalice_slots;
+
+SELECT * FROM chalices;
