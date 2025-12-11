@@ -37,6 +37,16 @@
     text-decoration: underline;
 }
 
+#left_modal_body {
+    border-right: 2px solid #00000051;
+    padding: 10px;
+}
+
+#stat_left {
+    border-right: #00000051 2px solid;
+    padding-right: 10px;
+}
+
 .below_character {
     font-size: 14px;
     color: #fdf8f8;
@@ -73,8 +83,8 @@
 
 .character_stats {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    flex-direction: row;
+    gap: 10px;
     padding: 10px;
     border: 2px solid #3a3664;
     border-radius: 10px;
@@ -90,6 +100,19 @@
 
 .divider {
     border-bottom: 2px solid #00000051;
+}
+
+.flex_modal_container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 15px;
+}
+
+.flex_modal {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .relic_slot {

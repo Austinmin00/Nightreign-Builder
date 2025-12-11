@@ -987,15 +987,48 @@ def seed():
     db.session.commit()
 
     # ------------------------------
-    # 4. RELICS
+    # 4. RELIC EFFECTS (from CSVs)
     # ------------------------------
-
-
-    # ------------------------------
-    # 5. RELIC EFFECTS
-    # ------------------------------
-
-
+    
+    # Load regular relic effects
+    regular_csv_path = os.path.join("postgres-docker", "data", "Nightreign Useful Info (Version 1.03.1) (+ DLC) - Relic Effects - Expanded.csv")
+    with open(regular_csv_path, 'r', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        regular_effects = []
+        for row in reader:
+            effect = RelicEffect(
+                type=row['Category'],
+                description=row['Relic Description'],
+                effect=row['Effect'],
+                stackable=row['Stackable with self?'] or 'Unknown',
+                notes=row['Notes'] if row['Notes'] else None,  # NULL if empty
+                is_deep=False
+            )
+            regular_effects.append(effect)
+        db.session.add_all(regular_effects)
+    
+    print(f"Loaded {len(regular_effects)} regular relic effects")
+    
+    # Load deep relic effects
+    deep_csv_path = os.path.join("postgres-docker", "data", "Nightreign Useful Info (Version 1.03.1) (+ DLC) - Deep Relic Effects - Expanded.csv")
+    with open(deep_csv_path, 'r', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        deep_effects = []
+        for row in reader:
+            effect = RelicEffect(
+                type=row['Category'],
+                description=row['Relic Description'],
+                effect=row['Effect'],
+                stackable=row['Stackable with self?'] or 'Unknown',
+                notes=row['Notes'] if row['Notes'] else None,  # NULL if empty
+                is_deep=True
+            )
+            deep_effects.append(effect)
+        db.session.add_all(deep_effects)
+    
+    print(f"Loaded {len(deep_effects)} deep relic effects")
+    
+    db.session.commit()
     print("Seed completed successfully!")
 
 if __name__ == "__main__":

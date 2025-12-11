@@ -8,24 +8,43 @@ Exploration,Runes and Item Discovery increased for each great enemy defeated at 
 Exploration,Arcane increased for each great enemy defeated at a Ruin,Increases arcane by 4 for each boss killed at a ruin,No,
 Exploration,Max stamina increased for each great enemy defeated at a Great Encampment,Increases maximum stamina by 1.075x for each boss killed at a camp,No,
 Exploration,Dormant Power Helps Discover [Weapon Class],"Changes the preferred weapon class to the specified class, making it more likely to obtain it",No,Priority is given to first one in order. Does not stack with character's preferred weapon type
-Offensive,Physical Attack Up +3/4,Increases physical damage by 1.085x/1.1x,Yes,
-Offensive,[Element] Attack Up +3/4,Increases magic/fire/lightning/holy damage by 1.105x/1.12x,Yes,
-Offensive,Improved Affinity Attack Power +0/1/2,"Increases magic, fire, lightning, and holy damage by 1.05x/1.08x/1.1x",Yes,Affects spells
-Offensive,Physical attack power increases after using grease items +1/2,Increases physical damage by 1.17x/1.2x for 30 seconds after using grease,No,Different levels stack (ex. +1 stacks with +2)
-Offensive,Attack power up when facing poison/scarlet rot/frostbite-afflicted enemy +1/2,Increases damage by 1.16x/1.2x when attacking an enemy suffering from the specified status,No,Different levels stack (ex. +1 stacks with +2)
-Offensive,Sleep/Madness in Vicinity Improves Attack Power +0/+1,Increases damage by 1.12x/1.22x after sleep/madness procs,No,+0 stacks with +1
-Offensive,Improved Guard Counters +1/2,Increases guard counter damage by 1.22x/1.26x,Yes,
-Offensive,Improved [Consumable] Damage +1/2,Increases pot/knife/stone/perfume damage by 1.3x/1.35x,Yes,
+Offensive,Physical Attack Up +3,Increases physical damage by 1.105x,Yes,
+Offensive,Physical Attack Up +4,Increases physical damage by 1.12x,Yes,
+Offensive,[Element] Attack Up +3,Increases magic/fire/lightning/holy damage by 1.105x,Yes,
+Offensive,[Element] Attack Up +4,Increases magic/fire/lightning/holy damage by 1.12x,Yes,
+Offensive,Improved Affinity Attack Power +0,"Increases magic, fire, lightning, and holy damage by 1.05x",Yes,Affects spells
+Offensive,Improved Affinity Attack Power +1,"Increases magic, fire, lightning, and holy damage by 1.08x",Yes,Affects spells
+Offensive,Improved Affinity Attack Power +2,"Increases magic, fire, lightning, and holy damage by 1.1x",Yes,Affects spells
+Offensive,Physical attack power increases after using grease items +1,Increases physical damage by 1.17x for 30 seconds after using grease,No,Different levels stack (ex. +1 stacks with +2)
+Offensive,Physical attack power increases after using grease items +2,Increases physical damage by 1.2x for 30 seconds after using grease,No,Different levels stack (ex. +1 stacks with +2)
+Offensive,Attack power up when facing poison/scarlet rot/frostbite-afflicted enemy +1,Increases damage by 1.16x when attacking an enemy suffering from the specified status,No,Different levels stack (ex. +1 stacks with +2)
+Offensive,Attack power up when facing poison/scarlet rot/frostbite-afflicted enemy +2,Increases damage by 1.2x when attacking an enemy suffering from the specified status,No,Different levels stack (ex. +1 stacks with +2)
+Offensive,Sleep/Madness in Vicinity Improves Attack Power +0,Increases damage by 1.12x after sleep/madness procs,No,+0 stacks with +1
+Offensive,Sleep/Madness in Vicinity Improves Attack Power +1,Increases damage by 1.22x after sleep/madness procs,No,+0 stacks with +1
+Offensive,Improved Guard Counters +1,Increases guard counter damage by 1.25x,Yes,
+Offensive,Improved Guard Counters +2,Increases guard counter damage by 1.29x,Yes,
+Offensive,Improved [Consumable] Damage +1,Increases pot/knife/stone/perfume damage by 1.3x,Yes,
+Offensive,Improved [Consumable] Damage +2,Increases pot/knife/stone/perfume damage by 1.35x,Yes,
 Offensive,Art gauge charged from successful guarding +1,Increases characterSkillGauge by 1.5 upon blocking an attack,No,+0 stacks with +1
 Offensive,Art gauge fills moderately upon critical hit +1,Increases characterSkillGauge by 6.5 upon riposte,No,+0 stacks with +1
 Offensive,Defeating enemies fills more of the Art gauge +1,Increases characterSkillGauge by 6.5 upon killing enemies,No,+0 stacks with +1
-Offensive,Improved Sorceries/Incantations +0/1/2,Increases sorcery/incant damage by 1.05x/1.085x/1.1x,Yes,
-Offensive,Reduced FP Consumption +0/1/2,Reduces FP consumption by 0.92x/0.87x/0.84x,Yes,Higher tier (+1/2) does not seem to appear on random relics
-Defensive,Improved Physical Damage Negation +1/2,Increases physical damage negation by 10.5%/12%,Yes,
-Defensive,Improved [Element] Damage Negation +1/2,Increases magic/fire/lightning/holy damage negation by 15%/16%,Yes,
-Defensive,Improved Affinity Damage Negation +0/1/2,"Increases magic, fire, lightning, and holy damage negation by 6/10.5/12%",Yes,
-Defensive,Improved [Status] Resistance +1/2,Increases specified status resistance by 110/130,Yes,
-Regen,Partial HP Restoration upon Post-Damage Attacks +1/2,"Same as original, but increases HP gained per hit by 25%/35%",No,"+1 stacks with +2, but neither stack with +0"
+Offensive,Improved Sorceries/Incantations +0,Increases sorcery/incant damage by 1.05x,Yes,
+Offensive,Improved Sorceries/Incantations +1,Increases sorcery/incant damage by 1.085x,Yes,
+Offensive,Improved Sorceries/Incantations +2,Increases sorcery/incant damage by 1.1x,Yes,
+Offensive,Reduced FP Consumption +0,Reduces FP consumption by 0.92x,Yes,Higher tier (+1/2) does not seem to appear on random relics
+Offensive,Reduced FP Consumption +1,Reduces FP consumption by 0.87x,Yes,Higher tier (+1) does not seem to appear on random relics
+Offensive,Reduced FP Consumption +2,Reduces FP consumption by 0.84x,Yes,Higher tier (+2) does not seem to appear on random relics
+Defensive,Improved Physical Damage Negation +1,Increases physical damage negation by 10.5%,Yes,
+Defensive,Improved Physical Damage Negation +2,Increases physical damage negation by 12%,Yes,
+Defensive,Improved [Element] Damage Negation +1,Increases magic/fire/lightning/holy damage negation by 15%,Yes,
+Defensive,Improved [Element] Damage Negation +2,Increases magic/fire/lightning/holy damage negation by 16%,Yes,
+Defensive,Improved Affinity Damage Negation +0,"Increases magic, fire, lightning, and holy damage negation by 6%",Yes,
+Defensive,Improved Affinity Damage Negation +1,"Increases magic, fire, lightning, and holy damage negation by 10.5%",Yes,
+Defensive,Improved Affinity Damage Negation +2,"Increases magic, fire, lightning, and holy damage negation by 12%",Yes,
+Defensive,Improved [Status] Resistance +1,Increases specified status resistance by 110,Yes,
+Defensive,Improved [Status] Resistance +2,Increases specified status resistance by 130,Yes,
+Regen,Partial HP Restoration upon Post-Damage Attacks +1,"Same as original, but increases HP gained per hit by 25%",No,"+1 stacks with +2, but neither stack with +0"
+Regen,Partial HP Restoration upon Post-Damage Attacks +2,"Same as original, but increases HP gained per hit by 35%",No,"+1 stacks with +2, but neither stack with +0"
 Regen,HP Restoration upon Thrusting Counterattack +1,Restores [MaxHP * 0.033] on counterhits,No,Different levels stack (ex. +1 stacks with +2)
 Regen,"HP restored when using medicinal boluses, etc. +1",Replenish 80 HP from certain consumables,No,+0 stacks with +1
 Regen,Improved Flask HP Restoration,Increases HP gained from flasks by 1.1x,Yes,
@@ -39,6 +58,8 @@ Permamently increases maximum FP by 1.0085x up to 40 stacks
 Permamently increases maximum FP by 1.0095x up to 60 stacks (cap, total 51% increased max FP)",No,
 Character,[Recluse] Collect Affinity Residues to Negate Affinity,Increases magic/fire/lightning/holy damage negation by 20% upon absorbing respective residue for 30 seconds,No,
 Character,[Executor] Slowly Restore HP upon Ability Activation,Restores [MaxHP * 0.0027] + 3 for 30 seconds after passive activates (recovering from status effect),No,
+Character,[Scholar] Reduced FP consumption when using Character Skill on self,Reduces FP consumption by 0.85x for 40 seconds after using character skill self buff,No,
+Character,[Undertaker] Executing Art readies Character Skill,Allows you to perform Trance immediately after activating ultimate. Works with temporary ultimate use.,No,
 Character,"[Wylder] Improved Mind, Reduced Vigor","Decreases vigor by 5, increases mind by 10",No,"Stat changes assumes level 15 (same applies to the effects below); -100 HP, +50 FP"
 Character,"[Wylder] Improved Intelligence and Faith, Reduced Strength and Dexterity","Decreases strength by 7 and dexterity by 5, increases intelligence and faith by 15",No,
 Character,"[Guardian] Improved Strength and Dexterity, Reduced Vigor","Decreases vigor by 8, increases strength by 9 and dexterity by 19",No,"~16% AP increase for halberds, ~20% increase for heavy thrusting swords; -160 HP"
@@ -55,6 +76,10 @@ Character,"[Recluse] Improved Vigor, Endurance, and Dexterity, Reduced Intellige
 Character,"[Recluse] Improved Intelligence and Faith, Reduced Mind","Decreases mind by 13, increases intelligence and faith by 12",No,"-65 FP, ~10% increase in spell damage"
 Character,"[Executor] Improved Vigor and Endurance, Reduced Arcane","Decreases arcane by 13, increases vigor by 5 and endurance by 6",No,+100 HP
 Character,"[Executor] Improved Dexterity and Arcane, Reduced Vigor","Decreases vigor by 7, increases arcane by 9 and dexterity by 12",No,"-140 HP, ~11% increase in status build up, ~6.3% increase in AP for katana"
+Character,"[Scholar] Improved Mind, Reduced Vigor","Decreases vigor by 3, increases mind by 9",No,
+Character,"[Scholar] Improved Endurance and Dexterity, Reduced Intelligence and Arcane","Decreases intelligence by 4 and arcane by 20, increases endurance by 6 and dexterity by 40",No,
+Character,"[Undertaker] Improved Dexterity, Reduced Vigor and Faith","Decreases vigor by 5 and faith by 13, increases dexterity by 19",No,
+Character,"[Undertaker] Improved Mind and Faith, Reduced Strength","Decreases strength by 15, increases mind by 9 and faith by 12",No,
 Curse,Taking Damage Causes [Status] Buildup,"Taking damage inflicts 32 (deathblight) / 40 (madness, sleep) / 44 (bleed, rot, frostbite) / 52 (poison) buildup on the user",Yes,Poison / Rot / Frost does not trigger executor ability Tenacity until the status is recovered
 Curse,Reduced Strength and Intelligence,Decreases strength and intelligence by 3,Yes,
 Curse,Reduced Dexterity and Faith,Decreases dexterity and faith by 3,Yes,

@@ -1,4 +1,2 @@
 
-SELECT * FROM chalice_slots;
-
-SELECT * FROM chalices;
+SELECT * FROM relic_effects;

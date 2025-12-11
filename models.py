@@ -75,18 +75,17 @@ class Relic(db.Model):
     max_effects = db.Column(db.Integer, default=3)
     img_base = db.Column(db.String(200), nullable=False)  # base image path
 
-    # Optional backref to effects
-    effects = db.relationship("RelicEffect", backref="relic", lazy=True)
-
 
 class RelicEffect(db.Model):
     __tablename__ = "relic_effects"
 
     id = db.Column(db.Integer, primary_key=True)
-    relic_id = db.Column(db.Integer, db.ForeignKey("relics.id"), nullable=False)
-    type = db.Column(db.String(50), nullable=False)  # e.g., AP_flat, STR, INT, etc.
-    value = db.Column(db.Float, nullable=False)  # numeric value
-    effect_index = db.Column(db.Integer, nullable=False)  # 1, 2, 3 for ordering/level
+    type = db.Column(db.String(50), nullable=False)  # Category from CSV (Stat, Offensive, Defensive, etc.)
+    description = db.Column(db.String(150), nullable=False)  # Relic Description from CSV
+    effect = db.Column(db.String(400), nullable=False)  # Effect description from CSV
+    stackable = db.Column(db.String(200), nullable=False)  # Yes/No/Special cases from CSV
+    notes = db.Column(db.Text, nullable=True)  # Notes from CSV (NULL if empty)
+    is_deep = db.Column(db.Boolean, default=False, nullable=False)  # True for deep relics, False for regular
 
 
 class WorkshopSession(db.Model):

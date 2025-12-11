@@ -11,7 +11,7 @@
             <h4 class="below_character">Description: {{ character.description }}</h4>
         </div>
         <div class="character_stats">
-            <div>
+            <div id="stat_left">
                 <p>Main Weapon: {{ character.main_weapon }}</p>
                 <p>Secondary Weapon: {{ character.secondary_weapon }}</p>
                 <p>Passive: {{ character.passive }}</p>
@@ -21,7 +21,7 @@
                 <p>FP: {{ character.fp }}</p>
                 <p>Endurance: {{ character.endurance }}</p>
             </div>
-            <div>
+            <div id="stat_right">
                 <p>STR: {{ character.STR }}</p>
                 <p>DEX: {{ character.DEX }}</p>
                 <p>INT: {{ character.INT }}</p>
@@ -95,68 +95,76 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 
-                <!-- Modal Body Slot Image -->
-                <div class="modal-body">
-                    <div style="position: relative; display: inline-block;">
-                        <img id="relicImageModal" src="" alt="Relic Image" style="width: 150px; height: 150px; border: 2px solid #000; display: block;">
-                        <img id="relicTypeModal" src="" alt="Relic Type Image" style="width: 125px; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: none;">
+                <div class="flex_modal_container">
+                    <div class="flex_modal" id="left_modal_body">
+                    <!-- Modal Body Slot Image -->
+                        <div class="modal-body">
+                            <div style="position: relative; display: inline-block;">
+                                <img id="relicImageModal" src="" alt="Relic Image" style="width: 150px; height: 150px; border: 2px solid #000; display: block;">
+                                <img id="relicTypeModal" src="" alt="Relic Type Image" style="width: 125px; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: none;">
+                            </div>
+                        </div>
+                        <!-- Modal Dropdowns for Relic Version -->
+                        <div>
+                        <a class="btn btn-dark dropdown-toggle" href="#" role="button" id="relicVersion" data-bs-toggle="dropdown" aria-expanded="false" style="width: 150px; margin-left: 15px; margin-bottom: 10px;">
+                            Select Version
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="relicVersion">
+                            <li>
+                                <a class="dropdown-item" href="#" id="standard">Standard</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" id="deep">Deep</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" id="sovereign">Sovereign</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" id="remembrance">Remembrance</a>
+                            </li>
+                        </ul>    
                     </div>
-                </div>
-                <!-- Modal Dropdowns for Relic Version -->
-                <div>
-                    <a class="btn btn-dark dropdown-toggle" href="#" role="button" id="relicVersion" data-bs-toggle="dropdown" aria-expanded="false" style="width: 150px; margin-left: 15px; margin-bottom: 10px;">
-                        Select Version
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="relicVersion">
-                        <li>
-                            <a class="dropdown-item" href="#" id="standard">Standard</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#" id="deep">Deep</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#" id="sovereign">Sovereign</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#" id="remembrance">Remembrance</a>
-                        </li>
-                    </ul>    
-                </div>
-                <div class="dropdown" id="modalDropdownRelicType">
-                    <a class="btn btn-dark dropdown-toggle disabled" href="#" role="button" id="relicDropdown" aria-expanded="false" style="width: 150px; margin-left: 15px; margin-bottom: 10px; pointer-events: none; opacity: 0.65;">
-                        Select Relic Type
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="relicDropdown">
-                        <li>
-                            <a class="dropdown-item" href="#" id="r1">Delicate</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#" id="r2">Polished</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#" id="r3">Grand</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="dropdown" id="sovereign_menu">
-                    <a class="btn btn-dark dropdown-toggle disabled" href="#" role="button" id="sovereignDropdown" aria-expanded="false" style="width: 150px; margin-left: 15px; margin-bottom: 10px; pointer-events: none; opacity: 0.65;">
-                        Sovereign Options
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="sovereignDropdown">
-                        <li>
-                            <a class="dropdown-item" href="#" id="sovereign_filler">Sovereign Relics Here</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="dropdown" id="remembrance_menu">
-                    <a class="btn btn-dark dropdown-toggle disabled" href="#" role="button" id="remembranceDropdown" aria-expanded="false" style="width: 150px; margin-left: 15px; margin-bottom: 10px; pointer-events: none; opacity: 0.65;">
-                        Remembrance Options
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="remembranceDropdown">
-                        <li>
-                            <a class="dropdown-item" href="#" id="remembrance_filler">Remembrance Relics Here</a>
-                        </li>
-                    </ul>
+                    <div class="dropdown" id="modalDropdownRelicType">
+                        <a class="btn btn-dark dropdown-toggle disabled" href="#" role="button" id="relicDropdown" aria-expanded="false" style="width: 150px; margin-left: 15px; margin-bottom: 10px; pointer-events: none; opacity: 0.65;">
+                            Select Relic Type
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="relicDropdown">
+                            <li>
+                                <a class="dropdown-item" href="#" id="r1">Delicate</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" id="r2">Polished</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" id="r3">Grand</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown" id="sovereign_menu">
+                        <a class="btn btn-dark dropdown-toggle disabled" href="#" role="button" id="sovereignDropdown" aria-expanded="false" style="width: 150px; margin-left: 15px; margin-bottom: 10px; pointer-events: none; opacity: 0.65;">
+                            Sovereign Options
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="sovereignDropdown">
+                            <li>
+                                <a class="dropdown-item" href="#" id="sovereign_filler">Sovereign Relics Here</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown" id="remembrance_menu">
+                        <a class="btn btn-dark dropdown-toggle disabled" href="#" role="button" id="remembranceDropdown" aria-expanded="false" style="width: 150px; margin-left: 15px; margin-bottom: 10px; pointer-events: none; opacity: 0.65;">
+                            Remembrance Options
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="remembranceDropdown">
+                            <li>
+                                <a class="dropdown-item" href="#" id="remembrance_filler">Remembrance Relics Here</a>
+                            </li>
+                        </ul>
+                    </div>
+                    </div>
+                    <div class="flex_modal" id="right_modal_body">
+                        <!-- Additional modal content can go here -->
+                        Modal right body content
+                    </div>
                 </div>
                 
                 <div class="modal-footer">
