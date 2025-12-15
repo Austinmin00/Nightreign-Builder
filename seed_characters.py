@@ -1043,7 +1043,8 @@ def seed():
                 effect_1=row['effect 1'] if row['effect 1'] else None,
                 effect_2=row['effect 2'] if row['effect 2'] else None,
                 effect_3=row['effect 3'] if row['effect 3'] else None,
-                amount_of_effects=int(row['amount of effects']) if row['amount of effects'] else None
+                amount_of_effects=int(row['amount of effects']) if row['amount of effects'] else None,
+                is_rememberance=row['is_rememberance'].lower() == 'true' if row.get('is_rememberance') else False
             )
             guaranteed_relics.append(guaranteed)
         db.session.add_all(guaranteed_relics)

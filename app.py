@@ -7,7 +7,7 @@ from flask_limiter.util import get_remote_address # Rate limiting to protect log
 from flask_session import Session # Server-side session management
 from flask_sqlalchemy import SQLAlchemy # Database integration
 from flask_wtf.csrf import CSRFProtect # CSRF protection for forms in login and registration routes
-from models import Chalice, ChaliceSlot, User, Character # User model for database interactions
+from models import Chalice, ChaliceSlot, GuaranteedRelic, User, Character # User model for database interactions
 from pydantic import BaseModel, ValidationError, field_validator # for data validation and settings management
 from werkzeug.security import generate_password_hash, check_password_hash # for routes that handle user login and registration
 load_dotenv() # Load environment variables from .env file
@@ -145,7 +145,9 @@ def workshop():
     # Get character-specific chalices
     character_chalices = Chalice.query.filter_by(character_id=character.id).all()
            
-    return render_template('workshop.html', character=character, global_chalices=global_chalices, character_chalices=character_chalices)
+    guaranteed_relics = GuaranteedRelic.query.all()
+
+    return render_template('workshop.html', character=character, global_chalices=global_chalices, character_chalices=character_chalices, guaranteed_relics=guaranteed_relics)
 
 @app.route('/api/chalice-slots/<chalice_name>')
 def get_chalice_slots(chalice_name):

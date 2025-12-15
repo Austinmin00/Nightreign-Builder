@@ -98,6 +98,7 @@ class GuaranteedRelic(db.Model):
     effect_2 = db.Column(db.String(200), nullable=True)
     effect_3 = db.Column(db.String(200), nullable=True)
     amount_of_effects = db.Column(db.Integer, nullable=False)
+    is_rememberance = db.Column(db.Boolean, default=False, nullable=False)
 
 
 class WorkshopSession(db.Model):

@@ -142,28 +142,38 @@
                     </div>
                     <div class="dropdown" id="sovereign_menu">
                         <a class="btn btn-dark dropdown-toggle disabled" href="#" role="button" id="sovereignDropdown" aria-expanded="false" style="width: 150px; margin-left: 15px; margin-bottom: 10px; pointer-events: none; opacity: 0.65;">
-                            Sovereign Options
+                            Sovereign
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="sovereignDropdown">
+                            {% for relic in guaranteed_relics %}
+                            {% if not relic.is_rememberance %}
                             <li>
-                                <a class="dropdown-item" href="#" id="sovereign_filler">Sovereign Relics Here</a>
+                                <a class="dropdown-item" href="#" id="sovereign_{{ relic.id }}" data-color="{{ relic.color }}">{{ relic.name }}</a>
                             </li>
+                            {% endif %}
+                            {% endfor %}
                         </ul>
                     </div>
                     <div class="dropdown" id="remembrance_menu">
                         <a class="btn btn-dark dropdown-toggle disabled" href="#" role="button" id="remembranceDropdown" aria-expanded="false" style="width: 150px; margin-left: 15px; margin-bottom: 10px; pointer-events: none; opacity: 0.65;">
-                            Remembrance Options
+                            Remembrance
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="remembranceDropdown">
+                            {% for relic in guaranteed_relics %}
+                            {% if relic.is_rememberance %}
                             <li>
-                                <a class="dropdown-item" href="#" id="remembrance_filler">Remembrance Relics Here</a>
+                                <a class="dropdown-item" href="#" id="remembrance_{{ relic.id }}" data-color="{{ relic.color }}">{{ relic.name }}</a>
                             </li>
+                            {% endif %}
+                            {% endfor %}
                         </ul>
                     </div>
                     </div>
                     <div class="flex_modal" id="right_modal_body">
                         <!-- Additional modal content can go here -->
-                        Modal right body content
+                        <a href="#" class="btn btn-secondary disabled" style="margin-left: 15px; margin-bottom: 10px;">Effect 1</a>
+                        <a href="#" class="btn btn-secondary disabled" style="margin-left: 15px; margin-bottom: 10px;">Effect 2</a>
+                        <a href="#" class="btn btn-secondary disabled" style="margin-left: 15px; margin-bottom: 10px;">Effect 3</a>
                     </div>
                 </div>
                 
@@ -187,6 +197,8 @@
         const whiteFileImg = '/static/images/relic_colors/white.png';
         const stdRelicImg = '/static/images/relic_images/standard_relic_images/COLOR_TYPE.png';
         const deepRelicImg = '/static/images/relic_images/deep_relic_images/deep_COLOR_TYPE.png';
+        const sovereignRelicImg = '/static/images/relic_images/sovereign_relic_images/NAME_COLOR.png';
+        const remembranceRelicImg = '/static/images/relic_images/remem_relic_images/NAME_COLOR.png';
 
         // Update chalice dropdown button text and load slots on selection
         document.querySelectorAll('#chaliceDropdown .dropdown-item').forEach(item => {
@@ -222,7 +234,6 @@
                     });
             });
         });
-        
         
         // Event listeners for each slot image to handle relic selection
         document.querySelectorAll('.relic_slot_color').forEach(slotImg => {
@@ -262,6 +273,10 @@
                 relicTypeButton.textContent = 'Select Relic Type';
                 relicTypeModal.style.display = 'none';
                 relicTypeModal.src = '';
+                
+                // Reset sovereign and remembrance button texts
+                sovereignMenubutton.textContent = 'Sovereign';
+                remembranceMenuButton.textContent = 'Remembrance';
 
                 // Enable relic type dropdown only if Standard or Deep is selected
                 if (selectedVersion === 'Standard' || selectedVersion === 'Deep') {
@@ -282,6 +297,18 @@
                     sovereignMenubutton.style.pointerEvents = 'auto';
                     sovereignMenubutton.style.opacity = '1';
                     sovereignMenubutton.setAttribute('data-bs-toggle', 'dropdown');
+                    
+                    // Filter sovereign options by slot color
+                    const slotColor = document.getElementById('relicImageModal').alt.split(' ')[0].toLowerCase();
+                    document.querySelectorAll('#sovereign_menu .dropdown-item').forEach(item => {
+                        const relicColor = item.getAttribute('data-color');
+                        if (relicColor && relicColor.toLowerCase() === slotColor) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+
                 } else {
                     sovereignMenubutton.classList.add('disabled');
                     sovereignMenubutton.style.pointerEvents = 'none';
@@ -294,6 +321,17 @@
                     remembranceMenuButton.style.pointerEvents = 'auto';
                     remembranceMenuButton.style.opacity = '1';
                     remembranceMenuButton.setAttribute('data-bs-toggle', 'dropdown');
+
+                    const slotColor = document.getElementById('relicImageModal').alt.split(' ')[0].toLowerCase();
+                    document.querySelectorAll('#remembrance_menu .dropdown-item').forEach(item => {
+                        const relicColor = item.getAttribute('data-color');
+                        if (relicColor && relicColor.toLowerCase() === slotColor) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+
                 } else {
                     remembranceMenuButton.classList.add('disabled');
                     remembranceMenuButton.style.pointerEvents = 'none';
@@ -309,6 +347,7 @@
                 event.preventDefault();
 
                 const selectedRelicType = this.textContent.trim();
+                const selectRelicVersion = document.getElementById('relicVersion').textContent.trim();
                 const relicDropdownChange = document.getElementById('modalDropdownRelicType').querySelector('.btn');
                 const slotColor = document.getElementById('relicImageModal').alt.split(' ')[0];
                 
@@ -320,23 +359,58 @@
                 }
                 else {
                     // Determine which relic image depending on version selected
-                    const selectedVersion = document.getElementById('relicVersion').textContent.trim();
                     const relicTypeModal = document.getElementById('relicTypeModal');
-                    if (selectedVersion === 'Standard') {
+                    if (selectRelicVersion === 'Standard') {
                         relicTypeModal.src = stdRelicImg.replace('COLOR', slotColor).replace('TYPE', this.id.toLowerCase());
-                    } else if (selectedVersion === 'Deep') {
+                    } else if (selectRelicVersion === 'Deep') {
                         relicTypeModal.src = deepRelicImg.replace('COLOR', slotColor).replace('TYPE', this.id.toLowerCase());
                     }
-                    else if (selectedVersion === 'Sovereign') {
-                        // Sovereign logic can be added here if needed
+                    else if (selectRelicVersion === 'Sovereign') {
+                        const sovereignName = document.getElementById('sovereignDropdown').textContent.trim().toLowerCase();
+                        relicTypeModal.src = sovereignRelicImg.replace('NAME', sovereignName.replace(' ', '_')).replace('COLOR', slotColor);
                     }
-                    else if (selectedVersion === 'Remembrance') {
-                        // Remembrance logic can be added here if needed
+                    else if (selectRelicVersion === 'Remembrance') {
+                        const remembranceName = document.getElementById('remembranceDropdown').textContent.trim().toLowerCase();
+                        relicTypeModal.src = remembranceRelicImg.replace('NAME', remembranceName.replace(' ', '_')).replace('COLOR', slotColor);
                     }
 
                     relicTypeModal.style.display = "block";
                     relicTypeModal.alt = `${selectedRelicType} Type`;
                 }
+            });
+        });
+
+        // Update sovereign dropdown button text on selection
+        document.querySelectorAll('#sovereign_menu .dropdown-item').forEach(item => {
+            item.addEventListener('click', function(event) {
+                event.preventDefault();
+                const selectedSovereign = this.textContent.trim();
+                document.getElementById('sovereignDropdown').textContent = selectedSovereign;
+                
+                // Load sovereign relic image
+                const slotColor = document.getElementById('relicImageModal').alt.split(' ')[0].toLowerCase();
+                const sovereignName = selectedSovereign.toLowerCase().replace(/ /g, '_').replace(/[()]/g, '');
+                const relicTypeModal = document.getElementById('relicTypeModal');
+                relicTypeModal.src = sovereignRelicImg.replace('NAME', sovereignName).replace('COLOR', slotColor);
+                relicTypeModal.style.display = "block";
+                relicTypeModal.alt = `${selectedSovereign}`;
+            });
+        });
+
+        // Update remembrance dropdown button text on selection
+        document.querySelectorAll('#remembrance_menu .dropdown-item').forEach(item => {
+            item.addEventListener('click', function(event) {
+                event.preventDefault();
+                const selectedRemembrance = this.textContent.trim();
+                document.getElementById('remembranceDropdown').textContent = selectedRemembrance;
+                
+                // Load remembrance relic image
+                const slotColor = document.getElementById('relicImageModal').alt.split(' ')[0].toLowerCase();
+                const remembranceName = selectedRemembrance.toLowerCase().replace(/"/g, '').replace(/[()]/g, '').replace(/ /g, '_');
+                const relicTypeModal = document.getElementById('relicTypeModal');
+                relicTypeModal.src = remembranceRelicImg.replace('NAME', remembranceName).replace('COLOR', slotColor);
+                relicTypeModal.style.display = "block";
+                relicTypeModal.alt = `${selectedRemembrance}`;
             });
         });
 
@@ -377,7 +451,7 @@
             relicTypeModal.alt = 'Relic Type Image';
         });
 
-        
+
         // Initialize slots to white on page load
         for (let i = 0; i < 6; i++) {
             document.getElementById(i.toString()).src = whiteFileImg;
