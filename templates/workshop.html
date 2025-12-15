@@ -88,7 +88,7 @@
 
     <!--Modal for Relic Builder-->
     <div class="modal fade" id="relicBuilder" tabindex="-1" aria-labelledby="relicBuilderLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 90%; width: auto;">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="relicBuilderLabel">Relic Builder</h1>
@@ -170,10 +170,31 @@
                     </div>
                     </div>
                     <div class="flex_modal" id="right_modal_body">
-                        <!-- Additional modal content can go here -->
-                        <a href="#" class="btn btn-secondary disabled" style="margin-left: 15px; margin-bottom: 10px;">Effect 1</a>
-                        <a href="#" class="btn btn-secondary disabled" style="margin-left: 15px; margin-bottom: 10px;">Effect 2</a>
-                        <a href="#" class="btn btn-secondary disabled" style="margin-left: 15px; margin-bottom: 10px;">Effect 3</a>
+                        <!-- Effect buttons -->
+                        <div class="dropdown" id="effect_1_container">
+                            <a href="#" class="btn btn-secondary dropdown-toggle disabled" id="effect_1" data-bs-toggle="dropdown" aria-expanded="false" style="width: 200px; margin-left: 15px; margin-bottom: 10px; pointer-events: none; opacity: 0.65; white-space: normal; text-align: left;">
+                                Effect 1
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="effect_1" style="max-height: 300px; overflow-y: auto; width: 300px;">
+                                <!-- Effects will be populated here dynamically -->
+                            </ul>
+                        </div>
+                        <div class="dropdown" id="effect_2_container">
+                            <a href="#" class="btn btn-secondary dropdown-toggle disabled" id="effect_2" data-bs-toggle="dropdown" aria-expanded="false" style="width: 200px; margin-left: 15px; margin-bottom: 10px; pointer-events: none; opacity: 0.65; white-space: normal; text-align: left;">
+                                Effect 2
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="effect_2" style="max-height: 300px; overflow-y: auto; width: 300px;">
+                                <!-- Effects will be populated here dynamically -->
+                            </ul>
+                        </div>
+                        <div class="dropdown" id="effect_3_container">
+                            <a href="#" class="btn btn-secondary dropdown-toggle disabled" id="effect_3" data-bs-toggle="dropdown" aria-expanded="false" style="width: 200px; margin-left: 15px; margin-bottom: 10px; pointer-events: none; opacity: 0.65; white-space: normal; text-align: left;">
+                                Effect 3
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="effect_3" style="max-height: 300px; overflow-y: auto; width: 300px;">
+                                <!-- Effects will be populated here dynamically -->
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 
@@ -199,6 +220,75 @@
         const deepRelicImg = '/static/images/relic_images/deep_relic_images/deep_COLOR_TYPE.png';
         const sovereignRelicImg = '/static/images/relic_images/sovereign_relic_images/NAME_COLOR.png';
         const remembranceRelicImg = '/static/images/relic_images/remem_relic_images/NAME_COLOR.png';
+
+        let allRelicEffects = [];
+        let guaranteedRelics = [];
+
+        // Function to fetch guaranteed relics from the API
+        async function loadGuaranteedRelics() {
+            if (guaranteedRelics.length > 0) {
+                return; // Already loaded
+            }
+            try {
+                const response = await fetch('/api/guaranteed-relics');
+                if (!response.ok) {
+                    throw new Error('Failed to load guaranteed relics');
+                }
+                guaranteedRelics = await response.json();
+                console.log(`Loaded ${guaranteedRelics.length} guaranteed relics`);
+            } catch (error) {
+                console.error('Error loading guaranteed relics:', error);
+            }
+        }
+
+        // Function to fetch relic effects from the API
+        async function loadRelicEffects() {
+            if (allRelicEffects.length > 0) {
+                return; // Already loaded
+            }
+            try {
+                const response = await fetch('/api/relic-effects');
+                if (!response.ok) {
+                    throw new Error('Failed to load relic effects');
+                }
+                allRelicEffects = await response.json();
+                console.log(`Loaded ${allRelicEffects.length} relic effects`);
+            } catch (error) {
+                console.error('Error loading relic effects:', error);
+            }
+        }
+
+        // Function to populate effect dropdowns with filtered effects
+        function populateEffectDropdowns(isDeep) {
+            // Filter effects based on version
+            const filteredEffects = allRelicEffects.filter(effect => effect.is_deep === isDeep);
+            
+            // Populate each dropdown
+            ['effect_1', 'effect_2', 'effect_3'].forEach(effectId => {
+                const dropdown = document.querySelector(`#${effectId}`).nextElementSibling;
+                dropdown.innerHTML = ''; // Clear existing items
+                
+                filteredEffects.forEach(effect => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.className = 'dropdown-item';
+                    a.href = '#';
+                    a.textContent = effect.description;
+                    a.dataset.effectId = effect.id;
+                    a.dataset.effectDescription = effect.description;
+                    a.style.whiteSpace = 'normal';
+                    a.style.wordWrap = 'break-word';
+                    
+                    a.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        document.getElementById(effectId).textContent = effect.description;
+                    });
+                    
+                    li.appendChild(a);
+                    dropdown.appendChild(li);
+                });
+            });
+        }
 
         // Update chalice dropdown button text and load slots on selection
         document.querySelectorAll('#chaliceDropdown .dropdown-item').forEach(item => {
@@ -234,7 +324,7 @@
                     });
             });
         });
-        
+
         // Event listeners for each slot image to handle relic selection
         document.querySelectorAll('.relic_slot_color').forEach(slotImg => {
             slotImg.addEventListener('click', function() {
@@ -266,7 +356,7 @@
                 const sovereignMenubutton = document.getElementById('sovereignDropdown');
                 const remembranceMenuButton = document.getElementById('remembranceDropdown');
                 const relicTypeModal = document.getElementById('relicTypeModal');
-                
+
                 versionDropdownChange.textContent = selectedVersion;
 
                 // Reset relic type button and hide overlay image whenever version changes
@@ -277,18 +367,48 @@
                 // Reset sovereign and remembrance button texts
                 sovereignMenubutton.textContent = 'Sovereign';
                 remembranceMenuButton.textContent = 'Remembrance';
+                
+                // Reset and disable all effect buttons whenever version changes
+                ['effect_1', 'effect_2', 'effect_3'].forEach((effectId, index) => {
+                    const button = document.getElementById(effectId);
+                    button.textContent = `Effect ${index + 1}`;
+                    button.classList.add('disabled');
+                    button.style.pointerEvents = 'none';
+                    button.style.opacity = '0.65';
+                    button.removeAttribute('data-bs-toggle');
+                });
 
-                // Enable relic type dropdown only if Standard or Deep is selected
+                // Enable relic version dropdown and effect buttons for Standard or Deep
                 if (selectedVersion === 'Standard' || selectedVersion === 'Deep') {
+                    // Load effects if not already loaded
+                    if (allRelicEffects.length === 0) {
+                        loadRelicEffects().then(() => {
+                            populateEffectDropdowns(selectedVersion === 'Deep');
+                        });
+                    } else {
+                        populateEffectDropdowns(selectedVersion === 'Deep');
+                    }
+
+                    // Enable relic type dropdown
                     relicTypeButton.classList.remove('disabled');
                     relicTypeButton.style.pointerEvents = 'auto';
                     relicTypeButton.style.opacity = '1';
                     relicTypeButton.setAttribute('data-bs-toggle', 'dropdown');
                 } else {
+                    // Disable relic type dropdown
                     relicTypeButton.classList.add('disabled');
                     relicTypeButton.style.pointerEvents = 'none';
                     relicTypeButton.style.opacity = '0.65';
                     relicTypeButton.removeAttribute('data-bs-toggle');
+                    
+                    // Disable effect buttons
+                    ['effect_1', 'effect_2', 'effect_3'].forEach(effectId => {
+                        const button = document.getElementById(effectId);
+                        button.classList.add('disabled');
+                        button.style.pointerEvents = 'none';
+                        button.style.opacity = '0.65';
+                        button.removeAttribute('data-bs-toggle');
+                    });
                 }
 
                 // Enable sovereign/remembrance menus based on version
@@ -350,7 +470,10 @@
                 const selectRelicVersion = document.getElementById('relicVersion').textContent.trim();
                 const relicDropdownChange = document.getElementById('modalDropdownRelicType').querySelector('.btn');
                 const slotColor = document.getElementById('relicImageModal').alt.split(' ')[0];
-                
+                const delicate = document.getElementById('r1');
+                const polished = document.getElementById('r2');
+                const grand = document.getElementById('r3');
+
                 relicDropdownChange.textContent = selectedRelicType;
 
                 // Layer relic image based on id of type and slot color
@@ -376,16 +499,57 @@
 
                     relicTypeModal.style.display = "block";
                     relicTypeModal.alt = `${selectedRelicType} Type`;
+                    
+                    // Enable effect buttons based on selected relic type
+                    const selectedTypeLower = selectedRelicType.toLowerCase();
+                    
+                    // First reset and disable all effect buttons
+                    ['effect_1', 'effect_2', 'effect_3'].forEach((effectId, index) => {
+                        const button = document.getElementById(effectId);
+                        button.textContent = `Effect ${index + 1}`;
+                        button.classList.add('disabled');
+                        button.style.pointerEvents = 'none';
+                        button.style.opacity = '0.65';
+                        button.removeAttribute('data-bs-toggle');
+                    });
+                    
+                    // Then enable based on type
+                    if (selectedTypeLower === 'delicate') {
+                        const button = document.getElementById('effect_1');
+                        button.classList.remove('disabled');
+                        button.style.pointerEvents = 'auto';
+                        button.style.opacity = '1';
+                        button.setAttribute('data-bs-toggle', 'dropdown');
+                    } else if (selectedTypeLower === 'polished') {
+                        ['effect_1', 'effect_2'].forEach(effectId => {
+                            const button = document.getElementById(effectId);
+                            button.classList.remove('disabled');
+                            button.style.pointerEvents = 'auto';
+                            button.style.opacity = '1';
+                            button.setAttribute('data-bs-toggle', 'dropdown');
+                        });
+                    } else if (selectedTypeLower === 'grand') {
+                        ['effect_1', 'effect_2', 'effect_3'].forEach(effectId => {
+                            const button = document.getElementById(effectId);
+                            button.classList.remove('disabled');
+                            button.style.pointerEvents = 'auto';
+                            button.style.opacity = '1';
+                            button.setAttribute('data-bs-toggle', 'dropdown');
+                        });
+                    }
                 }
             });
         });
 
         // Update sovereign dropdown button text on selection
         document.querySelectorAll('#sovereign_menu .dropdown-item').forEach(item => {
-            item.addEventListener('click', function(event) {
+            item.addEventListener('click', async function(event) {
                 event.preventDefault();
                 const selectedSovereign = this.textContent.trim();
                 document.getElementById('sovereignDropdown').textContent = selectedSovereign;
+                
+                // Load guaranteed relics if not already loaded
+                await loadGuaranteedRelics();
                 
                 // Load sovereign relic image
                 const slotColor = document.getElementById('relicImageModal').alt.split(' ')[0].toLowerCase();
@@ -394,15 +558,34 @@
                 relicTypeModal.src = sovereignRelicImg.replace('NAME', sovereignName).replace('COLOR', slotColor);
                 relicTypeModal.style.display = "block";
                 relicTypeModal.alt = `${selectedSovereign}`;
+
+                // Populate effects based on selected sovereign relic
+                const selectedRelic = guaranteedRelics.find(relic => relic.is_rememberance === false && relic.name === selectedSovereign);
+                if (selectedRelic) {
+                    for (let i = 1; i <= 3; i++) {
+                        const effectText = selectedRelic[`effect_${i}`];
+                        const button = document.getElementById(`effect_${i}`);
+                        if (effectText) {
+                            button.textContent = effectText;
+                            button.style.opacity = '1';
+                        } else {
+                            button.textContent = `Effect ${i}`;
+                            button.style.opacity = '0.65';
+                        }
+                    }
+                }
             });
         });
 
         // Update remembrance dropdown button text on selection
         document.querySelectorAll('#remembrance_menu .dropdown-item').forEach(item => {
-            item.addEventListener('click', function(event) {
+            item.addEventListener('click', async function(event) {
                 event.preventDefault();
                 const selectedRemembrance = this.textContent.trim();
                 document.getElementById('remembranceDropdown').textContent = selectedRemembrance;
+                
+                // Load guaranteed relics if not already loaded
+                await loadGuaranteedRelics();
                 
                 // Load remembrance relic image
                 const slotColor = document.getElementById('relicImageModal').alt.split(' ')[0].toLowerCase();
@@ -411,6 +594,22 @@
                 relicTypeModal.src = remembranceRelicImg.replace('NAME', remembranceName).replace('COLOR', slotColor);
                 relicTypeModal.style.display = "block";
                 relicTypeModal.alt = `${selectedRemembrance}`;
+
+                // Populate effects based on selected remembrance relic
+                const selectedRelic = guaranteedRelics.find(relic => relic.is_rememberance === true && relic.name === selectedRemembrance);
+                if (selectedRelic) {
+                    for (let i = 1; i <= 3; i++) {
+                        const effectText = selectedRelic[`effect_${i}`];
+                        const button = document.getElementById(`effect_${i}`);
+                        if (effectText) {
+                            button.textContent = effectText;
+                            button.style.opacity = '1';
+                        } else {
+                            button.textContent = `Effect ${i}`;
+                            button.style.opacity = '0.65';
+                        }
+                    }
+                }
             });
         });
 
@@ -420,8 +619,11 @@
             // Reset all dropdown texts
             document.getElementById('relicVersion').textContent = 'Select Version';
             document.getElementById('relicDropdown').textContent = 'Select Relic Type';
-            document.getElementById('sovereignDropdown').textContent = 'Sovereign Options';
-            document.getElementById('remembranceDropdown').textContent = 'Remembrance Options';
+            document.getElementById('sovereignDropdown').textContent = 'Sovereign';
+            document.getElementById('remembranceDropdown').textContent = 'Remembrance';
+            document.getElementById('effect_1').textContent = 'Effect 1';
+            document.getElementById('effect_2').textContent = 'Effect 2';
+            document.getElementById('effect_3').textContent = 'Effect 3';
             
             // Re-disable the relic type dropdown
             const relicTypeButton = document.getElementById('relicDropdown');
@@ -443,6 +645,15 @@
             remembranceButton.style.pointerEvents = 'none';
             remembranceButton.style.opacity = '0.65';
             remembranceButton.removeAttribute('data-bs-toggle');
+            
+            // Re-disable effect buttons
+            ['effect_1', 'effect_2', 'effect_3'].forEach(effectId => {
+                const button = document.getElementById(effectId);
+                button.classList.add('disabled');
+                button.style.pointerEvents = 'none';
+                button.style.opacity = '0.65';
+                button.removeAttribute('data-bs-toggle');
+            });
             
             // Hide and clear the relic type overlay image
             const relicTypeModal = document.getElementById('relicTypeModal');

@@ -8,13 +8,27 @@ Stat,Mind +3,+15 Max FP,Yes,Self-explanatory
 Stat,Endurance +1,+2 Max Stamina,Yes,Self-explanatory
 Stat,Endurance +2,+4 Max Stamina,Yes,Self-explanatory
 Stat,Endurance +3,+6 Max Stamina,Yes,Self-explanatory
-Stat,Strength/Dexterity/Intelligence/Faith/Arcane +1,3 Arc adds ~5.4% of base bleed,Yes,Self-explanatory
-Stat,Strength/Dexterity/Intelligence/Faith/Arcane +2,3 Arc adds ~5.4% of base bleed,Yes,Self-explanatory
-Stat,Strength/Dexterity/Intelligence/Faith/Arcane +3,3 Arc adds ~5.4% of base bleed,Yes,Self-explanatory
+Stat,Strength +1,3 Arc adds ~5.4% of base bleed,Yes,Self-explanatory
+Stat,Strength +2,3 Arc adds ~5.4% of base bleed,Yes,Self-explanatory
+Stat,Strength +3,3 Arc adds ~5.4% of base bleed,Yes,Self-explanatory
+Stat,Dexterity +1,3 Arc adds ~5.4% of base bleed,Yes,Self-explanatory
+Stat,Dexterity +2,3 Arc adds ~5.4% of base bleed,Yes,Self-explanatory
+Stat,Dexterity +3,3 Arc adds ~5.4% of base bleed,Yes,Self-explanatory
+Stat,Intelligence +1,3 Arc adds ~5.4% of base bleed,Yes,Self-explanatory
+Stat,Intelligence +2,3 Arc adds ~5.4% of base bleed,Yes,Self-explanatory
+Stat,Intelligence +3,3 Arc adds ~5.4% of base bleed,Yes,Self-explanatory
+Stat,Faith +1,3 Arc adds ~5.4% of base bleed,Yes,Self-explanatory
+Stat,Faith +2,3 Arc adds ~5.4% of base bleed,Yes,Self-explanatory
+Stat,Faith +3,3 Arc adds ~5.4% of base bleed,Yes,Self-explanatory
+Stat,Arcane +1,3 Arc adds ~5.4% of base bleed,Yes,Self-explanatory
+Stat,Arcane +2,3 Arc adds ~5.4% of base bleed,Yes,Self-explanatory
+Stat,Arcane +3,3 Arc adds ~5.4% of base bleed,Yes,Self-explanatory
 Stat,Poise +1,Reduces incoming poise damage by 0.95x,Yes,
 Stat,Poise +2,Reduces incoming poise damage by 0.9x,Yes,
 Stat,Poise +3,Reduces incoming poise damage by 0.85x,Yes,
-Stat,Increased maximum HP/FP/Stamina,"+100 Max HP / 25 Max FP / 10 Max Stamina. Exclusive to (Dark) Night of the Fathom, Wise, Champion respectively",No,Increases vigor/mind/endurance by 5
+Stat,Increased maximum HP,"+100 Max HP. Exclusive to (Dark) Night of the Fathom, Wise, Champion respectively",No,Increases vigor by 5
+Stat,Increased maximum FP,"+25 Max FP. Exclusive to (Dark) Night of the Fathom, Wise, Champion respectively",No,Increases mind by 5
+Stat,Increased maximum Stamina,"+10 Max Stamina. Exclusive to (Dark) Night of the Fathom, Wise, Champion respectively",No,Increases endurance by 5
 Stat,Improved [Status] Resistance,Increases specified status resistance by 75,Yes,
 Stat,Max FP Up with 3+ Staves/Sacred Seals Equipped,+50 Max FP,No,Increases mind by 10 
 Stat,Max HP Up with 3+ Small/Medium/Greatshields Equipped,+200 Max HP,No,Increases vigor by 10
@@ -39,9 +53,18 @@ Offensive,Physical Attack Up +1,Increases physical damage by 1.04x,Yes,
 Offensive,Physical Attack Up +2,Increases physical damage by 1.05x,Yes,
 Offensive,Improved Melee Attack Power,Exclusive to Will of the Balancers,Yes,Increases all attack power by 1.06x. Only affects weapons.
 Offensive,Improved Skill Attack Power,Exclusive to Will of the Balancers,Yes,Increases skill attack power by 1.2x
-Offensive,Magic/Fire/Lightning/Holy Attack Up +0,Increases magic/fire/lightning/holy damage by 1.045x/1.055x/1.065x,Yes,
-Offensive,Magic/Fire/Lightning/Holy Attack Up +1,Increases magic/fire/lightning/holy damage by 1.045x,Yes,
-Offensive,Magic/Fire/Lightning/Holy Attack Up +2,Increases magic/fire/lightning/holy damage by 1.055x,Yes,
+Offensive,Magic Attack Up +0,Increases magic damage by 1.045x,Yes,
+Offensive,Magic Attack Up +1,Increases magic damage by 1.055x,Yes,
+Offensive,Magic Attack Up +2,Increases magic damage by 1.065x,Yes,
+Offensive,Fire Attack Up +0,Increases fire damage by 1.045x,Yes,
+Offensive,Fire Attack Up +1,Increases fire damage by 1.055x,Yes,
+Offensive,Fire Attack Up +2,Increases fire damage by 1.065x,Yes,
+Offensive,Lightning Attack Up +0,Increases lightning damage by 1.045x,Yes,
+Offensive,Lightning Attack Up +1,Increases lightning damage by 1.055x,Yes,
+Offensive,Lightning Attack Up +2,Increases lightning damage by 1.065x,Yes,
+Offensive,Holy Attack Up +0,Increases holy damage by 1.045x,Yes,
+Offensive,Holy Attack Up +1,Increases holy damage by 1.055x,Yes,
+Offensive,Holy Attack Up +2,Increases holy damage by 1.065x,Yes,
 Offensive,Improved stance breaking when two handing,Does not apply to bows.,Yes,Increases poise damage by 1.05x when 2 handing the weapon
 Offensive,Improved stance breaking while wielding two armaments,Can confirm applies to ground L1 attack and jump L1.,Yes,Increases poise damage by 1.05x when powerstancing (dual wielding 2 weapons of the same type)
 Offensive,Switching Weapons Adds an Affinity Attack,The element that is chosen is random. Exclusive to Night of the Lord.,No,Adds 12 magic/fire/lightning/holy AP for 10 seconds
@@ -52,7 +75,8 @@ Offensive,Attack power increases after using grease items,Same duration as greas
 Offensive,Improved Initial Standard Attack,Applies to 1H/2H R1 chain or paired weapon L1. Does not work for shield poke / rolling attack / jump attack,Yes,Increases the damage of the first light attack by 1.15x
 Offensive,Improved Guard Counters,Increases guard counter damage by 1.23x,Yes,
 Offensive,Guard counter is given a boost based on current HP," Buff seems to scale off amount of HP, and is a flat amount per weapon type. Despite the confusing behaviour, this is an extremely potent buff for Guardian: ~30% buff at max level for commander's standard, and ~21.5% for Godfrey's Axe. For Raider, ~25.7% buff for commander's standard, and ~16.8% for Godfrey's Axe",No,"Damage boost varies linearly with % health remaining, but potency varies greatly between character, level and weapons."
-Offensive,Improved Critical Hits +0/1,"Only applies to certain parts of critical hit. E.g. on collosal weapon, it only buffs the (stronger) second hit. +0 stack with +1, but not with itself. +1 exclusive to (Dark) Night of the Baron",No,Increases critical hit damage by 1.18x/1.23x
+Offensive,Improved Critical Hits +0,"Only applies to certain parts of critical hit. E.g. on collosal weapon, it only buffs the (stronger) second hit. +0 stack with +1, but not with itself. +1 exclusive to (Dark) Night of the Baron",No,Increases critical hit damage by 1.18x
+Offensive,Improved Critical Hits +1,"Only applies to certain parts of critical hit. E.g. on collosal weapon, it only buffs the (stronger) second hit. +0 stack with +1, but not with itself. +1 exclusive to (Dark) Night of the Baron",No,Increases critical hit damage by 1.23x
 Offensive,Improved Throwing Pot/Knife/Stone/Perfuming Arts Damage,Increases pot/knife/stone/Perfuming Arts damage by 1.15x,Yes,
 Offensive,Improved [Spell School] Sorcery/Incantation,Increases damage of specified school by 1.12x,Yes,
 Offensive,Improves Roar and Breath attacks,Does not work for Raider character skill.,Yes,Increases roar / breath damage by 1.15x.
@@ -91,8 +115,9 @@ Regen,"Raised stamina recovery for nearby allies, but not for self",Increases al
 Regen,FP Restoration upon Successive Attacks,Recovers [MaxFP * 0.05] with continuous attacks,Yes,
 Regen,HP Recovery From Successful Guarding,Recovers 8 HP after blocking an attack,No,
 Regen,Defeating enemies fills more of the Art gauge,Increases Ultimate Art Gauge by 5 on each enemy kill,No,
-Regen,Defeating enemies restores HP for allies but not for self,Allies recover 20 HP on each enemy kill,,
-Regen,Stamina Recovery upon Landing Attacks +0/+1,Stack with the weaker version. +1 Exclusive to (Dark) Night of the Beast,No,Restores 2/3 stamina with continuous attacks
+Regen,Defeating enemies restores HP for allies but not for self,Allies recover 20 HP on each enemy kill,No,
+Regen,Stamina Recovery upon Landing Attacks +0,Stack with the weaker version. +1 Exclusive to (Dark) Night of the Beast,No,Restores 2 stamina with continuous attacks
+Regen,Stamina Recovery upon Landing Attacks +1,Stack with the weaker version. +1 Exclusive to (Dark) Night of the Beast,No,Restores 3 stamina with continuous attacks
 Regen,HP restoration after [Weapon type] attacks,Amount of healing doesn't seem to change based on attack / weapon type.,No,Restores 15 HP with continuous attacks
 Regen,FP restoration after [Weapon type] attacks,Amount of healing doesn't seem to change based on attack / weapon type.,No,Restores 2 FP with continuous attacks
 Regen,HP Restoration upon Thrusting Counterattack,Restores [MaxHP * 0.025] HP on counterhits,No,

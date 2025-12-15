@@ -7,7 +7,7 @@ from flask_limiter.util import get_remote_address # Rate limiting to protect log
 from flask_session import Session # Server-side session management
 from flask_sqlalchemy import SQLAlchemy # Database integration
 from flask_wtf.csrf import CSRFProtect # CSRF protection for forms in login and registration routes
-from models import Chalice, ChaliceSlot, GuaranteedRelic, User, Character # User model for database interactions
+from models import Chalice, ChaliceSlot, GuaranteedRelic, RelicEffect, User, Character # User model for database interactions
 from pydantic import BaseModel, ValidationError, field_validator # for data validation and settings management
 from werkzeug.security import generate_password_hash, check_password_hash # for routes that handle user login and registration
 load_dotenv() # Load environment variables from .env file
@@ -147,7 +147,9 @@ def workshop():
            
     guaranteed_relics = GuaranteedRelic.query.all()
 
-    return render_template('workshop.html', character=character, global_chalices=global_chalices, character_chalices=character_chalices, guaranteed_relics=guaranteed_relics)
+    relic_effects = RelicEffect.query.all()
+
+    return render_template('workshop.html', character=character, global_chalices=global_chalices, character_chalices=character_chalices, guaranteed_relics=guaranteed_relics, relic_effects=relic_effects)
 
 @app.route('/api/chalice-slots/<chalice_name>')
 def get_chalice_slots(chalice_name):
@@ -168,6 +170,51 @@ def get_chalice_slots(chalice_name):
     slot_colors = [slot.color for slot in slots]
     
     return jsonify({'colors': slot_colors})
+
+@app.route('/api/relic-effects')
+def get_relic_effects():
+    """API endpoint to get all relic effects"""
+    # Query all relic effects from the database
+    effects = RelicEffect.query.all()
+
+    # Convert database objects to JSON-friendly dictionaries
+    effects_data = [
+        {
+            'id': effect.id,
+            'type': effect.type,
+            'description': effect.description,
+            'effect': effect.effect,
+            'stackable': effect.stackable,
+            'notes': effect.notes,
+            'is_deep': effect.is_deep
+        }
+        for effect in effects
+    ]
+
+    # Return as JSON
+    return jsonify(effects_data)
+
+@app.route('/api/guaranteed-relics')
+def get_guaranteed_relics():
+    """API endpoint to get all guaranteed (sovereign/remembrance) relics"""
+    relics = GuaranteedRelic.query.all()
+    
+    # Convert database objects to JSON-friendly dictionaries
+    relics_data = [
+        {
+            'id': relic.id,
+            'name': relic.name,
+            'color': relic.color,
+            'effect_1': relic.effect_1,
+            'effect_2': relic.effect_2,
+            'effect_3': relic.effect_3,
+            'amount_of_effects': relic.amount_of_effects,
+            'is_rememberance': relic.is_rememberance
+        }
+        for relic in relics
+    ]
+    
+    return jsonify(relics_data)
 
 @property
 def tier(self):

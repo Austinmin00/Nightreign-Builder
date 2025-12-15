@@ -1,11 +1,8 @@
 Prompt:
-    1. When a slot is clicked its id and image filename should be identified. We know that the ids are listed from 0-5 and that the alt text at least displays the color used. Maybe adding another alt text for the filename might assist this process. When the slot is clicked and the UI is opened, if the user were to click outside anywhere outside of the UI; they should be warned that their progress for building the relic will be lost and to either cancel the action or confirm.
+    1.) Help me work this logic out. No code just help me learn and understand professional coding and infrastructure.
 
-    2. The builder UI should appear as a pop up overlay that is center of the users browser screen. The background should be blurred out. This could be a solution as to not clutter one page with too many features actively. 
+    2.) I need each effect button to work for standard and deep versions to load the relic_effects database for individual selection. Im concerned that loading each button with a copy of the database would be inefficient and prone to crashing and wonder about better solutions. 
 
-    3. When the slot is clicked the overlay should show the relic slot color image and relic type select. The relic type selector should always be active and in the same place. Top of the overlay aligned with the top of the relic slot image. They should be able to change it at will. There should be a usable "cancel" button and an inactive greyed out "add relic" button to the bottom right of the overlay. Once a selection is made, an image of the relic type will be layered over the relic slot image and how ever many underlines will appear under the selector bar. They function the same as the relic type selector but will look different. In order for the "add relic" button to become active all relic effect selectors must be filled in with a valid effect. 
+    3.) I also need those effect buttons to function similiarly but different for rememberance and sovereign versions. These versions have preset relic effects and I need  those effects to populate the effect buttons. Since the database is pretty condensed I feel it shouldnt have any major issues.
 
-    4. Im not too familiar with overlays so im hoping that the user would be able to click and recieve without redirection.  
-
-
-
+    4.) I want this to be dynamic as in, if a user selects a deep version of any relic type they should be able to select the respective limit of effects and individually assign relic effect. Lets say all goes well and this context occurs. If the user decides to change it to a rememberance or sovereign then the effect buttons will lock out and and when a specific named guaranteed relic is chosen then the database will populate the respective effects properly. Some relics of theses version will come with less than three and in the database will have an empty value for that column. Otherwise if saved then the choice will be remembere and possibly edited if desired afterwards.
