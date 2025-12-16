@@ -219,6 +219,7 @@ def get_guaranteed_relics():
 @app.route('/api/save-workshop', methods=['POST'])
 def save_workshop():
     """API endpoint to save workshop configuration"""
+    
     data = request.get_json()
     
     # Here you would typically save the data to the database or a file

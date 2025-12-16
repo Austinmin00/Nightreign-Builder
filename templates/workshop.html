@@ -239,12 +239,12 @@
 
         // Slot configuration dictionary
         const slotConfig = {
-            0: { version, type, effects:[{id, text}], imageSrc:''},
-            1: { version, type, effects:[{id, text}], imageSrc:''},
-            2: { version, type, effects:[{id, text}], imageSrc:''},
-            3: { version, type, effects:[{id, text}], imageSrc:''},
-            4: { version, type, effects:[{id, text}], imageSrc:''},
-            5: { version, type, effects:[{id, text}], imageSrc:''}
+            0: { version: null, type: null, effects: [], imageSrc: '' },
+            1: { version: null, type: null, effects: [], imageSrc: '' },
+            2: { version: null, type: null, effects: [], imageSrc: '' },
+            3: { version: null, type: null, effects: [], imageSrc: '' },
+            4: { version: null, type: null, effects: [], imageSrc: '' },
+            5: { version: null, type: null, effects: [], imageSrc: '' }
         }
 
         // Function to fetch guaranteed relics from the API
@@ -687,10 +687,21 @@
 
 
         // Initialize slots to white on page load
-        for (let i = 0; i < 6; i++) {
-            document.getElementById(i.toString()).src = whiteFileImg;
-            document.getElementById(i.toString()).alt = "Empty Slot";
-        }
+        window.addEventListener('load', function() {
+            console.log('Initializing slots to white...');
+            console.log('whiteFileImg path:', whiteFileImg);
+            for (let i = 0; i < 6; i++) {
+                const slotElement = document.getElementById(i.toString());
+                console.log(`Slot ${i}:`, slotElement);
+                if (slotElement) {
+                    slotElement.src = whiteFileImg;
+                    slotElement.alt = "Empty Slot";
+                    console.log(`Set slot ${i} src to:`, slotElement.src);
+                } else {
+                    console.error(`Slot ${i} element not found!`);
+                }
+            }
+        });
         
     </script>
 {% endblock %}
