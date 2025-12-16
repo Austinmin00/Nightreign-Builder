@@ -31,6 +31,7 @@
         </div>
     </div>
     <div class="divider"></div>
+    <!-- Chalice Dropdown -->
     <div class="dropdown" id="chaliceDropdown">
         <button class="btn btn-dark dropdown-toggle" type="button" id="workshopDropdown" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
             Chalices
@@ -61,26 +62,33 @@
         </ul>
     </div>
     
+    <!-- Chalice Slot Table -->
     <div>
         <table id="chalice_box">
             <tr>
                 <td class="relic_slot">
                     <img class="relic_slot_color" id="0" src="" alt="">
+                    <img class="relic_layered_image" id="relic_layered_image_0" src="" alt="">
                 </td>
                 <td class="relic_slot">
                     <img class="relic_slot_color" id="1" src="" alt="">
+                    <img class="relic_layered_image" id="relic_layered_image_1" src="" alt="">
                 </td>
                 <td class="relic_slot">
                     <img class="relic_slot_color" id="2" src="" alt="">
+                    <img class="relic_layered_image" id="relic_layered_image_2" src="" alt="">
                 </td>
                 <td class="relic_slot">
                     <img class="relic_slot_color" id="3" src="" alt="">
+                    <img class="relic_layered_image" id="relic_layered_image_3" src="" alt="">
                 </td>
                 <td class="relic_slot">
                     <img class="relic_slot_color" id="4" src="" alt="">
+                    <img class="relic_layered_image" id="relic_layered_image_4" src="" alt="">
                 </td>
                 <td class="relic_slot">
                     <img class="relic_slot_color" id="5" src="" alt="">
+                    <img class="relic_layered_image" id="relic_layered_image_5" src="" alt="">
                 </td>
             </tr>
         </table>
@@ -206,9 +214,14 @@
         </div>
     </div>
 
+    <!-- Effects Aggregate Table -->
     <div>
         <table id="effects_aggregate">
             <!-- Headers for Effects Table -->
+             <th>Effect</th>
+             <th>Count</th>
+             <th>Stackable</th>
+             <th>Notes</th>
         </table>
     </div>
 
@@ -223,6 +236,16 @@
 
         let allRelicEffects = [];
         let guaranteedRelics = [];
+
+        // Slot configuration dictionary
+        const slotConfig = {
+            0: { version, type, effects:[{id, text}], imageSrc:''},
+            1: { version, type, effects:[{id, text}], imageSrc:''},
+            2: { version, type, effects:[{id, text}], imageSrc:''},
+            3: { version, type, effects:[{id, text}], imageSrc:''},
+            4: { version, type, effects:[{id, text}], imageSrc:''},
+            5: { version, type, effects:[{id, text}], imageSrc:''}
+        }
 
         // Function to fetch guaranteed relics from the API
         async function loadGuaranteedRelics() {
@@ -461,7 +484,7 @@
             });
         });
 
-         // Update relic type dropdown in modal
+        // Update relic type dropdown in modal
         document.querySelectorAll('#modalDropdownRelicType .dropdown-item').forEach(item => {
             item.addEventListener('click', function(event) {
                 event.preventDefault();

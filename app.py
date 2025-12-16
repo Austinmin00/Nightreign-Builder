@@ -216,6 +216,16 @@ def get_guaranteed_relics():
     
     return jsonify(relics_data)
 
+@app.route('/api/save-workshop', methods=['POST'])
+def save_workshop():
+    """API endpoint to save workshop configuration"""
+    data = request.get_json()
+    
+    # Here you would typically save the data to the database or a file
+    # For this example, we'll just return the received data as confirmation
+    
+    return jsonify({'status': 'success', 'data': data}), 200
+
 @property
 def tier(self):
     count = 0
