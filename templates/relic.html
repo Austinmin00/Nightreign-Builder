@@ -2,6 +2,42 @@
 {% block title %}Relics - NightreignBuilder{% endblock %}
 
 {% block content %}
-    <h1 class="text-center mt-4">Relics</h1>
-    <p class="text-center">This is the relics page.</p>
+    <table id="main_relic_effects_table" class="table table-striped" style="text-align: center; vertical-align: middle; margin: auto;">
+        <thead>
+            <tr>
+                <th scope="col">Type</th>
+                <th scope="col">Description</th>
+                <th scope="col">Effect</th>
+                <th scope="col">Stackable</th>
+                <th scope="col">Notes</th>
+                <th scope="col" style="width: 100px;">Is Deep?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Relic effects will be populated here dynamically -->
+        </tbody>
+        
+        <script>
+    // Load all relic effects when the page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/api/relic-effects')
+        .then(response => response.json())
+            .then(data => {
+                const tableBody = document.querySelector('#main_relic_effects_table tbody');
+                data.forEach(relic => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${relic.type}</td>
+                        <td>${relic.description}</td>
+                        <td>${relic.effect}</td>
+                        <td>${relic.stackable}</td>
+                        <td>${relic.notes}</td>
+                        <td>${relic.is_deep}</td>
+                        `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error loading relic effects:', error));
+    });    
+</script>
 {% endblock %}

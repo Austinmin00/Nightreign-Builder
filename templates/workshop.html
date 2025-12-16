@@ -92,6 +92,7 @@
                 </td>
             </tr>
         </table>
+        <button class="btn btn-dark" id="saveAllBtn" style="margin-top: 15px;">Save All</button>
     </div>
 
     <!--Modal for Relic Builder-->
@@ -207,8 +208,8 @@
                 </div>
                 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" id="clearSelect">Clear Selection</button>
+                    <button type="button" class="btn btn-primary" id="closeModal" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -218,10 +219,14 @@
     <div>
         <table id="effects_aggregate">
             <!-- Headers for Effects Table -->
-             <th>Effect</th>
-             <th>Count</th>
-             <th>Stackable</th>
-             <th>Notes</th>
+             <th class="aggHead">Effect</th>
+             <th class="aggHead">Count</th>
+             <th class="aggHead">Stackable</th>
+             <th class="aggHead">Notes</th>
+                <tbody id="effects_aggregate_body">
+                    <!-- Effect rows will be populated here dynamically -->
+                     
+                </tbody>
         </table>
     </div>
 
@@ -235,7 +240,9 @@
         const remembranceRelicImg = '/static/images/relic_images/remem_relic_images/NAME_COLOR.png';
 
         let allRelicEffects = [];
+        let currentSlotIndex = null;
         let guaranteedRelics = [];
+        let selectedChaliceId = null;
 
         // Slot configuration dictionary
         const slotConfig = {
@@ -281,6 +288,83 @@
             }
         }
 
+        // User clicks "Save All" button
+        document.getElementById('saveAllBtn').addEventListener('click', function() {
+
+            // Send data to server via POST request
+            fetch('/api/save-workshop', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token() }}'
+                },
+                // eslint-disable-next-line
+                body: JSON.stringify({
+                    character_id: {{ character.id }},
+                    chalice_id: selectedChaliceId,
+                    slotConfig: slotConfig
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to save relics');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Relics saved successfully!');
+                } else {
+                    alert('Error saving relics. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error saving relics:', error);
+                alert('Error saving relics. Please try again.');
+            });
+        });
+
+        // Function to load existing slot config into modal
+        function loadSlotConfigIntoModal(slotIndex) {
+            const config = slotConfig[slotIndex];
+            
+            // If slot has saved config, load it
+            if (config && config.version) {
+                // Set version
+                document.getElementById('relicVersion').textContent = config.version;
+                
+                // Set type if present
+                if (config.type) {
+                    document.getElementById('modalDropdownRelicType').querySelector('.btn').textContent = config.type;
+                }
+                
+                // Set effects if present
+                config.effects.forEach((effect, index) => {
+                    const effectId = `effect_${index + 1}`;
+                    if (effect) {
+                        document.getElementById(effectId).textContent = effect;
+                    }
+                });
+                
+                // Set image if present
+                if (config.imageSrc) {
+                    const relicTypeModal = document.getElementById('relicTypeModal');
+                    relicTypeModal.src = config.imageSrc;
+                    relicTypeModal.style.display = 'block';
+                }
+            }
+        }
+
+        // Tracks what index slot the user is modifying
+        document.querySelectorAll('.relic_slot_color').forEach(slotImg => {
+            slotImg.addEventListener('click', function() {
+                currentSlotIndex = this.id;
+                // Reset modal first, then load existing config if present
+                resetModalUI();
+                loadSlotConfigIntoModal(currentSlotIndex);
+            });
+        });
+
         // Function to populate effect dropdowns with filtered effects
         function populateEffectDropdowns(isDeep) {
             // Filter effects based on version
@@ -320,34 +404,44 @@
                 const selectedChalice = this.textContent.trim();
                 document.getElementById('workshopDropdown').textContent = selectedChalice;
                 
-                // Call API to get slot colors for this chalice
-                fetch(`/api/chalice-slots/${encodeURIComponent(selectedChalice)}`)
+                // Call API to get chalice slot colors and chalice ID
+                fetch(`/api/chalice-slots/${selectedChalice}`)
                     .then(response => {
                         if (!response.ok) {
-                            throw new Error('Chalice not found');
+                            throw new Error('Failed to load chalice slots');
                         }
                         return response.json();
                     })
                     .then(data => {
-                        // Update each slot image with the correct color
-                        data.colors.forEach((color, index) => {
+                        const slotColors = data.colors;
+                        selectedChaliceId = data.id;
+                        
+                        // Update slot images based on colors
+                        slotColors.forEach((color, index) => {
                             const slotImg = document.getElementById(index.toString());
-                            slotImg.src = fileImg.replace('COLOR', color);
-                            slotImg.alt = `${color} Slot`;
+                            if (color) {
+                                slotImg.src = fileImg.replace('COLOR', color.toLowerCase());
+                                slotImg.alt = `${color} Slot`;
+                            } else {
+                                slotImg.src = whiteFileImg;
+                                slotImg.alt = `Empty Slot`;
+                            }
+                            
+                            // Clear any existing layered relic image
+                            const layeredImg = document.getElementById(`relic_layered_image_${index}`);
+                            layeredImg.src = '';
+                            layeredImg.alt = '';
+                            
+                            // Reset slotConfig for this slot
+                            slotConfig[index] = { version: null, type: null, effects: [], imageSrc: '' };
                         });
                     })
                     .catch(error => {
                         console.error('Error loading chalice slots:', error);
-                        // Default to white slots on error
-                        for (let i = 0; i < 6; i++) {
-                            const slotImg = document.getElementById(i.toString());
-                            slotImg.src = whiteFileImg;
-                            slotImg.alt = "Empty Slot";
-                        }
-                    });
+                    });   
             });
         });
-
+        
         // Event listeners for each slot image to handle relic selection
         document.querySelectorAll('.relic_slot_color').forEach(slotImg => {
             slotImg.addEventListener('click', function() {
@@ -361,27 +455,27 @@
                     const slotColor = this.alt.split(' ')[0]; // Get color from alt text
                     relicImageModal.src = fileImg.replace('COLOR', slotColor);
                     relicImageModal.alt = `${slotColor} Relic`;
-
+                    
                     // Show the modal
                     bootstrap.Modal.getOrCreateInstance(document.getElementById('relicBuilder')).show();
                 }
             });
         });
-
+        
         // Update relic version dropdown in modal
         document.querySelectorAll('.dropdown-menu[aria-labelledby="relicVersion"] .dropdown-item').forEach(item => {
             item.addEventListener('click', function(event) {
                 event.preventDefault();
-
+                
                 const selectedVersion = this.textContent.trim();
                 const versionDropdownChange = document.getElementById('relicVersion');
                 const relicTypeButton = document.getElementById('relicDropdown');
                 const sovereignMenubutton = document.getElementById('sovereignDropdown');
                 const remembranceMenuButton = document.getElementById('remembranceDropdown');
                 const relicTypeModal = document.getElementById('relicTypeModal');
-
+                
                 versionDropdownChange.textContent = selectedVersion;
-
+                
                 // Reset relic type button and hide overlay image whenever version changes
                 relicTypeButton.textContent = 'Select Relic Type';
                 relicTypeModal.style.display = 'none';
@@ -389,7 +483,7 @@
                 
                 // Reset sovereign and remembrance button texts
                 sovereignMenubutton.textContent = 'Sovereign';
-                remembranceMenuButton.textContent = 'Remembrance';
+                remembranceMenuButton.textContent = 'Remembrance';                
                 
                 // Reset and disable all effect buttons whenever version changes
                 ['effect_1', 'effect_2', 'effect_3'].forEach((effectId, index) => {
@@ -400,7 +494,7 @@
                     button.style.opacity = '0.65';
                     button.removeAttribute('data-bs-toggle');
                 });
-
+                
                 // Enable relic version dropdown and effect buttons for Standard or Deep
                 if (selectedVersion === 'Standard' || selectedVersion === 'Deep') {
                     // Load effects if not already loaded
@@ -411,7 +505,7 @@
                     } else {
                         populateEffectDropdowns(selectedVersion === 'Deep');
                     }
-
+                    
                     // Enable relic type dropdown
                     relicTypeButton.classList.remove('disabled');
                     relicTypeButton.style.pointerEvents = 'auto';
@@ -433,7 +527,7 @@
                         button.removeAttribute('data-bs-toggle');
                     });
                 }
-
+                
                 // Enable sovereign/remembrance menus based on version
                 if (selectedVersion === 'Sovereign') {
                     sovereignMenubutton.classList.remove('disabled');
@@ -451,7 +545,7 @@
                             item.style.display = 'none';
                         }
                     });
-
+                    
                 } else {
                     sovereignMenubutton.classList.add('disabled');
                     sovereignMenubutton.style.pointerEvents = 'none';
@@ -464,7 +558,7 @@
                     remembranceMenuButton.style.pointerEvents = 'auto';
                     remembranceMenuButton.style.opacity = '1';
                     remembranceMenuButton.setAttribute('data-bs-toggle', 'dropdown');
-
+                    
                     const slotColor = document.getElementById('relicImageModal').alt.split(' ')[0].toLowerCase();
                     document.querySelectorAll('#remembrance_menu .dropdown-item').forEach(item => {
                         const relicColor = item.getAttribute('data-color');
@@ -474,7 +568,7 @@
                             item.style.display = 'none';
                         }
                     });
-
+                    
                 } else {
                     remembranceMenuButton.classList.add('disabled');
                     remembranceMenuButton.style.pointerEvents = 'none';
@@ -483,12 +577,12 @@
                 }
             });
         });
-
+        
         // Update relic type dropdown in modal
         document.querySelectorAll('#modalDropdownRelicType .dropdown-item').forEach(item => {
             item.addEventListener('click', function(event) {
                 event.preventDefault();
-
+                
                 const selectedRelicType = this.textContent.trim();
                 const selectRelicVersion = document.getElementById('relicVersion').textContent.trim();
                 const relicDropdownChange = document.getElementById('modalDropdownRelicType').querySelector('.btn');
@@ -496,9 +590,9 @@
                 const delicate = document.getElementById('r1');
                 const polished = document.getElementById('r2');
                 const grand = document.getElementById('r3');
-
+                
                 relicDropdownChange.textContent = selectedRelicType;
-
+                
                 // Layer relic image based on id of type and slot color
                 if (relicDropdownChange.textContent === "Select Relic Type") {
                     return; // Do nothing if no type selected
@@ -519,7 +613,7 @@
                         const remembranceName = document.getElementById('remembranceDropdown').textContent.trim().toLowerCase();
                         relicTypeModal.src = remembranceRelicImg.replace('NAME', remembranceName.replace(' ', '_')).replace('COLOR', slotColor);
                     }
-
+                    
                     relicTypeModal.style.display = "block";
                     relicTypeModal.alt = `${selectedRelicType} Type`;
                     
@@ -563,7 +657,7 @@
                 }
             });
         });
-
+        
         // Update sovereign dropdown button text on selection
         document.querySelectorAll('#sovereign_menu .dropdown-item').forEach(item => {
             item.addEventListener('click', async function(event) {
@@ -581,7 +675,7 @@
                 relicTypeModal.src = sovereignRelicImg.replace('NAME', sovereignName).replace('COLOR', slotColor);
                 relicTypeModal.style.display = "block";
                 relicTypeModal.alt = `${selectedSovereign}`;
-
+                
                 // Populate effects based on selected sovereign relic
                 const selectedRelic = guaranteedRelics.find(relic => relic.is_rememberance === false && relic.name === selectedSovereign);
                 if (selectedRelic) {
@@ -599,7 +693,7 @@
                 }
             });
         });
-
+        
         // Update remembrance dropdown button text on selection
         document.querySelectorAll('#remembrance_menu .dropdown-item').forEach(item => {
             item.addEventListener('click', async function(event) {
@@ -617,7 +711,7 @@
                 relicTypeModal.src = remembranceRelicImg.replace('NAME', remembranceName).replace('COLOR', slotColor);
                 relicTypeModal.style.display = "block";
                 relicTypeModal.alt = `${selectedRemembrance}`;
-
+                
                 // Populate effects based on selected remembrance relic
                 const selectedRelic = guaranteedRelics.find(relic => relic.is_rememberance === true && relic.name === selectedRemembrance);
                 if (selectedRelic) {
@@ -635,10 +729,9 @@
                 }
             });
         });
-
-        // Reset modal state when closed
-        const relicBuilderModal = document.getElementById('relicBuilder');
-        relicBuilderModal.addEventListener('hidden.bs.modal', function() {
+        
+        // Function to reset modal UI to default state
+        function resetModalUI() {
             // Reset all dropdown texts
             document.getElementById('relicVersion').textContent = 'Select Version';
             document.getElementById('relicDropdown').textContent = 'Select Relic Type';
@@ -683,8 +776,66 @@
             relicTypeModal.style.display = 'none';
             relicTypeModal.src = '';
             relicTypeModal.alt = 'Relic Type Image';
-        });
+        }
 
+        // Reset modal state when "Clear Selection" button is clicked
+        const clearSelection = document.getElementById('clearSelect');
+        clearSelection.addEventListener('click', function() {
+            resetModalUI();
+        });
+        
+        // Close modal button - save to slot config and reset
+        const closeModalButton = document.getElementById('closeModal');
+        closeModalButton.addEventListener('click', function() {
+            // set key values for slotConfig when modal closed 
+            const slotIndex = currentSlotIndex;
+            if (slotIndex !== null) {
+                const version = document.getElementById('relicVersion').textContent.trim();
+                const type = document.getElementById('modalDropdownRelicType').querySelector('.btn').textContent.trim();
+                const relicImageSrc = document.getElementById('relicTypeModal').src || '';
+                
+                // Check if modal is still in default state (nothing selected)
+                const isDefaultState = version === 'Select Version' && 
+                                      !relicImageSrc.includes('/static/images/relic_images/');
+                
+                if (isDefaultState) {
+                    // Modal is empty, just reset and don't save
+                    resetModalUI();
+                    return;
+                }
+                
+                // Gather effects
+                const effects = [];
+                ['effect_1', 'effect_2', 'effect_3'].forEach(effectId => {
+                    const effectText = document.getElementById(effectId).textContent.trim();
+                    if (effectText.startsWith('Effect')) {
+                        effects.push(null);
+                    } else {
+                        effects.push(effectText);
+                    }
+                });
+                
+                slotConfig[slotIndex] = {
+                    version: version !== 'Select Version' ? version : null,
+                    type: type !== 'Select Relic Type' ? type : null,
+                    effects: effects,
+                    imageSrc: relicImageSrc
+                };
+                
+                console.log(`Updated slot ${slotIndex} config:`, slotConfig[slotIndex]);
+                
+                // Update the slot's layered image to show the configured relic
+                if (relicImageSrc) {
+                    const layeredImg = document.getElementById(`relic_layered_image_${slotIndex}`);
+                    layeredImg.src = relicImageSrc;
+                    layeredImg.alt = type || 'Relic';
+                }
+                
+                // Reset the modal UI
+                resetModalUI();
+            }
+        });
+        
 
         // Initialize slots to white on page load
         window.addEventListener('load', function() {

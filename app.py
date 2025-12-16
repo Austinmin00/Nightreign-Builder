@@ -7,7 +7,7 @@ from flask_limiter.util import get_remote_address # Rate limiting to protect log
 from flask_session import Session # Server-side session management
 from flask_sqlalchemy import SQLAlchemy # Database integration
 from flask_wtf.csrf import CSRFProtect # CSRF protection for forms in login and registration routes
-from models import Chalice, ChaliceSlot, GuaranteedRelic, RelicEffect, User, Character # User model for database interactions
+from models import Chalice, ChaliceSlot, GuaranteedRelic, RelicEffect, User, Character, WorkshopSession # User model for database interactions
 from pydantic import BaseModel, ValidationError, field_validator # for data validation and settings management
 from werkzeug.security import generate_password_hash, check_password_hash # for routes that handle user login and registration
 load_dotenv() # Load environment variables from .env file
@@ -100,6 +100,11 @@ def register():
         user = request.form.get('username')
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
+        
+        if not user or not password: # Validate input first
+            flash("Enter a username and password", "error")
+            return render_template('register.html')
+        
         if password != confirm_password: # Check password confirmation
             flash("Passwords do not match", "error")
             return render_template('register.html')
@@ -109,10 +114,6 @@ def register():
         except ValidationError as e:
             error_msg = e.errors()[0]['msg']  # Extract just the custom error message
             flash(error_msg, "error")
-            return render_template('register.html')
-
-        if not user or not password: # Validate input 
-            flash("Enter a username and password", "error")
             return render_template('register.html')
 
         if User.query.filter(User.username.ilike(user)).first(): # Check if username is a duplicate
@@ -169,7 +170,7 @@ def get_chalice_slots(chalice_name):
     # Return the colors as a list
     slot_colors = [slot.color for slot in slots]
     
-    return jsonify({'colors': slot_colors})
+    return jsonify({'id': chalice.id, 'colors': slot_colors})
 
 @app.route('/api/relic-effects')
 def get_relic_effects():
@@ -222,10 +223,45 @@ def save_workshop():
     
     data = request.get_json()
     
-    # Here you would typically save the data to the database or a file
-    # For this example, we'll just return the received data as confirmation
+    # Get user_id from session (None for guests)
+    username = session.get('name')
+    user_id = None
+    if username and username != 'Guest':
+        user = User.query.filter_by(username=username).first()
+        if user:
+            user_id = user.id
     
-    return jsonify({'status': 'success', 'data': data}), 200
+    # Extract data from request
+    character_id = data.get('character_id')
+    chalice_id = data.get('chalice_id')
+    slot_relics = data.get('slotConfig')  # This should be the slotConfig object with slots 0-5
+    
+    if not character_id or slot_relics is None:
+        return jsonify({'status': 'error', 'message': 'Missing required data'}), 400
+    
+    # Find existing session or create new one
+    workshop_session = WorkshopSession.query.filter_by(
+        user_id=user_id,
+        character_id=character_id
+    ).first()
+    
+    if workshop_session:
+        # Update existing session
+        workshop_session.chalice_id = chalice_id
+        workshop_session.slot_relics = slot_relics
+    else:
+        # Create new session
+        workshop_session = WorkshopSession(
+            user_id=user_id,
+            character_id=character_id,
+            chalice_id=chalice_id,
+            slot_relics=slot_relics
+        )
+        db.session.add(workshop_session)
+    
+    db.session.commit()
+    
+    return jsonify({'status': 'success', 'session_id': workshop_session.id}), 200
 
 @property
 def tier(self):

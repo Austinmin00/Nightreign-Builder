@@ -64,8 +64,6 @@ class ChaliceSlot(db.Model):
     color = db.Column(db.String(20), nullable=False)  # e.g., "red", "blue", "yellow", "white"
     relic_id = db.Column(db.Integer, db.ForeignKey("relics.id"), nullable=True)  # null until assigned
 
-
-
 class Relic(db.Model):
     __tablename__ = "relics"
 
@@ -74,7 +72,6 @@ class Relic(db.Model):
     color = db.Column(db.String(20), nullable=False)  # red, blue, yellow, or any
     max_effects = db.Column(db.Integer, default=3)
     img_base = db.Column(db.String(200), nullable=False)  # base image path
-
 
 class RelicEffect(db.Model):
     __tablename__ = "relic_effects"
@@ -86,7 +83,6 @@ class RelicEffect(db.Model):
     stackable = db.Column(db.String(200), nullable=False)  # Yes/No/Special cases from CSV
     notes = db.Column(db.Text, nullable=True)  # Notes from CSV (NULL if empty)
     is_deep = db.Column(db.Boolean, default=False, nullable=False)  # True for deep relics, False for regular
-
 
 class GuaranteedRelic(db.Model):
     __tablename__ = "guaranteed_relics"
@@ -100,14 +96,13 @@ class GuaranteedRelic(db.Model):
     amount_of_effects = db.Column(db.Integer, nullable=False)
     is_rememberance = db.Column(db.Boolean, default=False, nullable=False)
 
-
 class WorkshopSession(db.Model):
     __tablename__ = "workshop_sessions"
 
     id = db.Column(db.Integer, primary_key=True)
-
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=True)  # Null for guests
     character_id = db.Column(db.Integer, db.ForeignKey("characters.id"), nullable=False)
     chalice_id = db.Column(db.Integer, db.ForeignKey("chalices.id"), nullable=True)
 
-    # e.g. [4, None, 10, None, None]
+    # Stores all 6 slots: [{version, type, effects, imageSrc}, {}, ...]
     slot_relics = db.Column(db.JSON, nullable=False, default=list)

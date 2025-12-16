@@ -1,2 +1,2 @@
 
-SELECT * FROM guaranteed_relics;
+SELECT * FROM relic_effects;

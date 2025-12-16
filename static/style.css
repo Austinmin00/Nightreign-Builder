@@ -4,7 +4,7 @@
     height: auto;
     margin-left: 20px;
     margin-top: 2px;
-    margin-bottom: 10px;
+    margin-bottom: 2px;
     border: 2px solid #161313;
     padding: 2px;
 }
@@ -29,10 +29,19 @@
     text-align: justify;
 }
 
+#effects_aggregate {
+    border: 2px solid #3a3664;
+    background-color: antiquewhite;
+    font-size: 14px;
+    color: #000000;
+    overflow-wrap: break-word;
+    margin-left: 20px;
+}
+
 #head {
     font-size: 18px;
     font-weight: bold;
-    color: #e2dddd;
+    color: #ffffff;
     margin-bottom: 5px;
     text-decoration: underline;
 }
@@ -42,9 +51,53 @@
     padding: 10px;
 }
 
+
+#left_modal_body {
+    flex: 0 0 auto;
+    width: fit-content;
+}
+
+#right_modal_body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+#right_modal_body .dropdown {
+    width: 100%;
+}
+
+#right_modal_body .btn {
+    width: 100% !important;
+}
+
+#saveAllBtn {
+    width: 600px;
+    margin-left: 20px;
+    margin-top: 2px;
+    margin-bottom: 10px;
+}
+
 #stat_left {
     border-right: #00000051 2px solid;
     padding-right: 10px;
+}
+
+#main_relic_effects_table th {
+    background-color: #3a3664;
+    color: #e2dddd;
+}
+
+.aggHead {
+    border: #00000051 1px solid;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333333;
+    padding: 5px;
+    text-align: left;
 }
 
 .below_character {
@@ -114,35 +167,31 @@
     flex-direction: column;
 }
 
-#left_modal_body {
-    flex: 0 0 auto;
-    width: fit-content;
-}
-
-#right_modal_body {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: flex-start;
-    padding: 20px;
-}
-
-#right_modal_body .dropdown {
-    width: 100%;
-}
-
-#right_modal_body .btn {
-    width: 100% !important;
-}
-
 .relic_slot {
     border: 1px solid #000;
     border-spacing: 20px;
     background-color: #373737;
+    position: relative;
+    width: 100px;
+    height: 100px;
+    padding: 0;
 }
 
 .relic_slot_color {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: contain;
+}
+
+.relic_layered_image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
 }
