@@ -225,7 +225,6 @@
              <th class="aggHead">Notes</th>
                 <tbody id="effects_aggregate_body">
                     <!-- Effect rows will be populated here dynamically -->
-                     
                 </tbody>
         </table>
     </div>
@@ -333,9 +332,57 @@
                 // Set version
                 document.getElementById('relicVersion').textContent = config.version;
                 
-                // Set type if present
-                if (config.type) {
-                    document.getElementById('modalDropdownRelicType').querySelector('.btn').textContent = config.type;
+                // Check version and enable appropriate buttons
+                if (config.version === 'Standard' || config.version === 'Deep') {
+                    // Enable type dropdown for Standard/Deep
+                    const relicTypeButton = document.getElementById('relicDropdown');
+                    relicTypeButton.classList.remove('disabled');
+                    relicTypeButton.style.pointerEvents = 'auto';
+                    relicTypeButton.style.opacity = '1';
+                    relicTypeButton.setAttribute('data-bs-toggle', 'dropdown');
+                    
+                    // If type is saved, populate effects and enable buttons based on type
+                    if (config.type) {
+                        relicTypeButton.textContent = config.type;
+                        
+                        // Populate effect dropdowns based on VERSION (not type)
+                        const isDeep = config.version === 'Deep';
+                        populateEffectDropdowns(isDeep);
+                        
+                        // Determine how many effects to enable based on TYPE
+                        let effectCount = 3; // Default for Grand
+                        if (config.type === 'Delicate') {
+                            effectCount = 1;
+                        } else if (config.type === 'Polished') {
+                            effectCount = 2;
+                        }
+                        
+                        // Enable appropriate number of effect buttons
+                        for (let i = 1; i <= effectCount; i++) {
+                            const effectButton = document.getElementById(`effect_${i}`);
+                            effectButton.classList.remove('disabled');
+                            effectButton.style.pointerEvents = 'auto';
+                            effectButton.style.opacity = '1';
+                            effectButton.setAttribute('data-bs-toggle', 'dropdown');
+                        }
+                    }
+                } else if (config.version === 'Sovereign' || config.version === 'Remembrance') {
+                    // For Sovereign/Remembrance, enable their respective button
+                    // Effect buttons stay disabled for these versions
+                    
+                    if (config.version === 'Sovereign') {
+                        const sovereignButton = document.getElementById('sovereignDropdown');
+                        sovereignButton.classList.remove('disabled');
+                        sovereignButton.style.pointerEvents = 'auto';
+                        sovereignButton.style.opacity = '1';
+                        sovereignButton.setAttribute('data-bs-toggle', 'dropdown');
+                    } else if (config.version === 'Remembrance') {
+                        const remembranceButton = document.getElementById('remembranceDropdown');
+                        remembranceButton.classList.remove('disabled');
+                        remembranceButton.style.pointerEvents = 'auto';
+                        remembranceButton.style.opacity = '1';
+                        remembranceButton.setAttribute('data-bs-toggle', 'dropdown');
+                    }
                 }
                 
                 // Set effects if present
@@ -369,6 +416,9 @@
         function populateEffectDropdowns(isDeep) {
             // Filter effects based on version
             const filteredEffects = allRelicEffects.filter(effect => effect.is_deep === isDeep);
+            
+            // Sort effects alphabetically by description
+            filteredEffects.sort((a, b) => a.description.localeCompare(b.description));
             
             // Populate each dropdown
             ['effect_1', 'effect_2', 'effect_3'].forEach(effectId => {
@@ -778,10 +828,22 @@
             relicTypeModal.alt = 'Relic Type Image';
         }
 
+        
         // Reset modal state when "Clear Selection" button is clicked
         const clearSelection = document.getElementById('clearSelect');
         clearSelection.addEventListener('click', function() {
+            // Clear the current slot's configuration
+            if (currentSlotIndex !== null) {
+                slotConfig[currentSlotIndex] = { version: null, type: null, effects: [], imageSrc: '' };
+                
+                // Clear the slot's layered image
+                const layeredImg = document.getElementById(`relic_layered_image_${currentSlotIndex}`);
+                layeredImg.src = '';
+                layeredImg.alt = '';
+            }
+            
             resetModalUI();
+            updateEffectsAggregateTable();
         });
         
         // Close modal button - save to slot config and reset
@@ -796,7 +858,7 @@
                 
                 // Check if modal is still in default state (nothing selected)
                 const isDefaultState = version === 'Select Version' && 
-                                      !relicImageSrc.includes('/static/images/relic_images/');
+                !relicImageSrc.includes('/static/images/relic_images/');
                 
                 if (isDefaultState) {
                     // Modal is empty, just reset and don't save
@@ -830,14 +892,94 @@
                     layeredImg.src = relicImageSrc;
                     layeredImg.alt = type || 'Relic';
                 }
-                
+
+                // check if clear selection was used to clear the slot
+                if (isDefaultState) {
+                    const layeredImg = document.getElementById(`relic_layered_image_${slotIndex}`);
+                    layeredImg.src = '';
+                    layeredImg.alt = '';
+                } else {
+                    // Update effects aggregate table
+                    updateEffectsAggregateTable();
+                }
+ 
                 // Reset the modal UI
                 resetModalUI();
             }
         });
         
+        // Function to add slotConfig effects to aggregate table
+        function updateEffectsAggregateTable() {
+            // Remove all existing rows of aggregate table
+            const tableBody = document.getElementById('effects_aggregate_body');
+            tableBody.innerHTML = '';
 
-        // Initialize slots to white on page load
+            // For each slot (0-5):
+            for (let i = 0; i < 6; i++) {
+                const config = slotConfig[i];
+
+                // Check for config undefined
+                if (!config || !config.effects) {
+                    continue; // Skip if no config or effects
+                }
+
+                config.effects.forEach(effect => {
+                    if (effect) {
+                        // Find matching relic effect
+                        const effectData = allRelicEffects.find(e => e.description.toLowerCase() === effect.toLowerCase());
+                        if (effectData) {
+                            // Create new row
+                            const row = document.createElement('tr');
+                            const descCell = document.createElement('td');
+                            const countCell = document.createElement('td');
+                            const stackCell = document.createElement('td');
+                            const noteCell = document.createElement('td');
+
+                            // Check if effect already exists in table
+                            const existingRow = Array.from(tableBody.rows).find(r => r.cells[0].textContent === effectData.description);
+                            if (existingRow) {
+                                // Increment count
+                                const currentCount = parseInt(existingRow.cells[1].textContent);
+                                existingRow.cells[1].textContent = currentCount + 1;
+                            } else {
+                                // New effect row
+                                descCell.textContent = effectData.description;
+                                countCell.textContent = '1';
+                                stackCell.textContent = effectData.stackable;
+                                noteCell.textContent = effectData.notes || '';
+
+                                row.appendChild(descCell);
+                                row.appendChild(countCell);
+                                row.appendChild(stackCell);
+                                row.appendChild(noteCell);
+
+                                tableBody.appendChild(row);
+                            }
+                        } else {
+                            console.warn(`Effect not found in database: ${effect}`);
+                            const row = document.createElement('tr');
+                            const descCell = document.createElement('td');
+                            const countCell = document.createElement('td');
+                            const stackCell = document.createElement('td');
+                            const noteCell = document.createElement('td');
+
+                            descCell.textContent = effect + " (Effect data not found)";
+                            countCell.textContent = 'N/A';
+                            stackCell.textContent = 'N/A';
+                            noteCell.textContent = 'N/A';
+
+                            row.appendChild(descCell);
+                            row.appendChild(countCell);
+                            row.appendChild(stackCell);
+                            row.appendChild(noteCell);
+                            tableBody.appendChild(row);
+                        }
+                    }
+                })
+            }
+        }
+
+        // Initialize slots to white on page load and load relic effects
         window.addEventListener('load', function() {
             console.log('Initializing slots to white...');
             console.log('whiteFileImg path:', whiteFileImg);
@@ -852,6 +994,9 @@
                     console.error(`Slot ${i} element not found!`);
                 }
             }
+            
+            // Load relic effects on page load so they're available for all relic types
+            loadRelicEffects();
         });
         
     </script>
