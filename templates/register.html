@@ -3,22 +3,22 @@
 {% block title %}Register - NightreignBuilder{% endblock %}
 
 {% block content %}
-    <h1 class="col-md-6 mx-auto">Register</h1>
+    <h1 class="col-md-6 mx-auto textColor">Register</h1>
     <form action="/register" method="post" class="col-md-6 mx-auto">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/> <!-- CSRF token for protection -->
         <div class="mb-3">
-            <label for="username" class="form-label">Username:</label>
+            <label for="username" class="form-label textColor">Username:</label>
             <input type="text" class="form-control" id="username" name="username" required>
         </div>
         <div class="mb-3">
-            <label for="password" class="form-label">Password:</label>
+            <label for="password" class="form-label textColor">Password:</label>
             <input type="password" class="form-control" id="password" name="password" required>
         </div>
         <div class="mb-3">
-            <label for="confirm_password" class="form-label">Confirm Password:</label>
+            <label for="confirm_password" class="form-label textColor">Confirm Password:</label>
             <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
             <p>
-                <ul>
+                <ul class="textColor">
                     <li>At least 12 characters</li>
                     <li>At least two digits</li>
                     <li>At least one uppercase letter</li>
@@ -35,6 +35,6 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-        <button type="submit" class="btn btn-primary">Register</button>
+        <button type="submit" class="btn btn-dark">Register</button>
     </form>
 {% endblock %}

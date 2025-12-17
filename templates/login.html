@@ -1,15 +1,15 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <h1 class="col-md-6 mx-auto">Login</h1>
+    <h1 class="col-md-6 mx-auto textColor">Login</h1>
     <form action="/login" method="post" class="col-md-6 mx-auto">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/> <!-- CSRF token for protection -->
         <div class="mb-3">
-            <label for="username" class="form-label">Username:</label>
+            <label for="username" class="form-label textColor">Username:</label>
             <input type="text" class="form-control" id="username" name="username" required>
         </div>
         <div class="mb-3">
-            <label for="password" class="form-label">Password:</label>
+            <label for="password" class="form-label textColor">Password:</label>
             <input type="password" class="form-control" id="password" name="password" required>
         </div>
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -21,6 +21,6 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="submit" class="btn btn-dark">Login</button>
     </form>
 {% endblock %}

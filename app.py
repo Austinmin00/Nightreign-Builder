@@ -70,31 +70,39 @@ def index():
     return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
-# @limiter.limit("10 per hour") # limit login attempts to 10 every hour
+@limiter.limit("10 per hour", methods=['POST']) # Limit only POST requests to prevent brute force
 def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        user = User.query.filter_by(username=username).first() # Retrieve user from database
-
+        
         if not username or not password: # Validate input
-            flash("Enter a username and password", "error")
+            flash("Invalid credentials", "error")
             return render_template('login.html')
-        elif user and check_password_hash(user.password, password): # Check credentials
+        
+        user = User.query.filter_by(username=username).first() # Retrieve user from database
+        
+        # Use constant-time comparison to prevent timing attacks
+        if user and check_password_hash(user.password, password): # Check credentials
+            # Regenerate session to prevent session fixation
+            session.clear()
             session["name"] = username # Log the user in
+            session["user_id"] = user.id # Store user ID for authorization
+            session.permanent = False # Session expires when browser closes
             return redirect('/')
         else:
-            flash("Invalid username or password", "error")
+            # Generic error message to prevent username enumeration
+            flash("Invalid credentials", "error")
             return render_template('login.html')
     return render_template('login.html')
 
 @app.route('/logout')
 def logout():
-    session["name"] = None # Log the user out
+    session.clear() # Properly clear all session data
     return redirect('/')
 
 @app.route('/register', methods=['GET', 'POST'])
-# @limiter.limit("5 per hour") # Limit registration attempts to 5 every hour 
+@limiter.limit("5 per hour", methods=['POST']) # Limit only POST requests for registration
 def register():
     if request.method == 'POST':
         user = request.form.get('username')

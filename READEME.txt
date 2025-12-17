@@ -1,4 +1,8 @@
-NIGHTREIGN_BUILDER_WEB_APPLICATION:
+Project Title: Nightreign Builder
+
+Video Demo:
+
+Description:
     - This application takes in csv files of user collected data and/or metadata to assist in making relic builds for the game.
         - You should be able to create and edit one build per session as a guest
         - Registered users get the additional feature of:
@@ -12,7 +16,7 @@ NIGHTREIGN_BUILDER_WEB_APPLICATION:
         - Custom building every relic
         - Naming and describing each build saved
         - Access to character stat sheets and aggregated metadata
-    - Security is priority for alls sake and personal data should be limited
+    - Security
         - Site will only ask for neccessary data 
         - Will avoid all third party association 
         - Will attempt to prevent and defend againsts leaks of user personal information
@@ -24,57 +28,7 @@ ACCESS:
     - Will not be working on mobile application until neccessary(more users, more demand, more complaints)
     - Link: --!TO DO!--
 
-
-DEMO_USER_EXPERIENCE:
-    - User access to site Link
-        - Homepage for guest
-            *Navbar top of page*
-            'left to right'
-            - Icon of site and added feature to redirect to Homepage
-            - Character button to redirect to homepage as well
-            - Relic button to redirect to Relic user's database
-            - News for updates, patches, bug lists, and/or roadmaps
-                - Locked out feature for guest users
-            - Registration and Login buttons which is self explanatory
-
-            *Below Navbar*
-            !Each pages Navbar should default to the homepage layout except for logged in users which get the buttons "Register" and "Login" altered to user "Profile" and "logout" respectively!
-
-            @Homepage and Character page share a page as a default for users and guests@
-            'Top to bottom'
-            - Character sheet of all characters playable in current state of the game
-            - All coming soon characters with all given information from games dev team such as names or silhouettes
-            - Click a characters icon to be sent to builders workshop page
-
-            @Relics Page@
-            'Top to Bottom'
-            !Read only page!
-            - Search and Filter bar
-            - Header Column Names
-            - All relic effects
-                - 15 listings per page
-            - All guarnteed relics
-                - Tiny Pot store
-                - Rememberance Relics
-                - Sovereign/Nightlord Relics
-            
-            @News page@
-            'Top to Bottom'
-            - Timeline of past few monthes updates and release notes
-            - Dev Team roadmap
-            - All data aggregated to site for close to real time site usage
-
-            @Builders Workshop@
-
-            @Register@
-
-            @Login@
-
-            @Profile@
-
-            @Logout@
-
-!!!PROJECT NOT OPEN SOURCE UNTIL KNOW HOW TO COVER MY ASS!!!
+!!!PROJECT NOT OPEN SOURCE UNTIL I KNOW HOW TO COVER MY ASS!!!
             
 
             

@@ -80,7 +80,7 @@
     width: 600px;
     margin-left: 20px;
     margin-top: 2px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 #stat_left {
@@ -196,4 +196,8 @@
     height: 100%;
     object-fit: contain;
     pointer-events: none;
+}
+
+.textColor {
+    color: #e6e6e6;
 }
