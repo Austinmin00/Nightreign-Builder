@@ -2,7 +2,7 @@
 
 A Flask web application that replicates Elden Ring: Nightreign's "Chalice" and "Relic" build system. Players can create and customize character loadouts without launching the game, accessing a complete database of characters, stats, chalices, and relic effects.
 
-**Video Demo:** [Coming Soon]
+**Video Demo:** https://youtu.be/bNMc__FY-BI
 
 ---
 
