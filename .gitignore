@@ -2,3 +2,6 @@
 __pycache__/
 flask_session/
 *.pyc
+
+# Docker volumes and data (keep compose file)
+pgdata/
