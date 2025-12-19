@@ -36,6 +36,14 @@
                         `;
                     tableBody.appendChild(row);
                 });
+                // Alphabetically sort the table by the Type column
+                const rows = Array.from(tableBody.querySelectorAll('tr'));
+                rows.sort((a, b) => {
+                    const typeA = a.querySelector('td').textContent.toUpperCase();
+                    const typeB = b.querySelector('td').textContent.toUpperCase();
+                    return typeA.localeCompare(typeB);
+                });
+                rows.forEach(row => tableBody.appendChild(row));
             })
             .catch(error => console.error('Error loading relic effects:', error));
     });    

@@ -287,41 +287,159 @@
             }
         }
 
-        // User clicks "Save All" button
-        document.getElementById('saveAllBtn').addEventListener('click', function() {
-
-            // Send data to server via POST request
-            fetch('/api/save-workshop', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token() }}'
-                },
-                // eslint-disable-next-line
-                body: JSON.stringify({
-                    character_id: {{ character.id }},
-                    chalice_id: selectedChaliceId,
-                    slotConfig: slotConfig
-                })
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to save relics');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.status === 'success') {
-                    alert('Relics saved successfully!');
-                } else {
-                    alert('Error saving relics. Please try again.');
-                }
-            })
-            .catch(error => {
-                console.error('Error saving relics:', error);
-                alert('Error saving relics. Please try again.');
+        // Function to populate effect dropdowns with filtered effects
+        function populateEffectDropdowns(isDeep) {
+            // Filter effects based on version
+            const filteredEffects = allRelicEffects.filter(effect => effect.is_deep === isDeep);
+            
+            // Sort effects alphabetically by description
+            filteredEffects.sort((a, b) => a.description.localeCompare(b.description));
+            
+            // Populate each dropdown
+            ['effect_1', 'effect_2', 'effect_3'].forEach(effectId => {
+                const dropdown = document.querySelector(`#${effectId}`).nextElementSibling;
+                dropdown.innerHTML = ''; // Clear existing items
+                
+                filteredEffects.forEach(effect => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.className = 'dropdown-item';
+                    a.href = '#';
+                    a.textContent = effect.description;
+                    a.dataset.effectId = effect.id;
+                    a.dataset.effectDescription = effect.description;
+                    a.style.whiteSpace = 'normal';
+                    a.style.wordWrap = 'break-word';
+                    
+                    a.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        document.getElementById(effectId).textContent = effect.description;
+                    });
+                    
+                    li.appendChild(a);
+                    dropdown.appendChild(li);
+                });
             });
-        });
+        }
+
+        // Function to reset modal UI to default state
+        function resetModalUI() {
+            // Reset all dropdown texts
+            document.getElementById('relicVersion').textContent = 'Select Version';
+            document.getElementById('relicDropdown').textContent = 'Select Relic Type';
+            document.getElementById('sovereignDropdown').textContent = 'Sovereign';
+            document.getElementById('remembranceDropdown').textContent = 'Remembrance';
+            document.getElementById('effect_1').textContent = 'Effect 1';
+            document.getElementById('effect_2').textContent = 'Effect 2';
+            document.getElementById('effect_3').textContent = 'Effect 3';
+            
+            // Re-disable the relic type dropdown
+            const relicTypeButton = document.getElementById('relicDropdown');
+            relicTypeButton.classList.add('disabled');
+            relicTypeButton.style.pointerEvents = 'none';
+            relicTypeButton.style.opacity = '0.65';
+            relicTypeButton.removeAttribute('data-bs-toggle');
+            
+            // Re-disable sovereign dropdown
+            const sovereignButton = document.getElementById('sovereignDropdown');
+            sovereignButton.classList.add('disabled');
+            sovereignButton.style.pointerEvents = 'none';
+            sovereignButton.style.opacity = '0.65';
+            sovereignButton.removeAttribute('data-bs-toggle');
+            
+            // Re-disable remembrance dropdown
+            const remembranceButton = document.getElementById('remembranceDropdown');
+            remembranceButton.classList.add('disabled');
+            remembranceButton.style.pointerEvents = 'none';
+            remembranceButton.style.opacity = '0.65';
+            remembranceButton.removeAttribute('data-bs-toggle');
+            
+            // Re-disable effect buttons
+            ['effect_1', 'effect_2', 'effect_3'].forEach(effectId => {
+                const button = document.getElementById(effectId);
+                button.classList.add('disabled');
+                button.style.pointerEvents = 'none';
+                button.style.opacity = '0.65';
+                button.removeAttribute('data-bs-toggle');
+            });
+            
+            // Hide and clear the relic type overlay image
+            const relicTypeModal = document.getElementById('relicTypeModal');
+            relicTypeModal.style.display = 'none';
+            relicTypeModal.src = '';
+            relicTypeModal.alt = 'Relic Type Image';
+        }
+
+        // Function to add slotConfig effects to aggregate table
+        function updateEffectsAggregateTable() {
+            // Remove all existing rows of aggregate table
+            const tableBody = document.getElementById('effects_aggregate_body');
+            tableBody.innerHTML = '';
+
+            // For each slot (0-5):
+            for (let i = 0; i < 6; i++) {
+                const config = slotConfig[i];
+
+                // Check for config undefined
+                if (!config || !config.effects) {
+                    continue; // Skip if no config or effects
+                }
+
+                config.effects.forEach(effect => {
+                    if (effect) {
+                        // Find matching relic effect
+                        const effectData = allRelicEffects.find(e => e.description.toLowerCase() === effect.toLowerCase());
+                        if (effectData) {
+                            // Create new row
+                            const row = document.createElement('tr');
+                            const descCell = document.createElement('td');
+                            const countCell = document.createElement('td');
+                            const stackCell = document.createElement('td');
+                            const noteCell = document.createElement('td');
+
+                            // Check if effect already exists in table
+                            const existingRow = Array.from(tableBody.rows).find(r => r.cells[0].textContent === effectData.description);
+                            if (existingRow) {
+                                // Increment count
+                                const currentCount = parseInt(existingRow.cells[1].textContent);
+                                existingRow.cells[1].textContent = currentCount + 1;
+                            } else {
+                                // New effect row
+                                descCell.textContent = effectData.description;
+                                countCell.textContent = '1';
+                                stackCell.textContent = effectData.stackable;
+                                noteCell.textContent = effectData.notes || '';
+
+                                row.appendChild(descCell);
+                                row.appendChild(countCell);
+                                row.appendChild(stackCell);
+                                row.appendChild(noteCell);
+
+                                tableBody.appendChild(row);
+                            }
+                        } else {
+                            console.warn(`Effect not found in database: ${effect}`);
+                            const row = document.createElement('tr');
+                            const descCell = document.createElement('td');
+                            const countCell = document.createElement('td');
+                            const stackCell = document.createElement('td');
+                            const noteCell = document.createElement('td');
+
+                            descCell.textContent = effect + " (Effect data not found)";
+                            countCell.textContent = 'N/A';
+                            stackCell.textContent = 'N/A';
+                            noteCell.textContent = 'N/A';
+
+                            row.appendChild(descCell);
+                            row.appendChild(countCell);
+                            row.appendChild(stackCell);
+                            row.appendChild(noteCell);
+                            tableBody.appendChild(row);
+                        }
+                    }
+                })
+            }
+        }
 
         // Function to load existing slot config into modal
         function loadSlotConfigIntoModal(slotIndex) {
@@ -402,6 +520,42 @@
             }
         }
 
+        // User clicks "Save All" button
+        document.getElementById('saveAllBtn').addEventListener('click', function() {
+
+            // Send data to server via POST request
+            fetch('/api/save-workshop', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token() }}'
+                },
+                // eslint-disable-next-line
+                body: JSON.stringify({
+                    character_id: {{ character.id }},
+                    chalice_id: selectedChaliceId,
+                    slotConfig: slotConfig
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to save relics');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Relics saved successfully!');
+                } else {
+                    alert('Error saving relics. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error saving relics:', error);
+                alert('Error saving relics. Please try again.');
+            });
+        });
+
         // Tracks what index slot the user is modifying
         document.querySelectorAll('.relic_slot_color').forEach(slotImg => {
             slotImg.addEventListener('click', function() {
@@ -410,42 +564,7 @@
                 resetModalUI();
                 loadSlotConfigIntoModal(currentSlotIndex);
             });
-        });
-
-        // Function to populate effect dropdowns with filtered effects
-        function populateEffectDropdowns(isDeep) {
-            // Filter effects based on version
-            const filteredEffects = allRelicEffects.filter(effect => effect.is_deep === isDeep);
-            
-            // Sort effects alphabetically by description
-            filteredEffects.sort((a, b) => a.description.localeCompare(b.description));
-            
-            // Populate each dropdown
-            ['effect_1', 'effect_2', 'effect_3'].forEach(effectId => {
-                const dropdown = document.querySelector(`#${effectId}`).nextElementSibling;
-                dropdown.innerHTML = ''; // Clear existing items
-                
-                filteredEffects.forEach(effect => {
-                    const li = document.createElement('li');
-                    const a = document.createElement('a');
-                    a.className = 'dropdown-item';
-                    a.href = '#';
-                    a.textContent = effect.description;
-                    a.dataset.effectId = effect.id;
-                    a.dataset.effectDescription = effect.description;
-                    a.style.whiteSpace = 'normal';
-                    a.style.wordWrap = 'break-word';
-                    
-                    a.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        document.getElementById(effectId).textContent = effect.description;
-                    });
-                    
-                    li.appendChild(a);
-                    dropdown.appendChild(li);
-                });
-            });
-        }
+        });    
 
         // Update chalice dropdown button text and load slots on selection
         document.querySelectorAll('#chaliceDropdown .dropdown-item').forEach(item => {
@@ -453,7 +572,7 @@
                 event.preventDefault();
                 const selectedChalice = this.textContent.trim();
                 document.getElementById('workshopDropdown').textContent = selectedChalice;
-                
+
                 // Call API to get chalice slot colors and chalice ID
                 fetch(`/api/chalice-slots/${selectedChalice}`)
                     .then(response => {
@@ -485,10 +604,14 @@
                             // Reset slotConfig for this slot
                             slotConfig[index] = { version: null, type: null, effects: [], imageSrc: '' };
                         });
+                        
+                        // Reset modal and update aggregate table AFTER slots are cleared
+                        resetModalUI();   
+                        updateEffectsAggregateTable();
                     })
                     .catch(error => {
                         console.error('Error loading chalice slots:', error);
-                    });   
+                    });
             });
         });
         
@@ -780,55 +903,6 @@
             });
         });
         
-        // Function to reset modal UI to default state
-        function resetModalUI() {
-            // Reset all dropdown texts
-            document.getElementById('relicVersion').textContent = 'Select Version';
-            document.getElementById('relicDropdown').textContent = 'Select Relic Type';
-            document.getElementById('sovereignDropdown').textContent = 'Sovereign';
-            document.getElementById('remembranceDropdown').textContent = 'Remembrance';
-            document.getElementById('effect_1').textContent = 'Effect 1';
-            document.getElementById('effect_2').textContent = 'Effect 2';
-            document.getElementById('effect_3').textContent = 'Effect 3';
-            
-            // Re-disable the relic type dropdown
-            const relicTypeButton = document.getElementById('relicDropdown');
-            relicTypeButton.classList.add('disabled');
-            relicTypeButton.style.pointerEvents = 'none';
-            relicTypeButton.style.opacity = '0.65';
-            relicTypeButton.removeAttribute('data-bs-toggle');
-            
-            // Re-disable sovereign dropdown
-            const sovereignButton = document.getElementById('sovereignDropdown');
-            sovereignButton.classList.add('disabled');
-            sovereignButton.style.pointerEvents = 'none';
-            sovereignButton.style.opacity = '0.65';
-            sovereignButton.removeAttribute('data-bs-toggle');
-            
-            // Re-disable remembrance dropdown
-            const remembranceButton = document.getElementById('remembranceDropdown');
-            remembranceButton.classList.add('disabled');
-            remembranceButton.style.pointerEvents = 'none';
-            remembranceButton.style.opacity = '0.65';
-            remembranceButton.removeAttribute('data-bs-toggle');
-            
-            // Re-disable effect buttons
-            ['effect_1', 'effect_2', 'effect_3'].forEach(effectId => {
-                const button = document.getElementById(effectId);
-                button.classList.add('disabled');
-                button.style.pointerEvents = 'none';
-                button.style.opacity = '0.65';
-                button.removeAttribute('data-bs-toggle');
-            });
-            
-            // Hide and clear the relic type overlay image
-            const relicTypeModal = document.getElementById('relicTypeModal');
-            relicTypeModal.style.display = 'none';
-            relicTypeModal.src = '';
-            relicTypeModal.alt = 'Relic Type Image';
-        }
-
-        
         // Reset modal state when "Clear Selection" button is clicked
         const clearSelection = document.getElementById('clearSelect');
         clearSelection.addEventListener('click', function() {
@@ -906,78 +980,7 @@
                 // Reset the modal UI
                 resetModalUI();
             }
-        });
-        
-        // Function to add slotConfig effects to aggregate table
-        function updateEffectsAggregateTable() {
-            // Remove all existing rows of aggregate table
-            const tableBody = document.getElementById('effects_aggregate_body');
-            tableBody.innerHTML = '';
-
-            // For each slot (0-5):
-            for (let i = 0; i < 6; i++) {
-                const config = slotConfig[i];
-
-                // Check for config undefined
-                if (!config || !config.effects) {
-                    continue; // Skip if no config or effects
-                }
-
-                config.effects.forEach(effect => {
-                    if (effect) {
-                        // Find matching relic effect
-                        const effectData = allRelicEffects.find(e => e.description.toLowerCase() === effect.toLowerCase());
-                        if (effectData) {
-                            // Create new row
-                            const row = document.createElement('tr');
-                            const descCell = document.createElement('td');
-                            const countCell = document.createElement('td');
-                            const stackCell = document.createElement('td');
-                            const noteCell = document.createElement('td');
-
-                            // Check if effect already exists in table
-                            const existingRow = Array.from(tableBody.rows).find(r => r.cells[0].textContent === effectData.description);
-                            if (existingRow) {
-                                // Increment count
-                                const currentCount = parseInt(existingRow.cells[1].textContent);
-                                existingRow.cells[1].textContent = currentCount + 1;
-                            } else {
-                                // New effect row
-                                descCell.textContent = effectData.description;
-                                countCell.textContent = '1';
-                                stackCell.textContent = effectData.stackable;
-                                noteCell.textContent = effectData.notes || '';
-
-                                row.appendChild(descCell);
-                                row.appendChild(countCell);
-                                row.appendChild(stackCell);
-                                row.appendChild(noteCell);
-
-                                tableBody.appendChild(row);
-                            }
-                        } else {
-                            console.warn(`Effect not found in database: ${effect}`);
-                            const row = document.createElement('tr');
-                            const descCell = document.createElement('td');
-                            const countCell = document.createElement('td');
-                            const stackCell = document.createElement('td');
-                            const noteCell = document.createElement('td');
-
-                            descCell.textContent = effect + " (Effect data not found)";
-                            countCell.textContent = 'N/A';
-                            stackCell.textContent = 'N/A';
-                            noteCell.textContent = 'N/A';
-
-                            row.appendChild(descCell);
-                            row.appendChild(countCell);
-                            row.appendChild(stackCell);
-                            row.appendChild(noteCell);
-                            tableBody.appendChild(row);
-                        }
-                    }
-                })
-            }
-        }
+        });  
 
         // Initialize slots to white on page load and load relic effects
         window.addEventListener('load', function() {

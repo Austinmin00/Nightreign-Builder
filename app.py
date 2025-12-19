@@ -136,6 +136,14 @@ def register():
         return redirect('/login')
     return render_template('register.html')
 
+@app.route('/profile')
+def profile():
+    if 'user_id' not in session:
+        return redirect('/login')
+    user = User.query.get(session['user_id'])
+    # return render_template('profile.html', user=user)
+    return render_template('index.html', user=user)
+
 @app.route('/workshop')
 def workshop():
     selected_character = request.args.get('character')
@@ -270,29 +278,6 @@ def save_workshop():
     db.session.commit()
     
     return jsonify({'status': 'success', 'session_id': workshop_session.id}), 200
-
-@property
-def tier(self):
-    count = 0
-    if self.effect1:
-        count += 1
-    if self.effect2:
-        count += 1
-    if self.effect3:
-        count += 1
-    return count
-
-@property
-def curren_image(self):
-    if self.tier == 0:
-        return self.img_base
-    elif self.tier == 1:
-        return self.img_effect1 or self.img_base
-    elif self.tier == 2:
-        return self.img_effect2 or self.img_effect1 or self.img_base
-    elif self.tier == 3:
-        return self.img_effect3 or self.img_effect2 or self.img_effect1 or self.img_base
-    
 
 @app.route('/relics')
 def relics():

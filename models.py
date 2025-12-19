@@ -72,6 +72,36 @@ class Relic(db.Model):
     color = db.Column(db.String(20), nullable=False)  # red, blue, yellow, or any
     max_effects = db.Column(db.Integer, default=3)
     img_base = db.Column(db.String(200), nullable=False)  # base image path
+    effect1 = db.Column(db.String(200), nullable=True)
+    effect2 = db.Column(db.String(200), nullable=True)
+    effect3 = db.Column(db.String(200), nullable=True)
+    img_effect1 = db.Column(db.String(200), nullable=True)
+    img_effect2 = db.Column(db.String(200), nullable=True)
+    img_effect3 = db.Column(db.String(200), nullable=True)
+    
+    @property
+    def tier(self):
+        """Count how many effects this relic has (0-3)"""
+        count = 0
+        if self.effect1:
+            count += 1
+        if self.effect2:
+            count += 1
+        if self.effect3:
+            count += 1
+        return count
+    
+    @property
+    def current_image(self):
+        """Return the appropriate image based on number of effects"""
+        if self.tier == 0:
+            return self.img_base
+        elif self.tier == 1:
+            return self.img_effect1 or self.img_base
+        elif self.tier == 2:
+            return self.img_effect2 or self.img_effect1 or self.img_base
+        elif self.tier == 3:
+            return self.img_effect3 or self.img_effect2 or self.img_effect1 or self.img_base
 
 class RelicEffect(db.Model):
     __tablename__ = "relic_effects"
